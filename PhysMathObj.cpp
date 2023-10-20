@@ -44,8 +44,7 @@ struct Line2D
 private:
 	Point2D A;
 	Point2D B;
-	double lenth;
+	double lenth=0;
 public:
-	Line2D(Point2D A, Point2D B) : A(A), B(B) {
-	}
+	Line2D(Point2D A, Point2D B) : A(A), B(B) {}
 };
