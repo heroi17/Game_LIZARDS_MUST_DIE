@@ -1,6 +1,0 @@
-class room {
-public:
-	room() {
-
-	}
-};
