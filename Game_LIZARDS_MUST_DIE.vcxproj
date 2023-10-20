@@ -130,6 +130,17 @@
     <ClCompile Include="Game_LIZARDS_MUST_DIE.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConsumableItem.h" />
+    <ClInclude Include="InformationItem.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Lizard.h" />
+    <ClInclude Include="PowerupItem.h" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Rus.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
