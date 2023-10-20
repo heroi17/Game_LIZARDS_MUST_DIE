@@ -16,6 +16,9 @@
     <Filter Include="Исходные файлы\physics_engine">
       <UniqueIdentifier>{e6f92132-60a2-4b26-bfb9-612dd2e4c5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\physics_engine\base_structure">
+      <UniqueIdentifier>{c5940954-132e-4c41-af25-ecd4e5ea5603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game_LIZARDS_MUST_DIE.cpp">
@@ -24,5 +27,13 @@
     <ClCompile Include="Source.cpp">
       <Filter>Исходные файлы\physics_engine</Filter>
     </ClCompile>
+    <ClCompile Include="structure_point.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Physics.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

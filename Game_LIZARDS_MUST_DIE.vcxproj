@@ -129,6 +129,10 @@
   <ItemGroup>
     <ClCompile Include="Game_LIZARDS_MUST_DIE.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="structure_point.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Physics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
