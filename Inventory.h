@@ -15,6 +15,7 @@ public:
 	Inventory();
 	void AddToInformationList(InformationItem information);
 	void AddToConsumableList(InformationItem information);
+	
 
 private:
 	std::vector<InformationItem> _informationList;

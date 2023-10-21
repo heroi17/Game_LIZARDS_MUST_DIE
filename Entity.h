@@ -10,7 +10,6 @@ public:
 	int MaxHealth;
 	int Health;
 	int Damage;
-	std::vector<int> Velocity;
 
 private:
 };
