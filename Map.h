@@ -19,7 +19,7 @@ private:
 	size_t _height; // Number of rooms in one column
 	size_t _width; // Number of rooms in one row
 	Room* _rooms; // Array of elements of the Room class
-	void fillRooms();
+	void fillRooms(); // Method that fills _rooms grid with objects
 };
 
 #endif // !LMD_GAMELOGIC_MAP
