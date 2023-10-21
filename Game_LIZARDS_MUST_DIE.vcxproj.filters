@@ -36,6 +36,9 @@
     <ClCompile Include="PhysObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
     </ClCompile>
+    <ClCompile Include="PhysTimeObj.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">

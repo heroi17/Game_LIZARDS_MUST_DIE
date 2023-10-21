@@ -1,21 +1,8 @@
+#pragma once
+#ifndef PhysMathObj
+#define PhysMathObj
 #include <cmath>
-struct Point2D
-{
-private:
-	double x = 0.;
-	double y = 0.;
-public:
-	Point2D(double x=0., double y=0.): x(x), y(y) {
-	}
-	double get_x() const { return x; }
-	double get_y() const { return y; }
-	Point2D operator+(const Point2D & other) const {
-		return Point2D(this->x + other.x, this->y + other.y);
-	}
-	Point2D operator-(const Point2D& other) const {
-		return Point2D(this->x - other.x, this->y - other.y);
-	}
-};
+#include "PhysTimeObj.cpp"
 struct Vec2D
 {
 private:
@@ -38,21 +25,41 @@ public:
 		this->y += vector.y;
 		update_lenth();
 	}
+	Vec2D operator+(const Vec2D& other) const {
+		return Vec2D(this->x + other.x, this->y + other.y);
+	}
+	Vec2D operator-(const Vec2D& other) const {
+		return Vec2D(this->x - other.x, this->y - other.y);
+	}
+	Vec2D operator*(const TimeObject& other) const {
+		return Vec2D(this->x * other.get_time_in_second(), this->y * other.get_time_in_second());
+	}
+	Vec2D operator*(const double& other) const {
+		return Vec2D(this->x * other, this->y * other);
+	}
+	Vec2D operator+=(const Vec2D& other){
+		this->x += other.x;
+		this->y += other.y;
+		update_lenth();
+		return *this;
+	}
+
 };
 
 struct Line2D
 {
 private:
-	Point2D A;
-	Point2D B;
+	Vec2D A;
+	Vec2D B;
 	double x_lenth;
 	double y_lenth;
 	double lenth;
 	void position_update() { lenth = sqrt(x_lenth * x_lenth + y_lenth * y_lenth); }
 public:
-	Line2D(Point2D A, Point2D B) : A(A), B(B) {
+	Line2D(Vec2D A, Vec2D B) : A(A), B(B) {
 		x_lenth = B.get_x() - A.get_x();
 		y_lenth = B.get_y() - A.get_y();
 		position_update();
 	}
 };
+#endif /* PhysMathObj */
