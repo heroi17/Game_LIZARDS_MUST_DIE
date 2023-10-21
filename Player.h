@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-class Rus : Entity
+class Player : Entity
 {
 public:
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Entity.h"
+#include "Player.h"
 #include "Item.h"
 #include "ConsumableItem.h"
 #include "InformationItem.h"
@@ -13,7 +13,7 @@
 class Inventory
 {
 public:
-	Inventory();
+	Inventory(Player& player);
 	void AddToInformationList(InformationItem information);
 	void AddToConsumableList(InformationItem information);
 	
@@ -21,7 +21,7 @@ public:
 private:
 	std::vector<InformationItem> _informationList;
 	std::vector<ConsumableItem> _consumableList;
-	Entity& _player;
+	Player& _player;
 };
 
 #endif // !LMD_GAMELOGIC_INVENTORY

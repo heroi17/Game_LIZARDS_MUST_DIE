@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "Entity.h"
+
 class Item
 {
 public:
