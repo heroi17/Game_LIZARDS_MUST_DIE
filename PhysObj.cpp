@@ -3,6 +3,10 @@
 class object {
 private:
 	Point2D position;
+	Mesh mesh;
+	double mass;
+	Vec2D speed;
+	Vec2D force;
 public:
 	object(Point2D position) : position(position) {}
 
@@ -10,6 +14,5 @@ public:
 class static_object {
 };
 class moveble_object {
-};
-class special_object {
+
 };

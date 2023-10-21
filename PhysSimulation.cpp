@@ -1,4 +1,5 @@
 #include "PhysObj.cpp"
+#include <thread>
 const int MaxStaticObjectsInRoom = 15;
 const int MaxMovebleObjectsInRoom = 15;
 const int MaxSpecialObjectsInRoom = 15;
@@ -16,20 +17,16 @@ private:
 	static_object* static_objects[MaxStaticObjectsInRoom];
 public:
 	simulation_room(double width, double height): width(width), height(height){}
-	void UpdateCollision() {
-
-	}
-	void Updateposition() {
-
-	}
-	void UpdateOneTic() {
-		UpdateCollision();
-		Updateposition();
+	void UpdateOneTic(double time) {
+		/*here we are update collision
+		update position
+		update speed(because trenie and another thigs)*/
 	}
 	void simulationCicle() {
+		double time = 1.;
 		while (simulation_is_working){
 			//get time1 in ms
-			UpdateOneTic();
+			UpdateOneTic(time);
 			//get time2 in ms
 			/*
 			sleep for next(timesleep = PeriodForTicInMs - time2 + time1)
@@ -41,7 +38,7 @@ public:
 	}
 	void StartSimulation() {
 		simulation_is_working = true;
-		simulationCicle();
+		std::thread t1(simulationCicle, this);
 	}
 	void StopSimulation() {
 		simulation_is_working = false;
