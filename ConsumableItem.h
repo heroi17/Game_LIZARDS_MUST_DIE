@@ -7,8 +7,11 @@ class ConsumableItem : Item
 {
 public:
 
-private:
+	enum ConsumableItemType;
+	ConsumableItem(std::string name, std::string discription, ConsumableItemType type);
 
+private:
+	
 };
 
 #endif // !LMD_GAMELOGIC_CONSUMABLEITEM

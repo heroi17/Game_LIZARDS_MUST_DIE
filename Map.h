@@ -12,9 +12,6 @@ public:
 	size_t GetHeight();
 	size_t GetWidth();
 
-	void SetHeight();
-	void SetWidth();
-
 	Room& GetRoom(int row, int column);
 
 private:

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "Entity.h"
 #include "Item.h"
 #include "ConsumableItem.h"
 #include "InformationItem.h"
@@ -20,6 +21,7 @@ public:
 private:
 	std::vector<InformationItem> _informationList;
 	std::vector<ConsumableItem> _consumableList;
+	Entity& _player;
 };
 
 #endif // !LMD_GAMELOGIC_INVENTORY

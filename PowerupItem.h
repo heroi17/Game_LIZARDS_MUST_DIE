@@ -6,7 +6,8 @@
 class PowerupItem : Item
 {
 public:
-
+	enum PowerupItemType;
+	PowerupItem(std::string name, std::string discription, PowerupItem type);
 private:
 
 };

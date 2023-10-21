@@ -6,7 +6,8 @@
 class InformationItem : Item
 {
 public:
-
+	enum InformationItemType;
+	InformationItem(std::string name, std::string discription, InformationItemType type);
 private:
 
 };

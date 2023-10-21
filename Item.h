@@ -9,10 +9,7 @@ public:
 	std::string Name;
 	std::string Discription;
 
-	Item();
-	Item(std::string name, std::string discription);
 	virtual void ApplyEffect();
-
 private:
 
 };
