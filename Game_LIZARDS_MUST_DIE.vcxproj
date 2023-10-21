@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game_LIZARDS_MUST_DIE.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
