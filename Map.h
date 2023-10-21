@@ -15,6 +15,8 @@ public:
 	void SetHeight();
 	void SetWidth();
 
+	Room& GetRoom();
+
 private:
 	size_t _height; // Number of rooms in one column
 	size_t _width; // Number of rooms in one row
