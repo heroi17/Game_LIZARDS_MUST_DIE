@@ -3,7 +3,6 @@
 #include <thread>
 #include <time.h> 
 #include <vector>
-using namespace std;
 
 class simulation_room {
 private:
@@ -18,6 +17,8 @@ private:
 	double PeriodForTicInSec = 1. / TicPerSecond;
 public:
 	simulation_room(double width=10., double height=10.): width(width), height(height){
+	}
+	~simulation_room() {
 	}
 	void UpdateOneTic(double time_to_sec) { // time - is time when we want to see phisic simulation: if time_now = 1000, and temre_to = 1500 then we shold update all for 500
 		/*here we are update collision
@@ -46,7 +47,9 @@ public:
 	}
 	void StartSimulation() {
 		simulation_is_working = true;
+		//we should update time of all object course if we stoop wait and start, then 
 		std::thread myThread(&simulation_room::simulationCicle, this);
+		myThread.join();
 	}
 	void StopSimulation() {
 		simulation_is_working = false;
