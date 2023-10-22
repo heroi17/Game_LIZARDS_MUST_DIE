@@ -6,7 +6,7 @@
 class Player : Entity
 {
 public:
-
+	Player();
 private:
 
 };

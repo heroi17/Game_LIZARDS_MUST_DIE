@@ -3,10 +3,10 @@
 
 #include "Item.h"
 
-class Powerup : Item
+class Lizard : Entity
 {
 public:
-
+	Lizard();
 private:
 
 };

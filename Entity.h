@@ -6,7 +6,6 @@
 class Entity
 {
 public:
-	int Speed;
 	int MaxHealth;
 	int Health;
 	int Damage;

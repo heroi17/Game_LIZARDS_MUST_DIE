@@ -127,12 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsumableItem.cpp" />
+    <ClCompile Include="InformationItem.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
     <ClCompile Include="PhysSimulation.cpp" />
-    <ClCompile Include="Phys_core_test.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PowerupItem.cpp" />
+    <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Physics.h" />
