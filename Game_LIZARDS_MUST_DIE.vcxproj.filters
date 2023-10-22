@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game_LIZARDS_MUST_DIE.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PhysMathObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
     </ClCompile>
@@ -36,8 +33,8 @@
     <ClCompile Include="PhysObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
     </ClCompile>
-    <ClCompile Include="PhysTimeObj.cpp">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,14 +62,14 @@
     <ClInclude Include="Map.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Rus.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>Исходные файлы\physics_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

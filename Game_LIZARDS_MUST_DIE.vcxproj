@@ -132,7 +132,6 @@
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
     <ClCompile Include="PhysSimulation.cpp" />
-    <ClCompile Include="PhysTimeObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Physics.h" />

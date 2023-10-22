@@ -2,7 +2,6 @@
 #ifndef PhysMathObj
 #define PhysMathObj
 #include <cmath>
-#include "PhysTimeObj.cpp"
 struct Vec2D
 {
 private:
@@ -30,9 +29,6 @@ public:
 	}
 	Vec2D operator-(const Vec2D& other) const {
 		return Vec2D(this->x - other.x, this->y - other.y);
-	}
-	Vec2D operator*(const TimeObject& other) const {
-		return Vec2D(this->x * other.get_time_in_second(), this->y * other.get_time_in_second());
 	}
 	Vec2D operator*(const double& other) const {
 		return Vec2D(this->x * other, this->y * other);

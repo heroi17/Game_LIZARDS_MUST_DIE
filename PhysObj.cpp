@@ -3,7 +3,6 @@
 #define PhysObjObj
 #include "PhysMathObj.cpp"
 #include "PhysMeshObj.cpp"
-#include "PhysTimeObj.cpp"
 class Object {
 private:
 	Vec2D position;
@@ -27,7 +26,7 @@ public:
 	MovebleObject(Vec2D position, Mesh mesh, double mass, double Frict, Vec2D speed, Vec2D force) : Object(position, mesh), mass(mass), Frict(Frict), speed(speed), force(force){
 
 	}
-	void update_position(TimeObject time){
+	void update_position(double time){
 		position += speed * time;
 	}
 	void collision_on() { IsCollisionDo = true; }
