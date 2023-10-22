@@ -3,13 +3,19 @@
 
 #include "Item.h"
 
+enum PowerupItemType
+{
+	DamageBoost,
+	MaxHealthBoost,
+};
+
 class PowerupItem : Item
 {
 public:
-	enum PowerupItemType;
-	PowerupItem(std::string name, std::string discription, PowerupItem type);
+	PowerupItem(std::string name, std::string discription, PowerupItemType type);
 private:
-
+	PowerupItemType _type;
 };
+
 
 #endif // !LMD_GAMELOGIC_POWERUPITEM
