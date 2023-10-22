@@ -138,6 +138,7 @@
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
     <ClCompile Include="PhysSimulation.cpp" />
+    <ClCompile Include="Phys_core_test.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerupItem.cpp" />
     <ClCompile Include="Room.cpp" />
