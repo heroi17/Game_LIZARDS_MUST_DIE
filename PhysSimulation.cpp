@@ -12,7 +12,7 @@ private:
 	bool simulation_is_working=false;
 	std::vector<StaticObject> static_objects;
 	std::vector<MovebleObject> moveble_objects;
-	int TicPerSecond = 5;
+	int TicPerSecond = 1;
 	bool timeError = false;
 	double resource = 0.;
 	double PeriodForTicInSec = 1. / TicPerSecond;
