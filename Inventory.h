@@ -13,15 +13,15 @@
 class Inventory
 {
 public:
-	Inventory(Player& player);
+	Inventory(Player player);
 	void AddToInformationList(InformationItem information);
-	void AddToConsumableList(InformationItem information);
+	void AddToConsumableList(ConsumableItem consumable);
 	
 
 private:
 	std::vector<InformationItem> _informationList;
 	std::vector<ConsumableItem> _consumableList;
-	Player& _player;
+	Player _player;
 };
 
 #endif // !LMD_GAMELOGIC_INVENTORY

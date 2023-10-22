@@ -6,8 +6,7 @@
 class Map
 {
 public:
-	Map();
-	Map(size_t width, size_t height);
+	Map(size_t width = 5, size_t height = 5);
 	
 	size_t GetHeight();
 	size_t GetWidth();

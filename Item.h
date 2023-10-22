@@ -8,10 +8,12 @@
 class Item
 {
 public:
-	std::string Name;
-	std::string Discription;
-
 	virtual void ApplyEffect();
+
+protected:
+	std::string _name;
+	std::string _discription;
+
 private:
 
 };
