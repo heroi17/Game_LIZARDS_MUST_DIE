@@ -1,15 +1,10 @@
 ﻿#include <iostream>
-#include "Physics.h"
+#include "Phys_core_test.cpp"
+
 int main()
 {
-    simulation_room room1=(10., 10.);
-    room1.StartSimulation();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    room1.StopSimulation();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    room1.StartSimulation();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    room1.StopSimulation();
-    delete &room1;
-    std::cout << "finish of work" << std::endl;
+    //i'am just testing physic core
+    phisic_test();//if you want to see exemple of physic work then remove first '//'
+
+    return 0;
 }
