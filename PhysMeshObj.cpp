@@ -1,16 +1,5 @@
-#pragma once
-#ifndef PhysMeshObj
-#define PhysMeshObj
-namespace PMeshO {
-	struct Mesh {
-	private:
-		double width;
-		double height;
-	public:
-		Mesh(double width = 0., double height = 0.) : width(width), height(height) {}
-		double get_width() const { return width; }
-		double get_height() const { return height; }
-
-	};
-}
-#endif
+#include "PhysMeshObj.h"
+using namespace PMeshO;
+Mesh::Mesh(double width = 0., double height = 0.) : width(width), height(height) {}
+double Mesh::get_width() const { return width; }
+double Mesh::get_height() const { return height; }
