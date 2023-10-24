@@ -1,5 +1,7 @@
 #include "Room.h"
 
+using namespace GameLogic;
+
 Room::Room()
 {
 

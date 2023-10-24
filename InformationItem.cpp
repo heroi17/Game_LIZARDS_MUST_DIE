@@ -2,6 +2,7 @@
 
 #include "Map.h"
 
+using namespace GameLogic;
 
 InformationItem::InformationItem(std::string name, std::string discription, InformationItemType type)
 {

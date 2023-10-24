@@ -1,5 +1,6 @@
 #include "Map.h"
 
+using namespace GameLogic;
 
 Map::Map(size_t width, size_t height)
 {

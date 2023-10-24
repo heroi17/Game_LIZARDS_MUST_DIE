@@ -1,5 +1,7 @@
 #include "Inventory.h"
 
+using namespace GameLogic;
+
 Inventory::Inventory(Player player)
 {
 	_player = player;

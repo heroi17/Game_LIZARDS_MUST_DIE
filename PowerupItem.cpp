@@ -1,5 +1,7 @@
 #include "PowerupItem.h"
 
+using namespace GameLogic;
+
 PowerupItem::PowerupItem(std::string name, std::string discription, PowerupItemType type)
 {
 	_name = name;

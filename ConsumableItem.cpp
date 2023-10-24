@@ -1,5 +1,7 @@
 #include "ConsumableItem.h"
 
+using namespace GameLogic;
+
 ConsumableItem::ConsumableItem(std::string name, std::string discription, ConsumableItemType type)
 {
 	_name = name;
