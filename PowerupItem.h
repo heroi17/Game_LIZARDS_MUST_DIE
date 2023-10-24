@@ -3,20 +3,22 @@
 
 #include "Item.h"
 
-enum PowerupItemType
+namespace GameLogic
 {
-	DamageBoost,
-	MaxHealthBoost,
-};
+	enum PowerupItemType
+	{
+		DamageBoost,
+		MaxHealthBoost,
+	};
 
-class PowerupItem : Item
-{
-public:
-	PowerupItem(std::string name, std::string discription, PowerupItemType type);
-	void ApplyEffect(Entity& entity) ;
-private:
-	PowerupItemType _type;
-};
-
+	class PowerupItem : Item
+	{
+	public:
+		PowerupItem(std::string name, std::string discription, PowerupItemType type);
+		void ApplyEffect(Entity& entity);
+	private:
+		PowerupItemType _type;
+	};
+}
 
 #endif // !LMD_GAMELOGIC_POWERUPITEM

@@ -10,18 +10,22 @@
 #include "InformationItem.h"
 #include "PowerupItem.h"
 
-class Inventory
-{
-public:
-	Inventory(Player player);
-	void AddToInformationList(InformationItem information);
-	void AddToConsumableList(ConsumableItem consumable);
-	
 
-private:
-	std::vector<InformationItem> _informationList;
-	std::vector<ConsumableItem> _consumableList;
-	Player _player;
-};
+namespace GameLogic
+{
+	class Inventory
+	{
+	public:
+		Inventory(Player player);
+		void AddToInformationList(InformationItem information);
+		void AddToConsumableList(ConsumableItem consumable);
+
+
+	private:
+		std::vector<InformationItem> _informationList;
+		std::vector<ConsumableItem> _consumableList;
+		Player _player;
+	};
+}
 
 #endif // !LMD_GAMELOGIC_INVENTORY

@@ -3,14 +3,16 @@
 
 #include <vector>
 
-class Entity
+namespace GameLogic
 {
-public:
-	int MaxHealth;
-	int Health;
-	int Damage;
+	class Entity
+	{
+	public:
+		int MaxHealth;
+		int Health;
+		int Damage;
 
-private:
-};
-
+	private:
+	};
+}
 #endif // !LMD_GAMELOGIC_ENTITY

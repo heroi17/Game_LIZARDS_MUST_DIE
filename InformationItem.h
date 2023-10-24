@@ -3,21 +3,23 @@
 
 #include "Item.h"
 
-enum InformationItemType
+namespace GameLogic
 {
-	LeaderLocation,
-	PowerUpLocation
-};
+	enum InformationItemType
+	{
+		LeaderLocation,
+		PowerUpLocation
+	};
 
-class InformationItem : Item
-{
-public:
-	InformationItem(std::string name, std::string discription, InformationItemType type);
-	void ApplyEffect(Entity& entity) override;
-private:
-	InformationItemType _type;
-};
-
+	class InformationItem : Item
+	{
+	public:
+		InformationItem(std::string name, std::string discription, InformationItemType type);
+		void ApplyEffect(Entity& entity) override;
+	private:
+		InformationItemType _type;
+	};
+}
 
 
 #endif // !LMD_GAMELOGIC_INFORMATIONITEM

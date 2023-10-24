@@ -3,22 +3,24 @@
 
 #include "Room.h"
 
-class Map
+namespace GameLogic
 {
-public:
-	Map(size_t width = 5, size_t height = 5);
-	
-	size_t GetHeight();
-	size_t GetWidth();
+	class Map
+	{
+	public:
+		Map(size_t width = 5, size_t height = 5);
 
-	Room& GetRoom(int row, int column);
+		size_t GetHeight();
+		size_t GetWidth();
 
-private:
-	size_t _height; // Number of rooms in one column
-	size_t _width; // Number of rooms in one row
-	Room* _rooms; // Array of elements of the Room class
-	void fillRooms(); // Method that fills _rooms grid with objects
-};
+		Room& GetRoom(int row, int column);
 
+	private:
+		size_t _height; // Number of rooms in one column
+		size_t _width; // Number of rooms in one row
+		Room* _rooms; // Array of elements of the Room class
+		void fillRooms(); // Method that fills _rooms grid with objects
+	};
+}
 #endif // !LMD_GAMELOGIC_MAP
 

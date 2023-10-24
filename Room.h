@@ -6,15 +6,17 @@
 #include "Item.h"
 #include "Entity.h"
 
-class Room
+namespace GameLogic
 {
-public:
-	Room();
-	Room(std::vector<Entity> enemies, Item rewardItem);
+	class Room
+	{
+	public:
+		Room();
+		Room(std::vector<Entity> enemies, Item rewardItem);
 
-private:
-	std::vector<Entity> _enemies;
-	Item _rewardItem;
-};
-
+	private:
+		std::vector<Entity> _enemies;
+		Item _rewardItem;
+	};
+}
 #endif // !LMD_GAMELOGIC_ROOM

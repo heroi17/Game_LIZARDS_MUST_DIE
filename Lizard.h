@@ -3,12 +3,14 @@
 
 #include "Item.h"
 
-class Lizard : Entity
+namespace GameLogic
 {
-public:
-	Lizard();
-private:
+	class Lizard : Entity
+	{
+	public:
+		Lizard();
+	private:
 
-};
-
+	};
+}
 #endif // !LMD_GAMELOGIC_LIZARD

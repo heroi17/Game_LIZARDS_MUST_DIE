@@ -5,17 +5,20 @@
 
 #include "Player.h"
 
-class Item
+namespace GameLogic
 {
-public:
-	virtual void ApplyEffect(Entity& entity);
+	class Item
+	{
+	public:
+		virtual void ApplyEffect(Entity& entity);
 
-protected:
-	std::string _name;
-	std::string _discription;
+	protected:
+		std::string _name;
+		std::string _discription;
 
-private:
+	private:
 
-};
+	};
+}
 
 #endif // !LMD_GAMELOGIC_ITEM
