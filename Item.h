@@ -3,12 +3,12 @@
 
 #include <string>
 
-#include "Entity.h"
+#include "Player.h"
 
 class Item
 {
 public:
-	virtual void ApplyEffect();
+	virtual void ApplyEffect(Entity& entity);
 
 protected:
 	std::string _name;

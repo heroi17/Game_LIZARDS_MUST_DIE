@@ -13,6 +13,7 @@ class PowerupItem : Item
 {
 public:
 	PowerupItem(std::string name, std::string discription, PowerupItemType type);
+	void ApplyEffect(Entity& entity);
 private:
 	PowerupItemType _type;
 };
