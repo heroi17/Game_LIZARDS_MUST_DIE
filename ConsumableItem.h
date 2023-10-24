@@ -14,7 +14,7 @@ class ConsumableItem : Item
 {
 public:
 	ConsumableItem(std::string name, std::string discription, ConsumableItemType type);
-	void ApplyEffect(Entity& entity);
+	void ApplyEffect(Entity& entity) override;
 private:
 	ConsumableItemType _type;
 };

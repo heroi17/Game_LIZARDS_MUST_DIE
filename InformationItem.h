@@ -13,7 +13,7 @@ class InformationItem : Item
 {
 public:
 	InformationItem(std::string name, std::string discription, InformationItemType type);
-	void ApplyEffect(Entity& entity);
+	void ApplyEffect(Entity& entity) override;
 private:
 	InformationItemType _type;
 };
