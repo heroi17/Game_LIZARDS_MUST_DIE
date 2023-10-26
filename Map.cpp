@@ -13,14 +13,24 @@ size_t Map::GetHeight()
 	return _height;
 }
 
-size_t Map::GetWidth()
+size_t Map::GetWidth() {return _width;}
+
+Room& Map::GetRoom(size_t row, size_t column)
 {
-	return _width;
+	MapCoordinates mapCoordinates(column, row);
+	return _rooms[mapCoordinates];
 }
 
-Room& Map::GetRoom(int row, int column)
+MapCoordinates GameLogic::Map::GetLeaderLocation()
 {
-	return _rooms[_width * row + column];
+	return LeaderLocation;
+}
+
+MapCoordinates GameLogic::Map::GetPowerUpLocation(size_t index)
+{
+	if (index < PowerupLocation.size())
+		return PowerupLocation[index];
+	return PowerupLocation[0];
 }
 
 void Map::fillRooms()

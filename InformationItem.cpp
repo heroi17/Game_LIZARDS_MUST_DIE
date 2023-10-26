@@ -1,14 +1,14 @@
 #include "InformationItem.h"
 
-#include "Map.h"
 
 using namespace GameLogic;
 
-InformationItem::InformationItem(std::string name, std::string discription, InformationItemType type)
+InformationItem::InformationItem(std::string name, std::string discription, InformationItemType type, Map& map) : _map(map)
 {
 	_name = name;
 	_discription = discription;
 	_type = type;
+	_lastPowerUpIndex = 0;
 }
 
 void InformationItem::ApplyEffect(Entity& entity) 
@@ -17,11 +17,11 @@ void InformationItem::ApplyEffect(Entity& entity)
 	{
 		case LeaderLocation:
 		{
-			// Map.FindLeader()
+			_map.GetLeaderLocation();
 		}
 		case PowerUpLocation:
 		{
-			// Map.FindPowerup()
+			_map.GetPowerUpLocation(_lastPowerUpIndex);
 		}
 	}
 }

@@ -2,8 +2,9 @@
 #include "Physics.h"
 int main()
 {
-    //i'am just testing physic core
-        //exemple of work phisic engine
+    //I am just testing physic core
+    //Exemple of work phisic engine
+
     PSimulation::simulation_room room1;
     PMeshO::Mesh mesh_1(5., 6.);
     room1.StartSimulation();

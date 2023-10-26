@@ -16,7 +16,7 @@ namespace GameLogic
 		size_t GetHeight();
 		size_t GetWidth();
 
-		Room& GetRoom(int row, int column);
+		Room& GetRoom(size_t row, size_t column);
 
 		MapCoordinates GetLeaderLocation();
 		MapCoordinates GetPowerUpLocation(size_t index);

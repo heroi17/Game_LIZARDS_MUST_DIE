@@ -69,6 +69,9 @@
     <ClCompile Include="first_t.cpp">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClCompile>
+    <ClCompile Include="MapCoordunates.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">

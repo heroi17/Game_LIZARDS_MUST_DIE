@@ -135,6 +135,7 @@
     <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapCoordunates.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
