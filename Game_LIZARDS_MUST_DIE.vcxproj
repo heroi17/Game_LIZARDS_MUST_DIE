@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsumableItem.cpp" />
-    <ClCompile Include="first_t.cpp" />
     <ClCompile Include="InformationItem.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -142,8 +141,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerupItem.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="first_test_PO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysMeshObj.h" />
     <ClInclude Include="PhysMathObj.h" />

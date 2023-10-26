@@ -19,6 +19,7 @@ namespace PMathO {
 		Vec2D operator-(const Vec2D& other) const;
 		Vec2D operator*(const double& other) const;
 		Vec2D operator+=(const Vec2D& other);
+
 	};
 	struct Line2D {
 	private:

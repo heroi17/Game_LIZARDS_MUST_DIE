@@ -22,6 +22,9 @@
     <Filter Include="Исходные файлы\physics_engine\tests">
       <UniqueIdentifier>{a915c9db-4934-4258-bad2-bcd59b55d0d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\physics_engine\ConsoleOutputSystem">
+      <UniqueIdentifier>{d2f00c90-90bd-4f6b-b1d7-8fe36c03201c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhysMathObj.cpp">
@@ -29,9 +32,6 @@
     </ClCompile>
     <ClCompile Include="PhysMeshObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysSimulation.cpp">
-      <Filter>Исходные файлы\physics_engine</Filter>
     </ClCompile>
     <ClCompile Include="PhysObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
@@ -66,7 +66,10 @@
     <ClCompile Include="Room.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="first_t.cpp">
+    <ClCompile Include="PhysSimulation.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
+    </ClCompile>
+    <ClCompile Include="first_test_PO.cpp">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,7 +117,10 @@
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
     </ClInclude>
     <ClInclude Include="PhysSimulation.h">
-      <Filter>Исходные файлы\physics_engine</Filter>
+      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="first_test_PO.h">
+      <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

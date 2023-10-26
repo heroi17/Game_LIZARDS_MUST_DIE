@@ -11,17 +11,21 @@ namespace PSimulation {
 		double width;
 		double height;
 		bool simulation_is_working = false;
-		std::vector<PO::StaticObject> static_objects;
-		std::vector<PO::MovebleObject> moveble_objects;
-		int TicPerSecond = 10;
+		int TicPerSecond = 3.;
 		double resource = 0.;
 		double PeriodForTicInMSec = 1000. / TicPerSecond;
 	public:
+		std::vector<PO::StaticObject> static_objects;
+		std::vector<PO::MovebleObject> moveble_objects;
 		simulation_room(double width = 10., double height = 10.);
 		~simulation_room();
-		void UpdateOneTic(double time_to_sec);
+		void UpdateOneTic(double time_to_msec);
+		void set_time_all_object(double time_to_sec);
 		void simulationCicle();
 		void StartSimulation();
 		void StopSimulation();
+		//debug functions
+		void output_debug_information(double time_to_msec);
+		void test_output();
 	};
 }
