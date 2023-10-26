@@ -144,6 +144,7 @@
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MapCoordunates.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysMeshObj.h" />
     <ClInclude Include="PhysMathObj.h" />

@@ -21,7 +21,7 @@ void ConsumableItem::ApplyEffect(Entity& entity)
 		case HealingItem_50:
 		{
 			// Health is up to 50% of it's maximum or set to MaxHealth if raise is higher than MaxHealth
-			entity.Health = (entity.Health + entity.MaxHealth * 0.5 > entity.MaxHealth) ? entity.MaxHealth : entity.Health + entity.MaxHealth * 0.3;
+			entity.Health = (entity.Health + entity.MaxHealth * 0.5 > entity.MaxHealth) ? entity.MaxHealth : entity.Health + entity.MaxHealth * 0.5;
 		}
 
 		case HealingItem_30:

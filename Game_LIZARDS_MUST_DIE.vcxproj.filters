@@ -116,5 +116,8 @@
     <ClInclude Include="PhysSimulation.h">
       <Filter>Исходные файлы\physics_engine</Filter>
     </ClInclude>
+    <ClInclude Include="MapCoordunates.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
