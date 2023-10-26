@@ -2,6 +2,8 @@
 #define LMD_GAMELOGIC_INFORMATIONITEM
 
 #include "Item.h"
+#include "Map.h"
+
 
 namespace GameLogic
 {
@@ -14,10 +16,14 @@ namespace GameLogic
 	class InformationItem : Item
 	{
 	public:
-		InformationItem(std::string name, std::string discription, InformationItemType type);
+		InformationItem(std::string name, std::string discription, InformationItemType type, Map& map);
 		void ApplyEffect(Entity& entity) override;
+
 	private:
 		InformationItemType _type;
+		Map& _map;
+
+		size_t _lastPowerUpIndex;
 	};
 }
 

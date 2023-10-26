@@ -72,6 +72,9 @@
     <ClCompile Include="first_test_PO.cpp">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClCompile>
+    <ClCompile Include="MapCoordunates.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="first_test_PO.h">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCoordunates.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
