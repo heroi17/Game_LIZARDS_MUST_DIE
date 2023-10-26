@@ -25,8 +25,7 @@ int test1() {
     for (int i = 0; i < moveble_obj; i++) {
         PMathO::Vec2D pos(rand_between(0., width_room), rand_between(0., heigh_room));
         PMathO::Vec2D speed(rand_between(), rand_between());
-        PMathO::Vec2D force(rand_between(), rand_between());
-        room1.moveble_objects.push_back(PO::MovebleObject(pos, mesh_1, 1., 1., speed, force));
+        room1.moveble_objects.push_back(PO::MovebleObject(pos, mesh_1, 1., 1., speed));
     }
 
     for (int i = 0; i < static_obj; i++) {

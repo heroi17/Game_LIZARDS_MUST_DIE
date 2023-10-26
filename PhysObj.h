@@ -30,9 +30,8 @@ namespace PO {
 		double mass;
 		double Frict;
 		PMathO::Vec2D speed;
-		PMathO::Vec2D force;
 	public:
-		MovebleObject(PMathO::Vec2D position, PMeshO::Mesh mesh, double mass, double Frict, PMathO::Vec2D speed, PMathO::Vec2D force);
+		MovebleObject(PMathO::Vec2D position, PMeshO::Mesh mesh, double mass, double Frict, PMathO::Vec2D speed);
 		
 		void update_mechanics_parameters(double to_time_sec);
 		void set_last_update_time_sec(double new_time_sec);

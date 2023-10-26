@@ -22,9 +22,6 @@
     <Filter Include="Исходные файлы\physics_engine\tests">
       <UniqueIdentifier>{a915c9db-4934-4258-bad2-bcd59b55d0d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\physics_engine\ConsoleOutputSystem">
-      <UniqueIdentifier>{d2f00c90-90bd-4f6b-b1d7-8fe36c03201c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhysMathObj.cpp">
