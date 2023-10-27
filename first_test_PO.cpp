@@ -1,7 +1,3 @@
-
-#include <iostream>
-#include <random>
-#include "Physics.h"
 #include "first_test_PO.h"
 double rand_between(double start = -1., double end = 1.) {
     // Создание генератора случайных чисел
@@ -16,7 +12,6 @@ int test1() {
     double width_room = 20;
     double heigh_room = 20;
     PSimulation::simulation_room room1(width_room, heigh_room);
-    PMeshO::Mesh mesh_1(2., 2.);
     int moveble_obj = 10;
     int static_obj = 5;
 
@@ -25,12 +20,12 @@ int test1() {
     for (int i = 0; i < moveble_obj; i++) {
         PMathO::Vec2D pos(rand_between(0., width_room), rand_between(0., heigh_room));
         PMathO::Vec2D speed(rand_between(), rand_between());
-        room1.moveble_objects.push_back(PO::MovebleObject(pos, mesh_1, 1., 1., speed));
+        room1.moveble_objects.push_back(PO::MovebleObject(pos, PMeshO::Mesh(0, 2., 0.), 1., 1., speed));
     }
 
     for (int i = 0; i < static_obj; i++) {
         PMathO::Vec2D pos(rand_between(0., width_room), rand_between(0., heigh_room));
-        room1.static_objects.push_back(PO::StaticObject(pos, mesh_1));
+        room1.static_objects.push_back(PO::StaticObject(pos, PMeshO::Mesh(0, 2., 0.)));
     }
 
     //start physic engine

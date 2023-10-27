@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Console_Output.cpp" />
     <ClCompile Include="ConsumableItem.cpp" />
     <ClCompile Include="InformationItem.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_test_PO.h" />
+    <ClInclude Include="Console_Output.h" />
     <ClInclude Include="MapCoordunates.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysMeshObj.h" />

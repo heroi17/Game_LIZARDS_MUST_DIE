@@ -11,7 +11,7 @@ namespace PSimulation {
 		double width;
 		double height;
 		bool simulation_is_working = false;
-		int TicPerSecond = 3.;
+		int TicPerSecond = 5.;
 		double resource = 0.;
 		double PeriodForTicInMSec = 1000. / TicPerSecond;
 	public:

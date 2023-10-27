@@ -16,8 +16,9 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 		element.update_mechanics_parameters(time_to_sec);
 	}
 	output_debug_information(time_to_sec);
-	test_output();
+	//test_output();
 }
+
 void simulation_room::test_output() {
 	const int console_height = 22;
 	const int console_width = 50;
@@ -50,13 +51,16 @@ void simulation_room::test_output() {
 		}
 		std::cout << std::endl;
 	}
+
 }
+
 void simulation_room::set_time_all_object(double new_time_sec) {
 	for (auto& element : moveble_objects) {// it's not finish just for test course here we are also should update collision!
 		element.set_last_update_time_sec(new_time_sec);
 	}
 
 }
+
 void simulation_room::output_debug_information(double time_to_msec) {
 	std::cout << "Physic Engine update" << std::endl;;
 	std::cout << "resource - " << resource << std::endl;
@@ -64,6 +68,7 @@ void simulation_room::output_debug_information(double time_to_msec) {
 	std::cout << "collision - 0" << std::endl;
 	std::cout << std::endl;
 }
+
 void simulation_room::simulationCicle() {
 	double time_of_work;
 	int ms_time_to_wait;
