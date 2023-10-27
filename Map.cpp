@@ -13,7 +13,10 @@ size_t Map::GetHeight()
 	return _height;
 }
 
-size_t Map::GetWidth() {return _width;}
+size_t Map::GetWidth()
+{
+	return _width;
+}
 
 Room& Map::GetRoom(size_t row, size_t column)
 {
@@ -35,4 +38,11 @@ MapCoordinates GameLogic::Map::GetPowerUpLocation(size_t index)
 
 void Map::fillRooms()
 {
+	for (int i = 1; i <= _height; i++)
+	{
+		for (int j = 1; j <= _width; j++)
+		{
+
+		}
+	}
 }

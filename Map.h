@@ -27,7 +27,7 @@ namespace GameLogic
 		
 		std::map<MapCoordinates, Room> _rooms; // Array of elements of the Room class
 		
-		MapCoordinates LeaderLocation; // the coordinate of a room where final boss of the game is located
+		MapCoordinates LeaderLocation; // a coordinate of the room where final boss of the game is located
 		std::vector<MapCoordinates> PowerupLocation; // List of the coordinates of rooms where power up item is located
 
 		void fillRooms(); // Method that fills _rooms grid with objects

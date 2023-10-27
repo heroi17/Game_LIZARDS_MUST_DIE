@@ -14,7 +14,7 @@ GameLogic::MapCoordinates::MapCoordinates(size_t x, size_t y)
 
 bool GameLogic::MapCoordinates::operator<(const MapCoordinates& mapCoordinates) const
 {
-	if (X < mapCoordinates.X && Y <= mapCoordinates.Y)
+	if ((X < mapCoordinates.X && Y == mapCoordinates.Y) or Y < mapCoordinates.Y)
 	{
 		return true;
 	}

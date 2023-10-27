@@ -9,6 +9,7 @@ namespace GameLogic
 	{
 	public:
 		Lizard();
+		Lizard(int maxHealth, int damage);
 	private:
 
 	};

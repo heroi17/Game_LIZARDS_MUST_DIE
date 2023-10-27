@@ -13,8 +13,11 @@ namespace GameLogic
 	public:
 		Room();
 		Room(std::vector<Entity> enemies, Item rewardItem);
+		Room(const Room& otherRoom);
+
 
 	private:
+		Room& operator=(const Room& other);
 		std::vector<Entity> _enemies;
 		Item _rewardItem;
 	};
