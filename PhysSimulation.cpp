@@ -16,7 +16,7 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 		element.update_mechanics_parameters(time_to_sec);
 	}
 	output_debug_information(time_to_sec);
-	//test_output();
+	test_output();
 }
 
 void simulation_room::test_output() {
