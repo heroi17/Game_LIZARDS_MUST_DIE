@@ -66,7 +66,12 @@ void Console_Output::OutputOneTic() {
 		PMathO::Vec2D pos = element->get_position();
 		double x = pos.get_x();
 		double y = pos.get_y();
-		double radious = element->get_collider().get_coverage_radious();
+		double radious = element->get_collider()->get_coverage_radious();
+		if (element->get_collider()->get_type() == 1) {
+			double width_half = element->get_collider()->get_width() / 2;
+			double height_half = element->get_collider()->get_height() / 2;
+			Rectangle(hBufferDC, x - width_half, y- height_half, x + width_half, y + height_half);
+		}
 		Ellipse(hBufferDC, x - radious, y - radious, x + radious, y + radious);
 	}
 	BitBlt(hDC, 0, 0, temp.right, temp.bottom, hBufferDC, 0, 0, SRCCOPY);

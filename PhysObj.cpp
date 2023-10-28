@@ -4,7 +4,7 @@
 using namespace PO;
 
 //parent class Object here
-Object::Object(PMathO::Vec2D position, PColliderO::Collider mesh) : position(position), mesh(mesh) {}
+Object::Object(PMathO::Vec2D position, PColliderO::Collider *mesh) : position(position), mesh(mesh) {}
 
 void Object::update_mechanics_parameters(double to_time_sec) {};
 
@@ -20,7 +20,7 @@ char Object::get_type() const {
 	return type;
 }
 
-const PColliderO::Collider Object::get_collider() const{
+const PColliderO::Collider* Object::get_collider() const{
 	return mesh;
 }
 
@@ -28,7 +28,7 @@ const PColliderO::Collider Object::get_collider() const{
 
 //MovebleObject here
 
-MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider mesh, double mass = 1., double FrictCoef = 1., PMathO::Vec2D speed = PMathO::Vec2D(0., 0.)) : Object(position, mesh), mass(mass), FrictCoef(FrictCoef), speed(speed) {
+MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider *mesh, double mass = 1., double FrictCoef = 1., PMathO::Vec2D speed = PMathO::Vec2D(0., 0.)) : Object(position, mesh), mass(mass), FrictCoef(FrictCoef), speed(speed) {
 	type = 35;
 }
 
@@ -63,6 +63,6 @@ PMathO::Vec2D Object::get_position() {
 
 //StaticObject here
 
-StaticObject::StaticObject(PMathO::Vec2D position, PColliderO::Collider mesh): Object(position, mesh) {
+StaticObject::StaticObject(PMathO::Vec2D position, PColliderO::Collider* mesh): Object(position, mesh) {
 	type = 64;
 }

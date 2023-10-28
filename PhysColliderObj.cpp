@@ -6,28 +6,31 @@ Collider::Collider(){}
 
 const double Collider::get_coverage_radious() const { return coverage_radious; }
 
-void Collider::test() {
-	std::cout << "collider" << std::endl;
+const int Collider::get_type() const{
+	return 0;
 }
 
 
-RectangleCollider::RectangleCollider(double start_width, double start_height) : Collider(), width(start_width), height(start_height){
+RectangleCollider::RectangleCollider(double start_width, double start_height) : Collider(){
+	width = start_width;
+	height = start_height;
 	coverage_radious = sqrt((start_width / 2.) * (start_width / 2.) + (start_height / 2.) * (start_height / 2.));
 }
 
 
-void RectangleCollider::test(){
-	std::cout << "I'am rect" << std::endl;
+const int RectangleCollider::get_type() const {
+	return 1;
 }
 
 
 
-CricleCollider::CricleCollider(double start_radious) : Collider(), radious(start_radious){
+CricleCollider::CricleCollider(double start_radious) : Collider(){
+	radious = start_radious;
 	coverage_radious = start_radious;
 }
 
-void CricleCollider::test(){
-	std::cout << "I'am cricle" << std::endl;
+const int CricleCollider::get_type() const {
+	return 2;
 }
 
 

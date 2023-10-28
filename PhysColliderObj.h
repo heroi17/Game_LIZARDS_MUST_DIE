@@ -6,29 +6,30 @@ namespace PColliderO {
 	class Collider {
 	private:
 		double coverage_radious=0.;
+		double width = 0;
+		double height = 0;
+		double radious = 0;
 		friend class CricleCollider;
 		friend class RectangleCollider;
 	public:
 		Collider();
-		virtual void test();
+		const virtual int get_type() const;
 		const double get_coverage_radious() const;
+		const double get_width() const { return width; }
+		const double get_height() const { return height; }
+		const double get_radious() const { return radious; }
 	};
 
 	class CricleCollider : public Collider{
-	protected:
-		double radious;
 	public:
 		CricleCollider(double start_radious=10.);
-		void test() final;
+		const int get_type() const final;
 	};
 
 	class RectangleCollider : public Collider {
-	protected:
-		double width;
-		double height;
 	public:
 		RectangleCollider(double start_width=10., double start_height=10.);
-		void test() final;
+		const int get_type() const final;
 	};
 }
 #endif
