@@ -1,7 +1,7 @@
-﻿#include <iostream>
+﻿#include <windows.h>
 #include "first_test_PO.h"
-int main()
-{
+
+int main() {
     test1();
     return 0;
 }

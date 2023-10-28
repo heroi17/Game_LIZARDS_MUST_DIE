@@ -1,12 +1,35 @@
 #include "Console_Output.h"
 Console_Output::Console_Output(PSimulation::simulation_room *start_room_output){
 	room_output = start_room_output;
-	myconsole = GetConsoleWindow();
-	mydc = GetDC(myconsole);
-	rect;
-	GetWindowRect(myconsole, &rect);
-	width = rect.right - rect.left;
-	height = rect.bottom - rect.top;
+	hWnd = GetConsoleWindow();
+	hDC = GetDC(hWnd);
+	GetClientRect(hWnd, &temp);
+	hBufferDC = CreateCompatibleDC(hDC);
+	hBufferBmp = CreateBitmap(temp.right, temp.bottom, 1, 32, NULL);
+	hBufferBmpOld = (HBITMAP)SelectObject(hBufferDC, hBufferBmp);
+	FillRect(hBufferDC, &temp, (HBRUSH)GetStockObject(BLACK_BRUSH));
+	logBrush.lbStyle = logBrush.lbHatch = NULL;
+	logBrush.lbColor = 0;
+	hBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+	hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
+	hOldBrush = (HBRUSH)SelectObject(hBufferDC, hBrush);
+	hOldPen = (HPEN)SelectObject(hBufferDC, hPen);
+
+
+
+
+
+}
+
+Console_Output::~Console_Output() {
+	SelectObject(hBufferDC, hOldBrush);
+	SelectObject(hBufferDC, hOldPen);
+	SelectObject(hBufferDC, hBufferBmpOld);
+	//DeleteObject(hBrush);
+	DeleteObject(hPen);
+	DeleteObject(hBufferBmp);
+	DeleteDC(hBufferDC);
+	ReleaseDC(hWnd, hDC);
 }
 
 void Console_Output::StartOutput() {
@@ -23,50 +46,28 @@ void Console_Output::OutputCicle() {
 	double time_of_work;
 	int ms_time_to_wait;
 	clock_t start, end;
-	double next = clock() + PeriodForTicInMSec;
 	while (is_OutputCicleRuning) {//добавить ласт апдейт чтобы мы всегда обновляли идеально ровно!!! не + что-то там изза работы некоторых функций
 		start = clock();//get time start 1 update
 		OutputOneTic();//give that time to update we want
 		end = clock();
 		time_of_work = end - start;
-		ms_time_to_wait = (next - clock());//time for waiting
+		ms_time_to_wait = (start + PeriodForTicInMSec - clock());//time for waiting
 		if (ms_time_to_wait > 0) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(ms_time_to_wait));//wait for next tic
 		}
-		next += PeriodForTicInMSec;
 	}
 }
-void Console_Output::OutputOneTic() {
-	const int console_height = 22;
-	const int console_width = 50;
-	const int size = console_height * console_width;
-	char lst[size];
-	memset(lst, ' ', size);
-	char* str_ykaz[console_height];
-	for (char i = 0; i < console_height; i++) {
-		str_ykaz[i] = lst + i * console_width;
-	}
-	for (auto& element : room_output->moveble_objects) {
-		PMathO::Vec2D pos = element.get_position();
-		int x = pos.get_x();
-		int y = pos.get_y();
-		if (0 <= x && x < console_width && 0 <= y && y < console_height) {
-			str_ykaz[y][x] = '#';
-		}
-	}
-	for (auto& element : room_output->static_objects) {
-		PMathO::Vec2D pos = element.get_position();
-		int x = pos.get_x();
-		int y = pos.get_y();
-		if (0 <= x && x < console_width && 0 <= y && y < console_height) {
-			str_ykaz[y][x] = '@';
-		}
-	}
-	for (int i = 0; i < console_height; i++) {
-		for (int j = 0; j < console_width; j++) {
-			std::cout << str_ykaz[i][j];
-		}
-		std::cout << std::endl;
-	}
+void Console_Output::blit_cricle(int x, int y, double radius) {
 
+}
+void Console_Output::OutputOneTic() {
+	FillRect(hBufferDC, &temp, (HBRUSH)GetStockObject(BLACK_BRUSH));
+	for (auto& element : room_output->objects) {
+		PMathO::Vec2D pos = element->get_position();
+		double x = pos.get_x();
+		double y = pos.get_y();
+		double radious = element->get_collider().get_coverage_radious();
+		Ellipse(hBufferDC, x - radious, y - radious, x + radious, y + radious);
+	}
+	BitBlt(hDC, 0, 0, temp.right, temp.bottom, hBufferDC, 0, 0, SRCCOPY);
 }

@@ -138,7 +138,7 @@
     <ClCompile Include="MapCoordunates.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
-    <ClCompile Include="PhysMeshObj.cpp" />
+    <ClCompile Include="PhysColliderObj.cpp" />
     <ClCompile Include="PhysSimulation.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerupItem.cpp" />
@@ -150,7 +150,7 @@
     <ClInclude Include="Console_Output.h" />
     <ClInclude Include="MapCoordunates.h" />
     <ClInclude Include="PhysObj.h" />
-    <ClInclude Include="PhysMeshObj.h" />
+    <ClInclude Include="PhysColliderObj.h" />
     <ClInclude Include="PhysMathObj.h" />
     <ClInclude Include="Physics.h" />
   </ItemGroup>

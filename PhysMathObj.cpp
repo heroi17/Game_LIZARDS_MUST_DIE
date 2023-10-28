@@ -33,9 +33,37 @@ Vec2D Vec2D::operator*(const double& other) const {
 	return Vec2D(this->x * other, this->y * other);
 }
 
+Vec2D Vec2D::operator/(const double& other) const {
+	if (other != 0)
+		return Vec2D(this->x / other, this->y / other);
+	else 
+		return Vec2D(this->x, this->y);
+}
+
+Vec2D Vec2D::operator*=(const double& other){
+	this->x *= other;
+	this->y *= other;
+	update_lenth();
+	return *this;
+}
+
 Vec2D Vec2D::operator+=(const Vec2D& other) {
 	this->x += other.x;
 	this->y += other.y;
+	update_lenth();
+	return *this;
+}
+
+Vec2D Vec2D::operator-=(const Vec2D& other) {
+	this->x -= other.x;
+	this->y -= other.y;
+	update_lenth();
+	return *this;
+}
+
+Vec2D Vec2D::operator*=(const Vec2D& other) {
+	this->x *= other.x;
+	this->y *= other.y;
 	update_lenth();
 	return *this;
 }

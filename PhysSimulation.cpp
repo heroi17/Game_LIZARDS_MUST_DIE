@@ -12,51 +12,18 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	update position
 	update speed(because trenie and another thigs)*/
 	double time_to_sec = time_to_msec / 1000.;
-	for (auto& element : moveble_objects) {// it's not finish just for test course here we are also should update collision!
-		element.update_mechanics_parameters(time_to_sec);
-	}
-	output_debug_information(time_to_sec);
-	test_output();
-}
-
-void simulation_room::test_output() {
-	const int console_height = 22;
-	const int console_width = 50;
-	const int size = console_height * console_width;
-	char lst[size];
-	memset(lst, ' ', size);
-	char* str_ykaz[console_height];
-	for (char i = 0; i < console_height; i++) {
-		str_ykaz[i] = lst + i * console_width;
-	}
-	for (auto& element : moveble_objects){
-		PMathO::Vec2D pos = element.get_position();
-		int x = pos.get_x();
-		int y = pos.get_y();
-		if (0 <= x && x < console_width && 0 <= y && y < console_height) {
-			str_ykaz[y][x] = '#';
-		}
-	}
-	for (auto& element : static_objects) {
-		PMathO::Vec2D pos = element.get_position();
-		int x = pos.get_x();
-		int y = pos.get_y();
-		if (0 <= x && x < console_width && 0 <= y && y < console_height) {
-			str_ykaz[y][x] = '@';
-		}
-	}
-	for (int i = 0; i < console_height; i++) {
-		for (int j = 0; j < console_width; j++) {
-			std::cout << str_ykaz[i][j];
-		}
-		std::cout << std::endl;
+	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
+		element->update_mechanics_parameters(time_to_sec);
 	}
 
+
+	//system("cls");
+	//output_debug_information(time_to_sec);
 }
 
 void simulation_room::set_time_all_object(double new_time_sec) {
-	for (auto& element : moveble_objects) {// it's not finish just for test course here we are also should update collision!
-		element.set_last_update_time_sec(new_time_sec);
+	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
+		element->set_last_update_time_sec(new_time_sec);
 	}
 
 }

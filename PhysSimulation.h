@@ -11,12 +11,11 @@ namespace PSimulation {
 		double width;
 		double height;
 		bool simulation_is_working = false;
-		int TicPerSecond = 5.;
+		int TicPerSecond = 20.;
 		double resource = 0.;
 		double PeriodForTicInMSec = 1000. / TicPerSecond;
 	public:
-		std::vector<PO::StaticObject> static_objects;
-		std::vector<PO::MovebleObject> moveble_objects;
+		std::vector<PO::Object*> objects;
 		simulation_room(double width = 10., double height = 10.);
 		~simulation_room();
 		void UpdateOneTic(double time_to_msec);
@@ -26,6 +25,5 @@ namespace PSimulation {
 		void StopSimulation();
 		//debug functions
 		void output_debug_information(double time_to_msec);
-		void test_output();
 	};
 }

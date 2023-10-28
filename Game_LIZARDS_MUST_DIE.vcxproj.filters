@@ -22,20 +22,20 @@
     <Filter Include="Исходные файлы\physics_engine\tests">
       <UniqueIdentifier>{a915c9db-4934-4258-bad2-bcd59b55d0d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\physics_engine\output_system">
+    <Filter Include="Исходные файлы\physics_engine\base_structure\PMathO">
+      <UniqueIdentifier>{2e5b1d2c-30bc-4177-a2d5-4f61a9437e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\physics_engine\base_structure\PColliderO">
+      <UniqueIdentifier>{375fe049-33fe-4c4c-ba02-661227ddea0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\physics_engine\base_structure\PO">
+      <UniqueIdentifier>{ad011077-70c2-4d87-b0b8-24181f140c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\physics_engine\output_system%28only for test%29">
       <UniqueIdentifier>{61694598-69e4-42f7-a0bc-b34a4878ef92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhysMathObj.cpp">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysMeshObj.cpp">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysObj.cpp">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -76,7 +76,16 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Console_Output.cpp">
-      <Filter>Исходные файлы\physics_engine\output_system</Filter>
+      <Filter>Исходные файлы\physics_engine\output_system%28only for test%29</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysMathObj.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysColliderObj.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure\PColliderO</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysObj.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,15 +122,6 @@
     <ClInclude Include="Player.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PhysMathObj.h">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysMeshObj.h">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysObj.h">
-      <Filter>Исходные файлы\physics_engine\base_structure</Filter>
-    </ClInclude>
     <ClInclude Include="PhysSimulation.h">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
     </ClInclude>
@@ -132,7 +132,16 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Console_Output.h">
-      <Filter>Исходные файлы\physics_engine\output_system</Filter>
+      <Filter>Исходные файлы\physics_engine\output_system%28only for test%29</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysMathObj.h">
+      <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysColliderObj.h">
+      <Filter>Исходные файлы\physics_engine\base_structure\PColliderO</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysObj.h">
+      <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
