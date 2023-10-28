@@ -37,14 +37,15 @@ void MovebleObject::update_mechanics_parameters(double to_time_sec){
 	double delta_time = to_time_sec - this->last_update_time_sec;//add frict to finish this part course here we are not use frict
 	if (speed.get_lenth() != 0) {
 		PMathO::Vec2D friction_acceleration = speed * (mass * (-9.8) * FrictCoef / speed.get_lenth());
-		double how_time_to_stop = last_update_time_sec + speed.get_lenth() / friction_acceleration.get_lenth();
+		double how_time_to_stop = speed.get_lenth() / friction_acceleration.get_lenth();
 		if (last_update_time_sec + how_time_to_stop > to_time_sec) {
-			this->position += speed * delta_time + friction_acceleration * delta_time * delta_time * 0.5;
-			this->speed += friction_acceleration * delta_time;
+			position += speed * delta_time + friction_acceleration * delta_time * delta_time * 0.5;
+			speed += friction_acceleration * delta_time;
 		}
 		else {
-			this->position += speed * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
-			this->speed *= 0;
+			position += speed * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
+			speed *= 0;
+			std::cout << speed.get_lenth();
 		}
 	}
 	this->last_update_time_sec = to_time_sec;
