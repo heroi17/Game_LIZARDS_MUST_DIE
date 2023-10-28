@@ -78,6 +78,9 @@
     <ClCompile Include="Console_Output.cpp">
       <Filter>Исходные файлы\physics_engine\output_system</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">

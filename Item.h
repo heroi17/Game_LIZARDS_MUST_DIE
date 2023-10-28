@@ -10,8 +10,10 @@ namespace GameLogic
 	class Item
 	{
 	public:
-		virtual void ApplyEffect(Entity& entity);
+		std::string GetName();
+		std::string GetDiscription();
 
+		virtual void ApplyEffect(Entity& entity);
 	protected:
 		std::string _name;
 		std::string _discription;

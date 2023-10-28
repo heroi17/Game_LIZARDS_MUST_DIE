@@ -8,7 +8,7 @@ Lizard::Lizard()
 
 GameLogic::Lizard::Lizard(int maxHealth, int damage)
 {
-	MaxHealth = maxHealth;
-	Health = maxHealth;
-	Damage = damage;
+	_maxHealth = maxHealth;
+	_health = maxHealth;
+	_damage = damage;
 }

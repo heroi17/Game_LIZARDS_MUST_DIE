@@ -8,9 +8,18 @@ namespace GameLogic
 	class Entity
 	{
 	public:
-		int MaxHealth;
-		int Health;
-		int Damage;
+		bool SetHealth(int amount);
+		bool SetDamage(int amount);
+		bool SetMaxHealth(int amount);
+
+		int GetHealth();
+		int GetMaxHealth();
+		int GetDamage();
+
+	protected:
+		int _maxHealth;
+		int _health;
+		int _damage;
 
 	private:
 	};
