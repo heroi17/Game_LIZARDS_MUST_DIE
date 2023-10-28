@@ -11,7 +11,7 @@ namespace GameLogic
 		HealingItem_100
 	};
 
-	class ConsumableItem : Item
+	class ConsumableItem : public Item
 	{
 	public:
 		ConsumableItem(std::string name, std::string discription, ConsumableItemType type);

@@ -11,7 +11,7 @@ namespace GameLogic
 		MaxHealthBoost,
 	};
 
-	class PowerupItem : Item
+	class PowerupItem : public Item
 	{
 	public:
 		PowerupItem(std::string name, std::string discription, PowerupItemType type);

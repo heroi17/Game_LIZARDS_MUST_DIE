@@ -72,13 +72,13 @@
     <ClCompile Include="first_test_PO.cpp">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClCompile>
-    <ClCompile Include="MapCoordunates.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Console_Output.cpp">
       <Filter>Исходные файлы\physics_engine\output_system</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomGenerator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,11 +131,11 @@
     <ClInclude Include="first_test_PO.h">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClInclude>
-    <ClInclude Include="MapCoordunates.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Console_Output.h">
       <Filter>Исходные файлы\physics_engine\output_system</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomGenerator.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

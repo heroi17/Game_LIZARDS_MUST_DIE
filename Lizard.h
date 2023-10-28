@@ -5,7 +5,7 @@
 
 namespace GameLogic
 {
-	class Lizard : Entity
+	class Lizard : public Entity
 	{
 	public:
 		Lizard();

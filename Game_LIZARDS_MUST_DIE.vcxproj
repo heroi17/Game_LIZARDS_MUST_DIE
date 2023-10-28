@@ -136,7 +136,6 @@
     <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapCoordunates.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysMeshObj.cpp" />
@@ -145,15 +144,16 @@
     <ClCompile Include="PowerupItem.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="first_test_PO.cpp" />
+    <ClCompile Include="RoomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="Console_Output.h" />
-    <ClInclude Include="MapCoordunates.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysMeshObj.h" />
     <ClInclude Include="PhysMathObj.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="RoomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h" />

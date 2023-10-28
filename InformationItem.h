@@ -10,20 +10,18 @@ namespace GameLogic
 	enum InformationItemType
 	{
 		LeaderLocation,
-		PowerUpLocation
 	};
 
-	class InformationItem : Item
+	class InformationItem : public Item
 	{
 	public:
-		InformationItem(std::string name, std::string discription, InformationItemType type, Map& map);
+		InformationItem(std::string name, std::string discription, InformationItemType type, Map* map);
 		void ApplyEffect(Entity& entity) override;
 
 	private:
 		InformationItemType _type;
-		Map& _map;
+		Map* _map;
 
-		size_t _lastPowerUpIndex;
 	};
 }
 
