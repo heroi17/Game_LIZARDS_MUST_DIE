@@ -1,7 +1,7 @@
 #include "PhysSimulation.h"
 using namespace PSimulation;
-simulation_room::simulation_room(double width, double height): width(width), height(height){
-	}
+simulation_room::simulation_room(double width, double height) : width(width), height(height) {
+}
 
 simulation_room::~simulation_room() {
 	StopSimulation();
@@ -15,9 +15,6 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
 		element->update_mechanics_parameters(time_to_sec);
 	}
-	output_debug_information(time_to_sec);
-	test_output();
-}
 
 
 	//system("cls");
@@ -44,7 +41,7 @@ void simulation_room::simulationCicle() {
 	int ms_time_to_wait;
 	clock_t start, end;
 	double next = clock() + PeriodForTicInMSec;
-	while (simulation_is_working){//добавить ласт апдейт чтобы мы всегда обновляли идеально ровно!!! не + что-то там изза работы некоторых функций
+	while (simulation_is_working) {//добавить ласт апдейт чтобы мы всегда обновляли идеально ровно!!! не + что-то там изза работы некоторых функций
 		start = clock();//get time start 1 update
 		UpdateOneTic(next);//give that time to update we want
 		end = clock();
@@ -61,7 +58,7 @@ void simulation_room::simulationCicle() {
 void simulation_room::StartSimulation() {
 	simulation_is_working = true;
 	set_time_all_object((double)clock() / 1000.); // if we stopped simulation, when all obj start move, ferstly they go far away
-	myThread = std::thread (&simulation_room::simulationCicle, this);
+	myThread = std::thread(&simulation_room::simulationCicle, this);
 }
 
 void simulation_room::StopSimulation() {
