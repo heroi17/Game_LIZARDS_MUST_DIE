@@ -5,6 +5,7 @@
 
 #include "Item.h"
 #include "Entity.h"
+#include "Lizard.h"
 
 namespace GameLogic
 {
@@ -12,14 +13,15 @@ namespace GameLogic
 	{
 	public:
 		Room();
-		Room(std::vector<Entity> enemies, Item rewardItem);
+		~Room();
+		Room(std::vector<Entity*> enemies, Item* rewardItem);
 		Room(const Room& otherRoom);
 
+		Room& operator=(const Room& otherRoom);
 
 	private:
-		Room& operator=(const Room& other);
-		std::vector<Entity> _enemies;
-		Item _rewardItem;
+		std::vector<Entity*> _enemies;
+		Item* _rewardItem;
 	};
 }
 #endif // !LMD_GAMELOGIC_ROOM

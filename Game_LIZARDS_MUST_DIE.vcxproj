@@ -129,13 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Console_Output.cpp" />
     <ClCompile Include="ConsumableItem.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="InformationItem.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapCoordunates.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysColliderObj.cpp" />
@@ -144,15 +144,16 @@
     <ClCompile Include="PowerupItem.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="first_test_PO.cpp" />
+    <ClCompile Include="RoomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="Console_Output.h" />
-    <ClInclude Include="MapCoordunates.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysColliderObj.h" />
     <ClInclude Include="PhysMathObj.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="RoomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h" />

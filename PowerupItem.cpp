@@ -15,11 +15,11 @@ void PowerupItem::ApplyEffect(Entity& entity)
 	{
 		case DamageBoost:
 		{
-			entity.Damage += 10;
+			entity.SetDamage(10);
 		}
 		case MaxHealthBoost:
 		{
-			entity.MaxHealth += 20;
+			entity.SetMaxHealth(20);
 		}
 	}
 }

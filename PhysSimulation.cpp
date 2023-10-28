@@ -15,6 +15,9 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
 		element->update_mechanics_parameters(time_to_sec);
 	}
+	output_debug_information(time_to_sec);
+	test_output();
+}
 
 
 	//system("cls");

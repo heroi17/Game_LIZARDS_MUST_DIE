@@ -1,11 +1,27 @@
 #include "Map.h"
 
+#include "RoomGenerator.h"
+#include "Lizard.h"
+
 using namespace GameLogic;
 
 Map::Map(size_t width, size_t height)
 {
 	_height = height;
 	_width = width;
+	_leaderLocation = std::make_pair(0, 0);
+	_powerupLocation = std::vector<std::pair<size_t, size_t>>{};
+}
+
+GameLogic::Map::~Map()
+{
+	for (int i = 1; i <= _height; i++)
+	{
+		for (int j = 1; j <= _width; j++)
+		{
+			delete _rooms[std::make_pair(i, j)];
+		}
+	}
 }
 
 size_t Map::GetHeight()
@@ -18,22 +34,20 @@ size_t Map::GetWidth()
 	return _width;
 }
 
-Room& Map::GetRoom(size_t row, size_t column)
+Room* Map::GetRoom(size_t row, size_t column)
 {
-	MapCoordinates mapCoordinates(column, row);
+	std::pair<size_t, size_t> mapCoordinates(column, row);
 	return _rooms[mapCoordinates];
 }
 
-MapCoordinates GameLogic::Map::GetLeaderLocation()
+std::pair<size_t, size_t> GameLogic::Map::GetLeaderLocation()
 {
-	return LeaderLocation;
+	return _leaderLocation;
 }
 
-MapCoordinates GameLogic::Map::GetPowerUpLocation(size_t index)
+void GameLogic::Map::SetLeaderLocation(std::pair<size_t, size_t> coordinates)
 {
-	if (index < PowerupLocation.size())
-		return PowerupLocation[index];
-	return PowerupLocation[0];
+	_leaderLocation = coordinates;
 }
 
 void Map::fillRooms()
@@ -42,7 +56,8 @@ void Map::fillRooms()
 	{
 		for (int j = 1; j <= _width; j++)
 		{
-
+			RoomGenerator roomgenerator(this);
+			_rooms[std::make_pair(i, j)] = roomgenerator.GetRandomRoomPreset(std::make_pair(i,j));
 		}
 	}
 }

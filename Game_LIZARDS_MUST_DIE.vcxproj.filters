@@ -72,9 +72,6 @@
     <ClCompile Include="first_test_PO.cpp">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClCompile>
-    <ClCompile Include="MapCoordunates.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Console_Output.cpp">
       <Filter>Исходные файлы\physics_engine\output_system%28only for test%29</Filter>
     </ClCompile>
@@ -86,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="PhysObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomGenerator.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +131,6 @@
     <ClInclude Include="first_test_PO.h">
       <Filter>Исходные файлы\physics_engine\tests</Filter>
     </ClInclude>
-    <ClInclude Include="MapCoordunates.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Console_Output.h">
       <Filter>Исходные файлы\physics_engine\output_system%28only for test%29</Filter>
     </ClInclude>
@@ -142,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="PhysObj.h">
       <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomGenerator.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
