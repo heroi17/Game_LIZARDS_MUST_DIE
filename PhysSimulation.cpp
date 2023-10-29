@@ -1,28 +1,64 @@
 #include "PhysSimulation.h"
 using namespace PSimulation;
 
-
-PSimulation::collision::~collision() {
-	//connect before and after collision
-	this->before_collision->after_collision = this->after_collision;
-	this->after_collision->before_collision = this->before_collision;
-}
-PSimulation::collision::collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Object* ptr_obj_2): time_when_collision_sec(time_when_collision), ptr_obj_1(ptr_obj_1), ptr_obj_2(ptr_obj_2){
-
+//collision class realisation
+collision::~collision() {
+	detach();
 }
 
+void collision::detach() {
+	//connect (collision before_collision) and (collision next_collision)
+	if (this->next_collision != 0 && this->before_collision != 0) {
+		this->before_collision->next_collision = this->next_collision;
+		this->next_collision->before_collision = this->before_collision;
+	}
+	else if (this->next_collision == 0 and this->before_collision != 0) {
+		this->before_collision->next_collision = 0;
+	}
+	else if (this->next_collision != 0 and this->before_collision == 0) {
+		this->next_collision->before_collision = 0;
+	}
+}
 
-void PSimulation::collision::insert_collision(collision* insert_collision) {
-	collision* iterator_collision = this;
-	while ((iterator_collision->after_collision != 0) && (iterator_collision->time_when_collision_sec < insert_collision->time_when_collision_sec))//find position for our collision
-		iterator_collision = iterator_collision->after_collision;
+collision::collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Object* ptr_obj_2): time_when_collision_sec(time_when_collision), ptr_obj_1(ptr_obj_1), ptr_obj_2(ptr_obj_2){
+
+}
+
+double collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
+
+
+	//if objects already under collision, we should return -1.0 course they should go away from ech other and there can be some problems with module add_object.
+	//here we are calculate time when object will intersect among themselves
+	//firstly we are find will or not intersect coverage_cricle of object
+	//if not then we return -1.0
+	//if all right then we find ryally these object intersect or not - if true then return time when it heppened , else return -1.0
+	//position(time_to) = position(time_to_stop) if time_to_stop < time_to
+	//
+	//
+	//
+	return -1.0;
+}
+
+void collision::insert_collision(collision* insert_collision) {//here i insert collisiom *insert_collision in *this
+	collision* iterator_collision = this;//                                                          \V/ simbol <= mabe should be just <
+	while ((iterator_collision->next_collision != 0) && (iterator_collision->time_when_collision_sec <= insert_collision->time_when_collision_sec))//find position for our collision
+		iterator_collision = iterator_collision->next_collision;
 	insert_collision->before_collision = iterator_collision->before_collision;//here i just insert in linked_lst -- collision new item
-	insert_collision->before_collision->after_collision = insert_collision;
-	insert_collision->after_collision = iterator_collision;
+	insert_collision->before_collision->next_collision = insert_collision;
+	insert_collision->next_collision = iterator_collision;
 	iterator_collision->before_collision = insert_collision;
 }
 
 
+
+
+
+
+
+
+
+
+//simulation_room class realisation
 
 simulation_room::simulation_room(int NewTicPerSecond){
 	if (NewTicPerSecond < 1) {
@@ -44,12 +80,24 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	update position
 	update speed(because trenie and another thigs)*/
 	double time_to_sec = time_to_msec / 1000.;
-	while (start.after_collision != 0 && start.after_collision->time_when_collision_sec < time_to_sec) {
+	while (start.next_collision != 0 && start.next_collision->time_when_collision_sec < time_to_sec) {
+		//make_new_mehanicks_parameter_for
 		/*here we go firstly to first time collision in linked_list_collision
 		remake speed after tuching object 
 		change collision_linked_lst*/
-	}//here i move every object to time_to_sec course there positions in time between last update_time and time_to_sec
-	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
+		collision* working_collision = start.next_collision;
+		working_collision->detach();
+		working_collision->ptr_obj_1->update_mechanics_parameters(start.next_collision->time_when_collision_sec);//here we move obj1
+		working_collision->ptr_obj_2->update_mechanics_parameters(start.next_collision->time_when_collision_sec);//and obj2 to there collision position
+		// calculate collision using two object: obj_1, obj_2
+		//(working_collision->ptr_obj_1)                  //here we should update future collision for this object
+		//(working_collision->ptr_obj_2)                  //								   and for this object
+		delete working_collision;//delete this collision because we already worked with it and it is in past now
+
+
+	//after working kollision all our object is in time between last_update and time_to_sec
+	}//here i move every object to time_to_sec
+	for (auto& element : objects) {
 		element->update_mechanics_parameters(time_to_sec);
 	}
 
@@ -58,9 +106,9 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	//output_debug_information(time_to_sec);
 }
 
-
 void simulation_room::add_object(PO::Object* new_object) {
 	objects.push_back(new_object);
+	//update_collision for objets course we change all
 	//+ add collision i think
 }
 
@@ -109,4 +157,14 @@ void simulation_room::StopSimulation() {
 		simulation_is_working = false;
 		myThread.join();
 	}
+}
+
+void simulation_room::calculate_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2) {
+	//here we change speed in time when collision
+	//you should use this function when the objects are next to each other
+	//mabe we should reaalyse this method using collider, therefor get position of collision and get parallel line of point collision
+
+	//this is just for test!!!!!!!!!
+	*(ptr_obj_1->get_ptr_speed()) *= -1.;//just chanje vector of speed
+	*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
 }

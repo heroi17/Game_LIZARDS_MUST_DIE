@@ -6,6 +6,14 @@ using namespace PO;
 //parent class Object here
 Object::Object(PMathO::Vec2D position, PColliderO::Collider *mesh) : position(position), mesh(mesh) {}
 
+PMathO::Vec2D* Object::get_ptr_speed() {
+	return &speed;
+}
+
+const PMathO::Vec2D Object::get_position() const  {
+	return this->position;
+}
+
 void Object::update_mechanics_parameters(double to_time_sec) {};
 
 void Object::set_last_update_time_sec(double new_time_sec) {};
@@ -28,8 +36,9 @@ const PColliderO::Collider* Object::get_collider() const{
 
 //MovebleObject here
 
-MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider *mesh, double mass = 1., double FrictCoef = 1., PMathO::Vec2D speed = PMathO::Vec2D(0., 0.)) : Object(position, mesh), mass(mass), FrictCoef(FrictCoef), speed(speed) {
-	type = 35;
+MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider *mesh, double mass = 1., double FrictCoef = 1., PMathO::Vec2D StartSpeed = PMathO::Vec2D(0., 0.)) : Object(position, mesh), mass(mass), FrictCoef(FrictCoef){
+	speed = StartSpeed;
+	type = 2;
 }
 
 void MovebleObject::update_mechanics_parameters(double to_time_sec){
@@ -54,14 +63,11 @@ void MovebleObject::set_last_update_time_sec(double new_time_sec) {//do not use 
 	this->last_update_time_sec = new_time_sec;
 }
 
-PMathO::Vec2D Object::get_position() {
-	return this->position;
-}
 
 
 
 //StaticObject here
 
 StaticObject::StaticObject(PMathO::Vec2D position, PColliderO::Collider* mesh): Object(position, mesh) {
-	type = 64;
+	type = 1;
 }

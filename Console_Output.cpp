@@ -52,7 +52,7 @@ void Console_Output::OutputCicle() {
 	while (is_OutputCicleRuning) {//добавить ласт апдейт чтобы мы всегда обновляли идеально ровно!!! не + что-то там изза работы некоторых функций
 		start = clock();//get time start 1 update
 		OutputOneTic();//give that time to update we want
-		end = clock();
+		end = (double)clock();
 		time_of_work = end - start;
 		ms_time_to_wait = (start + PeriodForTicInMSec - clock());//time for waiting
 		if (ms_time_to_wait > 0) {

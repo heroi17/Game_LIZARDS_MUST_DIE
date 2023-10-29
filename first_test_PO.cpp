@@ -41,7 +41,9 @@ int test1() {
     //start physic engine
     console_1.StartOutput();
     room1.StartSimulation();
-    std::this_thread::sleep_for(std::chrono::milliseconds(200000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+    room1.add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.)));
+    std::this_thread::sleep_for(std::chrono::milliseconds(20000));
     room1.StopSimulation();
     console_1.StopOutput();
 
