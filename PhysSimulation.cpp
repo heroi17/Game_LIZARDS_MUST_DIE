@@ -1,6 +1,38 @@
 #include "PhysSimulation.h"
 using namespace PSimulation;
-simulation_room::simulation_room(double width, double height) : width(width), height(height) {
+
+
+PSimulation::collision::~collision() {
+	//connect before and after collision
+	this->before_collision->after_collision = this->after_collision;
+	this->after_collision->before_collision = this->before_collision;
+}
+PSimulation::collision::collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Object* ptr_obj_2): time_when_collision_sec(time_when_collision), ptr_obj_1(ptr_obj_1), ptr_obj_2(ptr_obj_2){
+
+}
+
+
+void PSimulation::collision::insert_collision(collision* insert_collision) {
+	collision* iterator_collision = this;
+	while ((iterator_collision->after_collision != 0) && (iterator_collision->time_when_collision_sec < insert_collision->time_when_collision_sec))//find position for our collision
+		iterator_collision = iterator_collision->after_collision;
+	insert_collision->before_collision = iterator_collision->before_collision;//here i just insert in linked_lst -- collision new item
+	insert_collision->before_collision->after_collision = insert_collision;
+	insert_collision->after_collision = iterator_collision;
+	iterator_collision->before_collision = insert_collision;
+}
+
+
+
+simulation_room::simulation_room(int NewTicPerSecond){
+	if (NewTicPerSecond < 1) {
+		TicPerSecond = 1;
+		PeriodForTicInMSec = 1000. / TicPerSecond;
+	}
+	else {
+		TicPerSecond = NewTicPerSecond;
+		PeriodForTicInMSec = 1000. / TicPerSecond;
+	}
 }
 
 simulation_room::~simulation_room() {
@@ -12,6 +44,11 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 	update position
 	update speed(because trenie and another thigs)*/
 	double time_to_sec = time_to_msec / 1000.;
+	while (start.after_collision != 0 && start.after_collision->time_when_collision_sec < time_to_sec) {
+		/*here we go firstly to first time collision in linked_list_collision
+		remake speed after tuching object 
+		change collision_linked_lst*/
+	}//here i move every object to time_to_sec course there positions in time between last update_time and time_to_sec
 	for (auto& element : objects) {// it's not finish just for test course here we are also should update collision!
 		element->update_mechanics_parameters(time_to_sec);
 	}
@@ -19,6 +56,12 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time - is time when
 
 	//system("cls");
 	//output_debug_information(time_to_sec);
+}
+
+
+void simulation_room::add_object(PO::Object* new_object) {
+	objects.push_back(new_object);
+	//+ add collision i think
 }
 
 void simulation_room::set_time_all_object(double new_time_sec) {

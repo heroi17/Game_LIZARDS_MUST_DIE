@@ -1,5 +1,13 @@
 #include "Console_Output.h"
-Console_Output::Console_Output(PSimulation::simulation_room *start_room_output){
+Console_Output::Console_Output(PSimulation::simulation_room *start_room_output, int NewTicPerSecond){
+	if (NewTicPerSecond < 1) {
+		TicPerSecond = 1;
+		PeriodForTicInMSec = 1000. / TicPerSecond;
+	}
+	else {
+		TicPerSecond = NewTicPerSecond;
+		PeriodForTicInMSec = 1000. / TicPerSecond;
+	}
 	room_output = start_room_output;
 	hWnd = GetConsoleWindow();
 	hDC = GetDC(hWnd);
@@ -14,11 +22,6 @@ Console_Output::Console_Output(PSimulation::simulation_room *start_room_output){
 	hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
 	hOldBrush = (HBRUSH)SelectObject(hBufferDC, hBrush);
 	hOldPen = (HPEN)SelectObject(hBufferDC, hPen);
-
-
-
-
-
 }
 
 Console_Output::~Console_Output() {

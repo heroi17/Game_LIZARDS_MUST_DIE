@@ -45,7 +45,6 @@ void MovebleObject::update_mechanics_parameters(double to_time_sec){
 		else {
 			position += speed * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
 			speed *= 0;
-			std::cout << speed.get_lenth();
 		}
 	}
 	this->last_update_time_sec = to_time_sec;

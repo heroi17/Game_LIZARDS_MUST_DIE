@@ -12,30 +12,30 @@ int test1() {
 
 
     //initialisation
-    double width_room = 20;
-    double heigh_room = 20;
-    PSimulation::simulation_room room1(width_room, heigh_room);
+    int update_rate = 20;
+    int moveble_obj = 5;
+    int static_obj = 5;
+    PSimulation::simulation_room room1(update_rate);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    Console_Output console_1(&room1);
-    int moveble_obj = 15;
-    int static_obj = 10;
+    Console_Output console_1(&room1, update_rate);
+
     //make wall for room;
 
-    room1.objects.push_back(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, 0), new PColliderO::RectangleCollider(console_1.temp.right, 5.)));
-    room1.objects.push_back(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom), new PColliderO::RectangleCollider(console_1.temp.right, 5.)));
-    room1.objects.push_back(new PO::StaticObject(PMathO::Vec2D(0, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(5., console_1.temp.bottom)));
-    room1.objects.push_back(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(5., console_1.temp.bottom)));
+    room1.add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, 0), new PColliderO::RectangleCollider(console_1.temp.right, 5.)));
+    room1.add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom), new PColliderO::RectangleCollider(console_1.temp.right, 5.)));
+    room1.add_object(new PO::StaticObject(PMathO::Vec2D(0, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(5., console_1.temp.bottom)));
+    room1.add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(5., console_1.temp.bottom)));
     for (int i = 0; i < moveble_obj; i++) {
         PMathO::Vec2D pos(rand_between(0., console_1.temp.right), rand_between(0., console_1.temp.bottom));
         PMathO::Vec2D speed(rand_between(-100., 100.), rand_between(-100., 100.));
-        room1.objects.push_back(new PO::MovebleObject(pos, new PColliderO::RectangleCollider(rand_between(4., 20.), rand_between(4., 20.)), 1., 1., speed));
+        room1.add_object(new PO::MovebleObject(pos, new PColliderO::RectangleCollider(rand_between(4., 20.), rand_between(4., 20.)), 1., 1., speed));
         PColliderO::RectangleCollider k = PColliderO::RectangleCollider(rand_between(4., 20.), rand_between(4., 20.));
 
     }
     
     for (int i = 0; i < static_obj; i++) {
         PMathO::Vec2D pos(rand_between(0., console_1.temp.right), rand_between(0., console_1.temp.bottom));
-        room1.objects.push_back(new PO::StaticObject(pos, new PColliderO::CricleCollider(rand_between(4, 10.))));
+        room1.add_object(new PO::StaticObject(pos, new PColliderO::CricleCollider(rand_between(4, 10.))));
     }
 
     //start physic engine
