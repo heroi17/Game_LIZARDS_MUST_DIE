@@ -10,10 +10,7 @@
 #include "Entity.h"
 #include "Lizard.h"
 
-
-
 using namespace GameLogic;
-
 
 
 GameLogic::RoomGenerator::RoomGenerator(Map* map)
@@ -49,6 +46,11 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
 
         case 2: // a room with the boss
         {
+            if (isLeaderLocatrionAptained)
+            {
+                return GetRandomRoomPreset(coordinates); // sturtion recurtion if leader location is already spawned
+            } 
+
             std::vector<Entity*> enemies = {};
 
             Entity* lizard = new Lizard(100, 20);
@@ -124,8 +126,6 @@ Lizard* GameLogic::RoomGenerator::GetRandomLizardPreset()
 {
     return nullptr;
 }
-
-
 
 bool GameLogic::RoomGenerator::isLeaderLocatrionAptained = false;
 

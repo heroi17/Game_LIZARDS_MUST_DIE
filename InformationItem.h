@@ -9,7 +9,7 @@ namespace GameLogic
 {
 	enum InformationItemType
 	{
-		LeaderLocation,
+		LeaderLocation
 	};
 
 	class InformationItem : public Item
