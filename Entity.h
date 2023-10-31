@@ -26,7 +26,6 @@ namespace GameLogic
 		int _damage;
 		int _speed;
 		int _size;
-
 	private:
 	};
 }

@@ -16,35 +16,15 @@ GameLogic::Room::Room()
 GameLogic::Room::Room(std::vector<Entity*> enemies, Item* rewardItem)
 {
 	_simulationRoom = new PSimulation::simulation_room();
-
-	std::vector<Entity*> tempvec = _enemies;
 	_enemies = enemies;
-
-	for(int i = 0; i < tempvec.size(); i++)
-	{
-		delete tempvec[i];
-	}
-
-	Item* tempit = _rewardItem;
 	_rewardItem = rewardItem;
-	delete tempit;
 }
 
 GameLogic::Room::Room(const Room& otherRoom)
 {
 	_simulationRoom = new PSimulation::simulation_room();
-
-	std::vector<Entity*> tempvec = _enemies;
 	_enemies = otherRoom._enemies;
-
-	for (int i = 0; i < tempvec.size(); i++)
-	{
-		delete tempvec[i];
-	}
-
-	Item* tempit = _rewardItem;
 	_rewardItem = otherRoom._rewardItem;
-	delete tempit;
 }
 
 GameLogic::Room::~Room()

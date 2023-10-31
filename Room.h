@@ -22,7 +22,6 @@ namespace GameLogic
 		Room& operator=(const Room& otherRoom);
 
 		void Show();
-
 	private:
 		std::vector<Entity*> _enemies;
 		Item* _rewardItem;
