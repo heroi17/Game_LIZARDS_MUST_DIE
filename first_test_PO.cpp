@@ -13,8 +13,8 @@ int test1() {
 
     //initialisation
     int update_rate = 20;
-    int moveble_obj = 200;
-    int static_obj = 50;
+    int moveble_obj = 0;
+    int static_obj = 0;
     PSimulation::simulation_room room1(update_rate);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     Console_Output console_1(&room1, update_rate);
@@ -52,6 +52,9 @@ int test1() {
     obg->set_new_speed(PMathO::Vec2D(-105., -105.));
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     obg->set_new_speed(PMathO::Vec2D(105., -105.));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    obg->set_new_speed(PMathO::Vec2D(0., 0.));
+    obg->set_new_position(PMathO::Vec2D(125., 125.));
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
     room1.StopSimulation();
     console_1.StopOutput();

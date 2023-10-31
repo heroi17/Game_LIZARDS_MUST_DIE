@@ -32,6 +32,7 @@ namespace PO {
 		void virtual update_mechanics_parameters(double to_time_sec);
 		void virtual set_last_update_time_sec(double new_time_sec);
 		void virtual set_new_speed(PMathO::Vec2D new_speed);
+		void set_new_position(PMathO::Vec2D new_position);
 		bool get_IsCollisionDo() const;
 		const PMathO::Vec2D get_position() const;
 		char get_type() const;

@@ -24,11 +24,15 @@ const PMathO::Vec2D Object::get_position() const  {
 	return this->position;
 }
 
-void Object::update_mechanics_parameters(double to_time_sec) {};
+void Object::update_mechanics_parameters(double to_time_sec) {}
 
-void Object::set_last_update_time_sec(double new_time_sec) {};
+void Object::set_last_update_time_sec(double new_time_sec) {}
 
-void Object::set_new_speed(PMathO::Vec2D new_speed) {};
+void Object::set_new_speed(PMathO::Vec2D new_speed) {}
+
+void Object::set_new_position(PMathO::Vec2D new_position){
+	position = new_position;
+}
 
 void Object::collision_on() { IsCollisionDo = true; }
 
