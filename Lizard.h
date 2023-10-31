@@ -5,13 +5,21 @@
 
 namespace GameLogic
 {
+	enum LizzardType
+	{
+		RegularWarrior,
+		Leader
+	};
+
 	class Lizard : public Entity
 	{
 	public:
 		Lizard();
-		Lizard(int maxHealth, int damage);
-	private:
+		Lizard(LizzardType type);
 
+		LizzardType GetType();
+	private:
+		LizzardType _type;
 	};
 }
 #endif // !LMD_GAMELOGIC_LIZARD

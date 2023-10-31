@@ -11,6 +11,8 @@ Map::Map(size_t width, size_t height)
 	_width = width;
 	_leaderLocation = std::make_pair(0, 0);
 	_powerupLocation = std::vector<std::pair<size_t, size_t>>{};
+
+	fillRooms();
 }
 
 GameLogic::Map::~Map()

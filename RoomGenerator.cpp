@@ -36,7 +36,7 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
             std::vector<Entity*> enemies = {};
             for (int i = 0; i < 5; i++)
             {
-                Entity* lizard = new Lizard(20, 5);
+                Entity* lizard = new Lizard(RegularWarrior);
                 enemies.push_back(lizard);
             }
             Item* item = GetRandomItemPreset();
@@ -53,7 +53,7 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
 
             std::vector<Entity*> enemies = {};
 
-            Entity* lizard = new Lizard(100, 20);
+            Entity* lizard = new Lizard(Leader);
             enemies.push_back(lizard);
 
             Item* item = GetRandomItemPreset();

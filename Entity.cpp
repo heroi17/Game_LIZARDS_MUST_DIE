@@ -2,7 +2,7 @@
 
 bool GameLogic::Entity::SetHealth(int amount)
 {
-    _health = _health + amount;
+    _health = amount;
     
     if (_health < 0)
     {
@@ -13,7 +13,7 @@ bool GameLogic::Entity::SetHealth(int amount)
 
 bool GameLogic::Entity::SetDamage(int amount)
 {
-    _damage = _damage + amount;
+    _damage = amount;
 
     if (_damage < 0)
     {
@@ -24,13 +24,25 @@ bool GameLogic::Entity::SetDamage(int amount)
 
 bool GameLogic::Entity::SetMaxHealth(int amount)
 {
-    _maxHealth = _maxHealth + amount;
+    _maxHealth = amount;
 
     if (_maxHealth < 0)
     {
         return true;
     }
     return false;
+}
+
+bool GameLogic::Entity::SetSpeed(int speed)
+{
+    _speed = speed;
+    return true;
+}
+
+bool GameLogic::Entity::SetSize(int size)
+{
+    _size = size;
+    return true;
 }
 
 int GameLogic::Entity::GetHealth()
@@ -46,4 +58,14 @@ int GameLogic::Entity::GetMaxHealth()
 int GameLogic::Entity::GetDamage()
 {
     return _damage;
+}
+
+int GameLogic::Entity::GetSpeed()
+{
+    return _speed;
+}
+
+int GameLogic::Entity::GetSize()
+{
+    return _size;
 }
