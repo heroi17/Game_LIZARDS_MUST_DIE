@@ -13,8 +13,8 @@ int test1() {
 
     //initialisation
     int update_rate = 20;
-    int moveble_obj = 5;
-    int static_obj = 5;
+    int moveble_obj = 200;
+    int static_obj = 50;
     PSimulation::simulation_room room1(update_rate);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     Console_Output console_1(&room1, update_rate);
@@ -43,7 +43,7 @@ int test1() {
     room1.StartSimulation();
     std::this_thread::sleep_for(std::chrono::milliseconds(4000));
     room1.add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.)));
-    std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
     room1.StopSimulation();
     console_1.StopOutput();
 

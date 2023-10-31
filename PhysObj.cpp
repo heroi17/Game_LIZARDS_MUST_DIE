@@ -3,6 +3,10 @@
 #include "PhysObj.h"
 using namespace PO;
 
+
+
+
+
 //parent class Object here
 Object::Object(PMathO::Vec2D position, PColliderO::Collider *mesh) : position(position), mesh(mesh) {}
 
@@ -32,7 +36,9 @@ const PColliderO::Collider* Object::get_collider() const{
 	return mesh;
 }
 
-
+double const Object::get_last_update_time_sec() const {
+	return this->last_update_time_sec;
+}
 
 //MovebleObject here
 
