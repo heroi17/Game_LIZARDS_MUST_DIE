@@ -24,19 +24,60 @@ Collision::Collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Obje
 
 }
 bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2) {
-	double time_when_stop_obj1 = 1.;
-	double time_when_stop_obj2 = 1.; 
 	if (obj1->get_ptr_speed()->get_lenth()==0 and obj2->get_ptr_speed()->get_lenth() == 0) {
 		return false;
 	}
 	else if (obj1->get_ptr_speed()->get_lenth() != 0 and obj2->get_ptr_speed()->get_lenth() == 0) {
+		double time1 = obj1->get_last_update_time_sec();
+		double time2 = obj2->get_last_update_time_sec();
+		PMathO::Vec2D pos1_start(0, 0);
+		PMathO::Vec2D pos2_start(0, 0);
+		if (time1 > time2) {
+			pos1_start = obj1->get_position();
+			pos2_start = obj2->get_position_at_time(time1);
+		}
+		else {
+			pos2_start = obj2->get_position();
+			pos1_start = obj1->get_position_at_time(time2);
+		}
 
+		//find position pos_1_stop
+		PMathO::Vec2D friction_acceleration  = obj1->get_friction_acceleration();
+		double how_time_to_stop = obj1->get_speed().get_lenth() / friction_acceleration.get_lenth();
+		PMathO::Vec2D pos1_stop = pos1_start + obj1->get_speed() * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
+		
+
+		//find intersect covverages or not
+		PMathO::Section2D line1(pos1_start, pos1_stop);
+		double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
+		if (line1.get_distance_to_point(pos2_start) < min_distanse) {
+			return true;
+		}
+		return false;
 	}
 	else if (obj1->get_ptr_speed()->get_lenth() == 0 and obj2->get_ptr_speed()->get_lenth() != 0) {
+		PMathO::Vec2D pos1_start = obj1->get_position();
+		PMathO::Vec2D pos2_start = obj2->get_position();
 
+		//find position pos_1_stop
+		PMathO::Vec2D friction_acceleration = obj2->get_friction_acceleration();
+		double how_time_to_stop = obj2->get_speed().get_lenth() / friction_acceleration.get_lenth();
+		PMathO::Vec2D pos2_stop = pos1_start + obj2->get_speed() * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
+
+
+		//find intersect covverages or not
+		PMathO::Section2D line1(pos2_start, pos2_stop);
+		double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
+		if (line1.get_distance_to_point(pos2_start) < min_distanse) {
+			return true;
+		}
+		return false;
+		return false;
 	}
 	else {
-
+		// here both object are moveing
+		//
+		return false;
 	}
 	return false;//доделать
 }

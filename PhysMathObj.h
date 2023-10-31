@@ -25,7 +25,7 @@ namespace PMathO {
 		Vec2D operator*=(const Vec2D& other);
 
 	};
-	struct Line2D {
+	struct Section2D {
 	private:
 		Vec2D A;
 		Vec2D B;
@@ -34,7 +34,8 @@ namespace PMathO {
 		double lenth;
 		void position_update();
 	public:
-		Line2D(Vec2D A, Vec2D B);
+		Section2D(Vec2D A, Vec2D B);
+		double get_distance_to_point(Vec2D point);
 	};
 }
 #endif /* PhysMathObj */

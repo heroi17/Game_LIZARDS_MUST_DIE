@@ -68,10 +68,16 @@ Vec2D Vec2D::operator*=(const Vec2D& other) {
 	return *this;
 }
 
-void Line2D::position_update() { lenth = sqrt(x_lenth * x_lenth + y_lenth * y_lenth); }
+void Section2D::position_update() { lenth = sqrt(x_lenth * x_lenth + y_lenth * y_lenth); }
 
-Line2D::Line2D(Vec2D A, Vec2D B) : A(A), B(B) {
+Section2D::Section2D(Vec2D A, Vec2D B) : A(A), B(B) {
 	x_lenth = B.get_x() - A.get_x();
 	y_lenth = B.get_y() - A.get_y();
 	position_update();
+}
+
+
+double Section2D::get_distance_to_point(Vec2D point) {
+
+	return 1;
 }
