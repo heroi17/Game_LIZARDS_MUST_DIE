@@ -25,70 +25,46 @@ Collision::Collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Obje
 }
 
 bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2) {
-	if (obj1->get_ptr_speed()->get_lenth()==0 and obj2->get_ptr_speed()->get_lenth() == 0) {
+	
+	
+	//ve can do not use it but it get optimisation \V/
+	if (obj1->get_ptr_speed()->get_lenth() == 0 and obj2->get_ptr_speed()->get_lenth() == 0) {
 		return false;
 	}
-	else if (obj1->get_ptr_speed()->get_lenth() != 0 and obj2->get_ptr_speed()->get_lenth() == 0) {
-		double time1 = obj1->get_last_update_time_sec();
-		double time2 = obj2->get_last_update_time_sec();
-		PMathO::Vec2D pos1_start(0, 0);
-		PMathO::Vec2D pos2_start(0, 0);
-		if (time1 > time2) {
-			pos1_start = obj1->get_position();
-			pos2_start = obj2->get_position_at_time(time1);
+
+	// \V/ get points of two lines
+	PMathO::Vec2D pos1_start = obj1->get_position_at_time(aftertime);
+	PMathO::Vec2D pos2_start = obj2->get_position_at_time(aftertime);
+	PMathO::Vec2D pos1_stop(0, 0);
+	PMathO::Vec2D pos2_stop(0, 0);
+	//
+
+	// \V/     find pos1_stop, pos2_stop
+	{
+		double how_time_to_stop_1 = obj1->get_how_time_to_stop();
+		if (how_time_to_stop_1 == -1.0) {
+			pos1_stop = pos1_start + obj1->get_speed() * 1.0E200;
 		}
 		else {
-			pos2_start = obj2->get_position();
-			pos1_start = obj1->get_position_at_time(time2);
+			pos1_stop = obj1->get_position_at_time(obj1->get_last_update_time_sec() + how_time_to_stop_1);
 		}
 
-		//find position pos_1_stop
-		PMathO::Vec2D friction_acceleration  = obj1->get_friction_acceleration();
-		double how_time_to_stop = obj1->get_speed().get_lenth() / friction_acceleration.get_lenth();
-		PMathO::Vec2D pos1_stop = pos1_start + obj1->get_speed() * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
-		
-
-		//find intersect covverages or not
-		PMathO::Section2D line1(pos1_start, pos1_stop);
-		double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
-		if (line1.get_distance_to_point(pos2_start) < min_distanse) {
-			return true;
-		}
-		return false;
-	}
-	else if (obj1->get_ptr_speed()->get_lenth() == 0 and obj2->get_ptr_speed()->get_lenth() != 0) {
-		double time1 = obj1->get_last_update_time_sec();
-		double time2 = obj2->get_last_update_time_sec();
-		PMathO::Vec2D pos1_start(0, 0);
-		PMathO::Vec2D pos2_start(0, 0);
-		if (time1 > time2) {
-			pos1_start = obj1->get_position();
-			pos2_start = obj2->get_position_at_time(time1);
+		double how_time_to_stop_2 = obj2->get_how_time_to_stop();
+		if (how_time_to_stop_2 == -1.0) {
+			pos2_stop = pos2_start + obj2->get_speed() * 1.0E200;
 		}
 		else {
-			pos2_start = obj2->get_position();
-			pos1_start = obj1->get_position_at_time(time2);
+			pos2_stop = obj2->get_position_at_time(obj2->get_last_update_time_sec() + how_time_to_stop_1);
 		}
-		//find position pos_1_stop
-		PMathO::Vec2D friction_acceleration = obj2->get_friction_acceleration();
-		double how_time_to_stop = obj2->get_speed().get_lenth() / friction_acceleration.get_lenth();
-		PMathO::Vec2D pos2_stop = pos1_start + obj2->get_speed() * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
-
-
-		//find intersect covverages or not
-		PMathO::Section2D line1(pos2_start, pos2_stop);
-		double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
-		if (line1.get_distance_to_point(pos2_start) < min_distanse) {
-			return true;
-		}
-		return false;
 	}
-	else {
-		// here both object are moveing
-		//
-		return false;
+	// /A\
+
+	//find intersect covverages or not
+	double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
+	if (PMathO::Section2D(pos1_start, pos1_stop).get_distance_to_point(pos2_start) < min_distanse) {
+		return true;
 	}
-	return false;//доделать
+	return false;
 }
 
 double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
@@ -172,17 +148,19 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 	update speed(because friction and another things)*/
 	double time_to_sec = time_to_msec / 1000.;
 	while (collision_header.next_collision != 0 && collision_header.next_collision->time_when_collision_sec < time_to_sec) {//get first future collision in collision timeline
-		//make_new_mehanicks_parameter_for
-		/*here we go firstly to first time collision in linked_list_collision
-		remake speed after tuching object 
-		change collision_linked_lst*/
 		Collision* working_collision = collision_header.next_collision; //our working collision for one iteration of loop
 		working_collision->detach();//we are detach collision from collision linkd lst
-		working_collision->ptr_obj_1->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//here we move obj1 to time when collision
-		working_collision->ptr_obj_2->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//and obj2 moveing too
-		solve_collision_between(working_collision->ptr_obj_1, working_collision->ptr_obj_2); // solve collision using two object: obj_1, obj_2
-		update_future_collision_for(working_collision->ptr_obj_1);                  //here we should update future collision for this object and solve problem with this chenges
-		update_future_collision_for(working_collision->ptr_obj_2);					//								     and for this object too
+		PO::Object* obj1 = working_collision->ptr_obj_1;
+		PO::Object* obj2 = working_collision->ptr_obj_2;
+		obj1->my_next_collision_pointer = 0;
+		obj2->my_next_collision_pointer = 0;
+
+		obj1->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//here we move obj1 to time when collision
+		obj2->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//and obj2 moveing too
+
+		solve_collision_between(obj1, obj2); // solve collision using two object: obj_1, obj_2
+		update_future_collision_for(obj1);                  //here we should update future collision for this object and solve problem with this chenges
+		update_future_collision_for(obj2);					//								     and for this object too
 		delete working_collision;//delete this collision because we already worked with it and it is in past now
 
 
@@ -198,8 +176,9 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 }
 
 void simulation_room::add_object(PO::Object* new_object) {
+	new_object->set_last_update_time_sec((double)clock() / 1000.);
 	objects.push_back(new_object); //add object
-	update_future_collision_for(new_object); //find collision if it'll be
+	//update_future_collision_for(new_object); //find collision if it'll be
 }
 
 void simulation_room::set_time_all_object(double new_time_sec) {

@@ -17,9 +17,14 @@ PMathO::Vec2D* Object::get_ptr_speed() {
 PMathO::Vec2D Object::get_speed() const {
 	return speed;
 }
+
 PMathO::Vec2D Object::get_friction_acceleration() const{
+	if (speed.get_lenth() == 0) {
+		return speed; // он равен нулю мы и отправляем нулевой вектор ускорения
+	}
 	return speed * (mass * (-9.8) * FrictCoef / speed.get_lenth());
 }
+
 const PMathO::Vec2D Object::get_position() const  {
 	return this->position;
 }
@@ -57,6 +62,7 @@ double Object::get_how_time_to_stop() {
 	if (friction_acceleration == 0) return -1.0;
 	return speed.get_lenth() / friction_acceleration;
 }
+
 PMathO::Vec2D Object::get_position_at_time(double to_time_sec) {
 	if (speed.get_lenth() == 0) return position;
 	double delta_time = to_time_sec - last_update_time_sec;
