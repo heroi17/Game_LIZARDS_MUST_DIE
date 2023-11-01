@@ -23,6 +23,7 @@ void Collision::detach() {
 Collision::Collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Object* ptr_obj_2): time_when_collision_sec(time_when_collision), ptr_obj_1(ptr_obj_1), ptr_obj_2(ptr_obj_2){
 
 }
+
 bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2) {
 	if (obj1->get_ptr_speed()->get_lenth()==0 and obj2->get_ptr_speed()->get_lenth() == 0) {
 		return false;
@@ -56,9 +57,18 @@ bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, P
 		return false;
 	}
 	else if (obj1->get_ptr_speed()->get_lenth() == 0 and obj2->get_ptr_speed()->get_lenth() != 0) {
-		PMathO::Vec2D pos1_start = obj1->get_position();
-		PMathO::Vec2D pos2_start = obj2->get_position();
-
+		double time1 = obj1->get_last_update_time_sec();
+		double time2 = obj2->get_last_update_time_sec();
+		PMathO::Vec2D pos1_start(0, 0);
+		PMathO::Vec2D pos2_start(0, 0);
+		if (time1 > time2) {
+			pos1_start = obj1->get_position();
+			pos2_start = obj2->get_position_at_time(time1);
+		}
+		else {
+			pos2_start = obj2->get_position();
+			pos1_start = obj1->get_position_at_time(time2);
+		}
 		//find position pos_1_stop
 		PMathO::Vec2D friction_acceleration = obj2->get_friction_acceleration();
 		double how_time_to_stop = obj2->get_speed().get_lenth() / friction_acceleration.get_lenth();
@@ -72,7 +82,6 @@ bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, P
 			return true;
 		}
 		return false;
-		return false;
 	}
 	else {
 		// here both object are moveing
@@ -81,6 +90,7 @@ bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, P
 	}
 	return false;//доделать
 }
+
 double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 
 
@@ -283,70 +293,12 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 	//если find_collider!=0 то у нас все пучком и мы должны создать коллизию и починить все остальное
 	if (find_collider != 0) {//if will_no_collision
 		//if we find collision_obj
-		if (find_collider->my_next_collision_pointer == 0 && updater_obj->my_next_collision_pointer==0) {
-			Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
-			updater_obj->my_next_collision_pointer = new_collision;
-			find_collider->my_next_collision_pointer = new_collision;
-			collision_header.insert_collision(new_collision);
-		}
-		else if (find_collider->my_next_collision_pointer != 0 && updater_obj->my_next_collision_pointer == 0) {
-			Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
-			PO::Object* second_broken_collision;
+		
+		Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
+		PO::Object* second_broken_collision_1=0;
+		PO::Object* second_broken_collision_2=0;
 
-
-			//find collider of find_collider->my_next_collision_pointer
-			if (find_collider == static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1) {
-				second_broken_collision = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_2;
-			}
-			else {
-				second_broken_collision = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1;
-			}
-			delete find_collider->my_next_collision_pointer;
-			second_broken_collision->my_next_collision_pointer = 0;
-
-
-
-
-			updater_obj->my_next_collision_pointer = new_collision;
-			find_collider->my_next_collision_pointer = new_collision;
-			collision_header.insert_collision(new_collision); //+ solve collision
-
-
-
-			update_future_collision_for(second_broken_collision);
-		}
-		else if (find_collider->my_next_collision_pointer == 0 && updater_obj->my_next_collision_pointer != 0) {
-			Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
-			PO::Object* second_broken_collision;
-
-
-			
-
-			if (updater_obj == static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_1) {
-				second_broken_collision = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_2;
-			}
-			else {
-				second_broken_collision = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_1;
-			}
-			delete updater_obj->my_next_collision_pointer;
-			second_broken_collision->my_next_collision_pointer = 0;
-
-
-
-			updater_obj->my_next_collision_pointer = new_collision;
-			find_collider->my_next_collision_pointer = new_collision;
-			collision_header.insert_collision(new_collision); //+ solve collision
-
-
-			update_future_collision_for(second_broken_collision);
-		}
-		else{
-			Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
-			PO::Object* second_broken_collision_1;
-			PO::Object* second_broken_collision_2;
-
-			
-
+		if (find_collider->my_next_collision_pointer != 0) {
 			if (find_collider == static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1) {
 				second_broken_collision_1 = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_2;
 			}
@@ -356,25 +308,28 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 			delete find_collider->my_next_collision_pointer;
 			second_broken_collision_1->my_next_collision_pointer = 0;
 
-
+		}
+		if (updater_obj->my_next_collision_pointer != 0) {
 			if (updater_obj == static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_1) {
 				second_broken_collision_2 = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_2;
 			}
 			else {
 				second_broken_collision_2 = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_1;
 			}
-			delete static_cast<Collision*>(updater_obj->my_next_collision_pointer);
+			delete static_cast<Collision*>(updater_obj->my_next_collision_pointer);//коллизия не состояится и мы ее удоляем
 			second_broken_collision_2->my_next_collision_pointer = 0;
+		}
 
+		updater_obj->my_next_collision_pointer = new_collision;
+		find_collider->my_next_collision_pointer = new_collision;
+		collision_header.insert_collision(new_collision);
 
-			updater_obj->my_next_collision_pointer = new_collision;
-			find_collider->my_next_collision_pointer = new_collision;
-			collision_header.insert_collision(new_collision); //+ solve collision
-
-
+		if (second_broken_collision_1!=0) { //если существует обьект со сломанной колизией то мы его обновляем
 			update_future_collision_for(second_broken_collision_1);
-			update_future_collision_for(second_broken_collision_2);
+			}
 
+		if (second_broken_collision_2!=0) { //если существует обьект со сломанной колизией то мы его обновляем
+			update_future_collision_for(second_broken_collision_2);
 		}
 	}
 }

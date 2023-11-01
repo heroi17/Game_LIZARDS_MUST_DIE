@@ -77,7 +77,16 @@ Section2D::Section2D(Vec2D A, Vec2D B) : A(A), B(B) {
 }
 
 
-double Section2D::get_distance_to_point(Vec2D point) {
-
-	return 1;
+double Section2D::get_distance_to_point(Vec2D C) {
+	double lenthAC = Section2D(A, C).lenth;
+	double lenthBC = Section2D(B, C).lenth;
+	double lenthAB = lenth;
+	double alfa, beta, gama;
+	alfa = acos((pow(lenthAC, 2) + pow(lenthAB, 2) - pow(lenthBC, 2)) / (2 * lenthAC * lenthAB));
+	beta = acos((pow(lenthBC, 2) + pow(lenthAB, 2) - pow(lenthAC, 2)) / (2 * lenthBC * lenthAB));
+	gama = acos((pow(lenthBC, 2) + pow(lenthAC, 2) - pow(lenthAB, 2)) / (2 * lenthBC * lenthAC));
+	if (beta > PI/2) return lenthBC;
+	else if (alfa > PI/2) return lenthAC;
+	else return lenthBC * sin(beta);
+	return 0;
 }

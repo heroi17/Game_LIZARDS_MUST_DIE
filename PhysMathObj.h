@@ -2,6 +2,7 @@
 #ifndef PhysMathObj
 #define PhysMathObj
 namespace PMathO {
+	const double PI = 3.1415926535897932384626433832795028841971;
 	struct Vec2D {
 	private:
 		double x;

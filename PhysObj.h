@@ -36,7 +36,7 @@ namespace PO {
 		bool get_IsCollisionDo() const;
 		const PMathO::Vec2D get_position() const;
 		char get_type() const;
-		double get_time_when_stop();
+		double get_how_time_to_stop();
 		PMathO::Vec2D get_position_at_time(double time_sec);
 	};
 

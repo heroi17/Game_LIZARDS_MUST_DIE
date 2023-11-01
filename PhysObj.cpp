@@ -31,7 +31,7 @@ void Object::set_last_update_time_sec(double new_time_sec) {}
 void Object::set_new_speed(PMathO::Vec2D new_speed) {}
 
 void Object::set_new_position(PMathO::Vec2D new_position){
-	position = new_position;
+	position = new_position; // it's actually should update collision when phisic_simulating wait next loop
 }
 
 void Object::collision_on() { IsCollisionDo = true; }
@@ -52,16 +52,27 @@ double const Object::get_last_update_time_sec() const {
 	return this->last_update_time_sec;
 }
 
-
-PMathO::Vec2D Object::get_position_at_time(double time) {
-	if (time < last_update_time_sec) return position;
-	return position;
+double Object::get_how_time_to_stop() {
+	double friction_acceleration = get_friction_acceleration().get_lenth();
+	if (friction_acceleration == 0) return -1.0;
+	return speed.get_lenth() / friction_acceleration;
+}
+PMathO::Vec2D Object::get_position_at_time(double to_time_sec) {
+	if (speed.get_lenth() == 0) return position;
+	double delta_time = to_time_sec - last_update_time_sec;
+	if (delta_time < 0) return position;
+	PMathO::Vec2D friction_acceleration = get_friction_acceleration();
+	if (friction_acceleration.get_lenth() == 0) return position + speed * delta_time;
+	double how_time_to_stop = get_how_time_to_stop();
+	if (how_time_to_stop > delta_time) {
+		return position + speed * delta_time + friction_acceleration * delta_time * delta_time * 0.5;
+	}
+	else {
+		return position + speed * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
+	}
 	
 }
 
-double Object::get_time_when_stop() {
-	return 0;
-}
 //MovebleObject here
 
 MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider* mesh, double NewMass = 1., double NewFrictCoef = 1., PMathO::Vec2D StartSpeed = PMathO::Vec2D(0., 0.)) : Object(position, mesh) {
@@ -75,17 +86,14 @@ MovebleObject::MovebleObject(PMathO::Vec2D position, PColliderO::Collider* mesh,
 void MovebleObject::update_mechanics_parameters(double to_time_sec){
 	//here just test for start course i don't now will be or not force;
 	double delta_time = to_time_sec - this->last_update_time_sec;//add frict to finish this part course here we are not use frict
-	if (speed.get_lenth() != 0) {
-		PMathO::Vec2D friction_acceleration = get_friction_acceleration();
-		double how_time_to_stop = speed.get_lenth() / friction_acceleration.get_lenth();
-		if (last_update_time_sec + how_time_to_stop > to_time_sec) {
-			position += speed * delta_time + friction_acceleration * delta_time * delta_time * 0.5;
-			speed += friction_acceleration * delta_time;
-		}
-		else {
-			position += speed * how_time_to_stop + friction_acceleration * how_time_to_stop * how_time_to_stop * 0.5;
-			speed *= 0;
-		}
+	//position = get_position_at_time(to_time_sec);
+
+	PMathO::Vec2D friction_acceleration = get_friction_acceleration();
+	double how_time_to_stop = get_how_time_to_stop();
+	position = get_position_at_time(to_time_sec);
+	if (how_time_to_stop != -1.0) {
+		if (how_time_to_stop > delta_time) speed += friction_acceleration * delta_time;
+		else speed *= 0;
 	}
 	this->last_update_time_sec = to_time_sec;
 }
@@ -96,7 +104,7 @@ void MovebleObject::set_last_update_time_sec(double new_time_sec) {//do not use 
 
 
 void MovebleObject::set_new_speed(PMathO::Vec2D new_speed) {
-	this->speed = new_speed;
+	this->speed = new_speed;// it's actually should update collision when phisic_simulating wait next loop
 };
 
 //StaticObject here
