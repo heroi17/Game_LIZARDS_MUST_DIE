@@ -7,11 +7,11 @@
 void MapFillingText();
 
 int main() {
-    //test1();
+    test1();
 
-    int width = 5; int height = 5;
-    GameLogic::Map map(width, height);
-    map.GetRoom(1, 1)->Show();
+    //int width = 5; int height = 5;
+    //GameLogic::Map map(width, height);
+    //map.GetRoom(1, 1)->Show();
 
     return 0;
 }

@@ -4,7 +4,10 @@
 namespace PMathO {
 	const double PI = 3.1415926535897932384626433832795028841971;
 
-	double* solve3(double A, double B, double C, double D);
+	void solve3(double * ptr, double A, double B, double C, double D);
+	void solve2(double * ptr, double A, double B, double C);
+	void solve1(double* ptr, double A, double B);
+	double croot(double x);
 	struct Vec2D {
 	private:
 		double x;

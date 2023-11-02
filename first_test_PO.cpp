@@ -1,4 +1,5 @@
 #include "first_test_PO.h"
+//#include "Controller.h"
 double rand_between(double start = -1., double end = 1.) {
     // Создание генератора случайных чисел
     std::random_device rd;
@@ -13,7 +14,7 @@ int test1() {
 
     //initialisation
     int update_rate = 20;
-    int moveble_obj = 10;
+    int moveble_obj = 5;
     int static_obj = 100;
     PSimulation::simulation_room room1(update_rate);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -42,6 +43,8 @@ int test1() {
     PO::Object * obg = new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 1., PMathO::Vec2D(0, 0));
     room1.add_object(obg);
     room1.StartSimulation();
+    //Controller controller;
+    //controller.AssertControllOver(static_cast<PO::MovebleObject*>(obg));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     obg->set_new_speed(PMathO::Vec2D(105., 105.));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));

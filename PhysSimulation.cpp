@@ -26,71 +26,109 @@ Collision::Collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Obje
 
 bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2) {
 	
-	
-	//ve can do not use it but it get optimisation \V/
-	if (obj1->get_ptr_speed()->get_lenth() == 0 and obj2->get_ptr_speed()->get_lenth() == 0) {
-		return false;
+	double time1 = obj1->get_last_update_time_sec() + obj1->get_how_time_to_stop();
+	double time2 = obj2->get_last_update_time_sec() + obj2->get_how_time_to_stop();
+
+	double end_timeline_1 = time1;
+	double end_timeline_2 = time2;
+	bool O1StopBefoO2 = true;
+	if (time1 > time2) {
+		end_timeline_1 = time2;
+		end_timeline_2 = time1;
+		O1StopBefoO2 = false;
 	}
+	//				 \V/ (end_timeline_2)		 \V/     (end_timeline_2)
+	//obj1------------>							  |
+	//				  |						      |
+	//obj2---------------------------------------->
+	//				 /A\ stop obj1               /A\ stop obj2
 
-	// \V/ get points of two lines
-	PMathO::Vec2D pos1_start = obj1->get_position_at_time(aftertime);
-	PMathO::Vec2D pos2_start = obj2->get_position_at_time(aftertime);
-	PMathO::Vec2D pos1_stop(0, 0);
-	PMathO::Vec2D pos2_stop(0, 0);
-	//
 
-	// \V/     find pos1_stop, pos2_stop
-	{
-		double how_time_to_stop_1 = obj1->get_how_time_to_stop();
-		if (how_time_to_stop_1 == -1.0) {
-			pos1_stop = pos1_start + obj1->get_speed() * 1.0E200;
-		}
-		else {
-			pos1_stop = obj1->get_position_at_time(obj1->get_last_update_time_sec() + how_time_to_stop_1);
-		}
+	if (aftertime > end_timeline_2) return false;
+	//оба остановились /A\
 
-		double how_time_to_stop_2 = obj2->get_how_time_to_stop();
-		if (how_time_to_stop_2 == -1.0) {
-			pos2_stop = pos2_start + obj2->get_speed() * 1.0E200;
+	double min_distanse_for_true = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
+	if (aftertime <= end_timeline_1) {
+		PMathO::Vec2D pos1_aftertime = obj1->get_position_at_time(aftertime);
+		PMathO::Vec2D pos2_aftertime = obj2->get_position_at_time(aftertime);
+
+
+		PMathO::Vec2D D_pos_aftertime = pos1_aftertime - pos2_aftertime;
+		PMathO::Vec2D speed1 = obj1->get_speed() - obj1->get_acceleration() * (aftertime - obj1->get_last_update_time_sec());
+		PMathO::Vec2D speed2 = obj2->get_speed() - obj2->get_acceleration() * (aftertime - obj2->get_last_update_time_sec());
+		PMathO::Vec2D D_speed_aftertime = speed1 - speed2;
+		PMathO::Vec2D D_acceleration_aftertime = obj1->get_acceleration() - obj2->get_acceleration();
+		// we should find min(pos([time_start, time_end]).get_lenth())
+		//whe pos(t) = D_pos_start + D_speed * t + D_acceleration * t * t * 0.5
+		//derivative_of_lenth_in_squere = (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)
+		//derivative_of_lenth_in_squere=0
+		// (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)=0 <=>
+		// <=> (2xVx - 2yVy) + t(2xax - 2yay + 2VxVx - 2VyVy) + tt(3Vxax - 3vyay) + ttt(axax-ayay) = 0
+
+		double x = D_pos_aftertime.get_x();
+		double y = D_pos_aftertime.get_y();
+		double Vx = D_speed_aftertime.get_x();
+		double Vy = D_speed_aftertime.get_y();
+		double Ax = D_acceleration_aftertime.get_x();
+		double Ay = D_acceleration_aftertime.get_y();
+
+		double a1 = 2 * (x * Vx - y * Vy);
+		double a2 = 2 * (x * Ax - y * Ay + Vx * Vx - Vy * Vy);
+		double a3 = 3 * (Vx * Ax - Vy * Ay);
+		double a4 = Ax * Ax - Ay * Ay;
+		double solves[4];
+		PMathO::solve3(solves, a1, a2, a3, a4);
+		for (int i = 1; i <= solves[0]; i++) {
+			if (0 < solves[i] && solves[i] <= end_timeline_1 - aftertime) {
+				double distance = (obj1->get_position_at_time(aftertime + solves[i]) - obj2->get_position_at_time(aftertime + solves[i])).get_lenth();
+				if (distance < min_distanse_for_true) return true;
+			}
 		}
-		else {
-			pos2_stop = obj2->get_position_at_time(obj2->get_last_update_time_sec() + how_time_to_stop_1);
-		}
+		double distance_at_end_timeline_1 = (obj1->get_position_at_time(end_timeline_1) - obj2->get_position_at_time(end_timeline_1)).get_lenth();
+		if (distance_at_end_timeline_1 < min_distanse_for_true) return true;
+		if (D_pos_aftertime.get_lenth() < min_distanse_for_true) return true;
 	}
-	// /A\
-	//у нас будет 3 этапа: когда оба едут, когда 1 едет, а второй стоит, когда оба стоят
-	PMathO::Vec2D D_pos_start = pos1_start - pos2_start;
-	PMathO::Vec2D D_speed = obj1->get_speed() - obj2->get_speed();
-	PMathO::Vec2D D_acceleration = obj1->get_acceleration() - obj2->get_acceleration();
-	// we should find min(pos([time_start, time_end]).get_lenth())
-	//whe pos(t) = D_pos_start + D_speed * t + D_acceleration * t * t * 0.5
-	//derivative_of_lenth_in_squere = (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)
-	//derivative_of_lenth_in_squere=0
-	// (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)=0 <=>
-	// <=> (2xVx - 2yVy) + t(2xax - 2yay + 2VxVx - 2VyVy) + tt(3Vxax - 3vyay) + ttt(axax-ayay) = 0
-	double x = D_pos_start.get_x();
-	double Vx = D_speed.get_x();
-	double Ax = D_acceleration.get_x();
-	double y = D_pos_start.get_y();
-	double Vy = D_speed.get_y();
-	double Ay = D_acceleration.get_y();
+	// никто не остановился /A\
+
+
+	//остановился только 1 из них
+	PMathO::Vec2D speed1(0, 0);
+	PMathO::Vec2D speed2(0, 0);
+	PMathO::Vec2D acceleration1(0, 0);
+	PMathO::Vec2D acceleration2(0, 0);
+	if (O1StopBefoO2) {
+		speed2 = obj2->get_speed() - obj2->get_acceleration() * (aftertime - obj2->get_last_update_time_sec());
+		acceleration2 = obj2->get_acceleration();
+	}
+	else {
+		speed1 = obj1->get_speed() - obj1->get_acceleration() * (aftertime - obj1->get_last_update_time_sec());
+		acceleration1 = obj1->get_acceleration();
+	}
+	PMathO::Vec2D D_pos_aftertime = obj1->get_position_at_time(end_timeline_1) - obj2->get_position_at_time(end_timeline_1);
+	PMathO::Vec2D D_speed_aftertime = speed1 - speed2;
+	PMathO::Vec2D D_acceleration_aftertime = acceleration1 - acceleration2;
+	double x = D_pos_aftertime.get_x();
+	double y = D_pos_aftertime.get_y();
+	double Vx = D_speed_aftertime.get_x();
+	double Vy = D_speed_aftertime.get_y();
+	double Ax = D_acceleration_aftertime.get_x();
+	double Ay = D_acceleration_aftertime.get_y();
+
 	double a1 = 2 * (x * Vx - y * Vy);
 	double a2 = 2 * (x * Ax - y * Ay + Vx * Vx - Vy * Vy);
 	double a3 = 3 * (Vx * Ax - Vy * Ay);
 	double a4 = Ax * Ax - Ay * Ay;
-	//double* ptr = PMathO::solve3(a1, a2, a3, a4);//ищем моменты когда производная равна 0
-	//получили 3 момента времени строим мноество моментов времени: [начало, t1, t2, t3, конец]
-	// ищим позиции в эти моменты и находим в кокой момент времени это расстояние минимально и сравниваем полученное число с min_find_distance чуть ниже
-
-	double min_find_distance = 0;
-	
-	
-	
-	//find intersect covverages or not
-	double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
-	if (PMathO::Section2D(pos1_start, pos1_stop).get_distance_to_point(pos2_start) < min_distanse) {
-		return true;
+	double solves[4];
+	PMathO::solve3(solves, a1, a2, a3, a4);
+	for (int i = 1; i <= solves[0]; i++) {
+		if (0 < solves[i] && solves[i] <= end_timeline_2 - end_timeline_1) {
+			double distance = (obj1->get_position_at_time(end_timeline_1 + solves[i]) - obj2->get_position_at_time(end_timeline_1 + solves[i])).get_lenth();
+			if (distance < min_distanse_for_true) return true;
+		}
 	}
+	double distance_at_end_timeline_2 = (obj1->get_position_at_time(end_timeline_2) - obj2->get_position_at_time(end_timeline_2)).get_lenth();
+	if (distance_at_end_timeline_2 < min_distanse_for_true) return true;
+	if (D_pos_aftertime.get_lenth() < min_distanse_for_true) return true;
 	return false;
 }
 
@@ -233,7 +271,7 @@ void simulation_room::simulationCicle() {
 		UpdateOneTic(next);//give that time to update we want
 		end = clock();
 		time_of_work = end - start;
-		ms_time_to_wait = (next - clock());//time for waiting
+		ms_time_to_wait = (next - (double)clock());//time for waiting
 		if (ms_time_to_wait > 0) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(ms_time_to_wait));//wait for next tic
 		}

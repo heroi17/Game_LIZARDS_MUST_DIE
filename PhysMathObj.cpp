@@ -2,17 +2,91 @@
 #include "PhysMathObj.h"
 using namespace PMathO;
 
-
-double* solve3(double A, double B, double C, double D) {
-	//here we are solweing Axxx+Bxx+Cx+D=0
-	//если 2 решения возвращаем 2 и за ним 2 решения(целочисленных)
-	//если 1 решение то 1 и за ним 1 решение(целочисленных)
-	//если 3 решения то 3 и за ним 3 решения(целочисленных)
-	//если 3 решения то 0 и за ним 0 решения(целочисленных)
-	double* ptr = new double[1] {0};
-	return ptr;//для начала всегда 0
+double PMathO::croot(double x) {
+	if (x < 0)
+		return -pow(-x, 1.0 / 3.0);
+	return pow(x, 1.0 / 3.0);
 }
 
+
+
+/// <summary>
+/// Solves a polynomial of the 3rd degree.
+/// Put solves in double massive, ptr[0] = how many valid solutions. ptr[1-3] - solves.
+/// </summary>
+/// <param name="ptr">: pointer on solution lst.</param>
+/// <param name="A">: The coefficient at the 3rd degree.</param>
+/// <param name="B">: The coefficient at the 2rd degree.</param>
+/// <param name="C">: The coefficient at the 1rd degree.</param>
+/// <param name="D">: The free coefficient.</param>
+/// <returns>Void.</returns>
+void PMathO::solve3(double* ptr, double A, double B, double C, double D){
+	if (A == 0) {
+		return solve2(ptr, B, C, D);
+	}
+	double p = (3.0 * A * C - B * B) / (3.0 * A * A);
+	double q = (2.0 * B * B * B - 9.0 * A * B * C + 27.0 * A * A * D) / (27.0 * A * A * A);
+	double S = (q * q / 4.0) + (p * p * p / 27.0);
+	double F;
+	if (q == 0)
+		F = PI / 2.0;
+	if (q < 0)
+		F = atan(-2.0 * sqrt(-S) / q);
+	if (q > 0)
+		F = atan(-2.0 * sqrt(-S) / q) + PI;
+	if (S < 0) {
+		ptr[0] = 3;
+		ptr[1] = 2.0 * sqrt(-p / 3.0) * cos(F / 3.0) - B / (3.0 * A);
+		ptr[2] = 2.0 * sqrt(-p / 3.0) * cos((F / 3.0) + 2.0 * PI / 3.0) - B / (3.0 * A);
+		ptr[3] = 2.0 * sqrt(-p / 3.0) * cos((F / 3.0) + 4.0 * PI / 3.0) - B / (3.0 * A);
+	}
+	if (S == 0) {
+		ptr[0] = 2;
+		ptr[1] = 2.0 * croot(-q / 2.0) - B / (3.0 * A);
+		ptr[2] = -croot(-q / 2.0) - B / (3.0 * A);
+	}
+	if (S > 0) {
+		ptr[0] = 1;
+		ptr[1] = croot((-q / 2.0) + sqrt(S)) + croot((-q / 2.0) - sqrt(S)) - B / (3.0 * A);
+	}
+}
+
+void PMathO::solve2(double* ptr, double A, double B, double C) {
+	if (A == 0) {
+		return solve1(ptr, A, C);
+	}
+	double Dis = B * B - 4. * A * C;
+	if (Dis < 0.) {
+		*ptr = 0.;
+	}
+	else if (Dis > 0.) {
+		*ptr = 2.;
+		ptr[1] = (-B - sqrt(Dis)) / (2. * A);
+		ptr[2] = (-B + sqrt(Dis)) / (2. * A);
+	}
+	else {
+		*ptr = 1;
+		ptr[1] = -B / (2. * A);
+	}
+}
+
+void PMathO::solve1(double* ptr, double A, double B) {
+	if (A == 0. and B == 0.) {
+		*ptr = 1.;
+		ptr[1] = 0.;
+	}
+	else if (A==0.){
+		*ptr = 0.;
+	}
+	else if (B == 0.) {
+		*ptr = 1.;
+		ptr[1] = 0.;
+	}
+	else {
+		*ptr = 1.;
+		ptr[1] = -B / A;
+	}
+}
 
 
 
