@@ -21,7 +21,7 @@ namespace GameLogic
 		Item* GetRandomItemPreset();
 		Lizard* GetRandomLizardPreset();
 		
-		static bool isLeaderLocatrionAptained;
+		static bool isLeaderSpawned;
 		Map* _map;
 	};
 }

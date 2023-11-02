@@ -46,11 +46,10 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
 
         case 2: // a room with the boss
         {
-            if (isLeaderLocatrionAptained)
+            if (isLeaderSpawned)
             {
                 return GetRandomRoomPreset(coordinates); // sturtion recurtion if leader location is already spawned
-            } 
-
+            }
             std::vector<Entity*> enemies = {};
 
             Entity* lizard = new Lizard(Leader);
@@ -58,7 +57,7 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
 
             Item* item = GetRandomItemPreset();
 
-            isLeaderLocatrionAptained = true;
+            isLeaderSpawned = true;
             _map->SetLeaderLocation(coordinates);
 
             return new Room(enemies, item);
@@ -74,7 +73,8 @@ Room* GameLogic::RoomGenerator::GetRandomRoomPreset(std::pair<size_t, size_t> co
 
 Item* GameLogic::RoomGenerator::GetRandomItemPreset()
 {
-    int randomItemId = rand() % 6;
+    int k = 6;
+    int randomItemId = rand() % k;
 
     switch (randomItemId)
     {
@@ -98,7 +98,7 @@ Item* GameLogic::RoomGenerator::GetRandomItemPreset()
 
         case 3:
         {
-            Item* item = new PowerupItem("HP up", "Your max heath is incresed", MaxHealthBoost);
+            Item* item = new InformationItem("Boss location", "You aptained an information about boss location", LeaderLocation, _map);
             return item;
         }
 
@@ -110,13 +110,8 @@ Item* GameLogic::RoomGenerator::GetRandomItemPreset()
 
         case 5:
         {
-            if (isLeaderLocatrionAptained)
-            {
-                Item* item = new InformationItem("Boss location", "You aptained an information about boss location", LeaderLocation, _map);
-                return item;
-            }
-            isLeaderLocatrionAptained = false;
-            
+            Item* item = new PowerupItem("HP up", "Your max heath is incresed", MaxHealthBoost);
+            return item;
         }
 
     }
@@ -127,5 +122,5 @@ Lizard* GameLogic::RoomGenerator::GetRandomLizardPreset()
     return nullptr;
 }
 
-bool GameLogic::RoomGenerator::isLeaderLocatrionAptained = false;
+bool GameLogic::RoomGenerator::isLeaderSpawned = false;
 

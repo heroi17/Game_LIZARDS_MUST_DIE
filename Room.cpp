@@ -51,6 +51,16 @@ Room& GameLogic::Room::operator=(const Room& otherRoom)
 	return *this;
 }
 
+Item* GameLogic::Room::GetRewardItem()
+{
+	return _rewardItem;
+}
+
+std::vector<Entity*> GameLogic::Room::GetEnemies()
+{
+	return _enemies;
+}
+
 void GameLogic::Room::Show()
 {
 	int update_rate = 20;
@@ -77,17 +87,17 @@ void GameLogic::Room::Show()
 		_simulationRoom->add_object(new PO::StaticObject(pos, new PColliderO::CricleCollider(rand_between(4, 10.))));
 	}
 
+	_simulationRoom->add_object(new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 1., PMathO::Vec2D(0, 0)));
+
 	//start physic engine
 	console_1.StartOutput();
 	_simulationRoom->StartSimulation();
-	std::this_thread::sleep_for(std::chrono::milliseconds(4000));
 
-	_simulationRoom->add_object(new PO::StaticObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.)));
-	std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+	std::this_thread::sleep_for(std::chrono::minutes(5));
 
 	_simulationRoom->StopSimulation();
 	console_1.StopOutput();
 
-	delete _simulationRoom;
+	_simulationRoom->~simulation_room();
 	std::cout << "finish of work " << std::endl;
 }
