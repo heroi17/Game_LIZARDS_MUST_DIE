@@ -24,7 +24,7 @@ namespace PO {
 		Object(PMathO::Vec2D position, PColliderO::Collider* mesh);
 		PMathO::Vec2D* get_ptr_speed();
 		PMathO::Vec2D get_speed() const;
-		PMathO::Vec2D get_friction_acceleration() const;
+		PMathO::Vec2D get_acceleration() const;
 		void collision_on();
 		void collision_off();
 		double const get_last_update_time_sec() const;

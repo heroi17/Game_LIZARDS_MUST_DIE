@@ -18,7 +18,7 @@ PMathO::Vec2D Object::get_speed() const {
 	return speed;
 }
 
-PMathO::Vec2D Object::get_friction_acceleration() const{
+PMathO::Vec2D Object::get_acceleration() const{
 	if (speed.get_lenth() == 0) {
 		return speed; // он равен нулю мы и отправляем нулевой вектор ускорения
 	}
@@ -58,7 +58,7 @@ double const Object::get_last_update_time_sec() const {
 }
 
 double Object::get_how_time_to_stop() {
-	double friction_acceleration = get_friction_acceleration().get_lenth();
+	double friction_acceleration = get_acceleration().get_lenth();
 	if (friction_acceleration == 0) return -1.0;
 	return speed.get_lenth() / friction_acceleration;
 }
@@ -67,7 +67,7 @@ PMathO::Vec2D Object::get_position_at_time(double to_time_sec) {
 	if (speed.get_lenth() == 0) return position;
 	double delta_time = to_time_sec - last_update_time_sec;
 	if (delta_time < 0) return position;
-	PMathO::Vec2D friction_acceleration = get_friction_acceleration();
+	PMathO::Vec2D friction_acceleration = get_acceleration();
 	if (friction_acceleration.get_lenth() == 0) return position + speed * delta_time;
 	double how_time_to_stop = get_how_time_to_stop();
 	if (how_time_to_stop > delta_time) {
@@ -94,7 +94,7 @@ void MovebleObject::update_mechanics_parameters(double to_time_sec){
 	double delta_time = to_time_sec - this->last_update_time_sec;//add frict to finish this part course here we are not use frict
 	//position = get_position_at_time(to_time_sec);
 
-	PMathO::Vec2D friction_acceleration = get_friction_acceleration();
+	PMathO::Vec2D friction_acceleration = get_acceleration();
 	double how_time_to_stop = get_how_time_to_stop();
 	position = get_position_at_time(to_time_sec);
 	if (how_time_to_stop != -1.0) {

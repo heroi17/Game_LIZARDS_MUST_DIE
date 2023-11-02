@@ -6,8 +6,9 @@
 void MapFillingText();
 
 int main() {
-    //test1();
-
+    test1();
+    //GameLogic::Map map(5, 5);
+    //map.GetRoom(1, 2)->Show();
 
 
     return 0;
@@ -33,3 +34,4 @@ void MapFillingText()
         }
     }
 }
+

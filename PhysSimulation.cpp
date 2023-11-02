@@ -58,7 +58,34 @@ bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, P
 		}
 	}
 	// /A\
+	//у нас будет 3 этапа: когда оба едут, когда 1 едет, а второй стоит, когда оба стоят
+	PMathO::Vec2D D_pos_start = pos1_start - pos2_start;
+	PMathO::Vec2D D_speed = obj1->get_speed() - obj2->get_speed();
+	PMathO::Vec2D D_acceleration = obj1->get_acceleration() - obj2->get_acceleration();
+	// we should find min(pos([time_start, time_end]).get_lenth())
+	//whe pos(t) = D_pos_start + D_speed * t + D_acceleration * t * t * 0.5
+	//derivative_of_lenth_in_squere = (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)
+	//derivative_of_lenth_in_squere=0
+	// (2*X + 2*Vx*t + Ax*t*t)(Vx + Ax*t) + (2*Y + 2*Vy*t + Ay*t*t)(Vy + Ay*t)=0 <=>
+	// <=> (2xVx - 2yVy) + t(2xax - 2yay + 2VxVx - 2VyVy) + tt(3Vxax - 3vyay) + ttt(axax-ayay) = 0
+	double x = D_pos_start.get_x();
+	double Vx = D_speed.get_x();
+	double Ax = D_acceleration.get_x();
+	double y = D_pos_start.get_y();
+	double Vy = D_speed.get_y();
+	double Ay = D_acceleration.get_y();
+	double a1 = 2 * (x * Vx - y * Vy);
+	double a2 = 2 * (x * Ax - y * Ay + Vx * Vx - Vy * Vy);
+	double a3 = 3 * (Vx * Ax - Vy * Ay);
+	double a4 = Ax * Ax - Ay * Ay;
+	//double* ptr = PMathO::solve3(a1, a2, a3, a4);//ищем моменты когда производная равна 0
+	//получили 3 момента времени строим мноество моментов времени: [начало, t1, t2, t3, конец]
+	// ищим позиции в эти моменты и находим в кокой момент времени это расстояние минимально и сравниваем полученное число с min_find_distance чуть ниже
 
+	double min_find_distance = 0;
+	
+	
+	
 	//find intersect covverages or not
 	double min_distanse = obj1->get_collider()->get_coverage_radious() + obj2->get_collider()->get_coverage_radious();
 	if (PMathO::Section2D(pos1_start, pos1_stop).get_distance_to_point(pos2_start) < min_distanse) {

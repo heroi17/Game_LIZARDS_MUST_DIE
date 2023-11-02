@@ -2,6 +2,22 @@
 #include "PhysMathObj.h"
 using namespace PMathO;
 
+
+double* solve3(double A, double B, double C, double D) {
+	//here we are solweing Axxx+Bxx+Cx+D=0
+	//если 2 решения возвращаем 2 и за ним 2 решения(целочисленных)
+	//если 1 решение то 1 и за ним 1 решение(целочисленных)
+	//если 3 решения то 3 и за ним 3 решения(целочисленных)
+	//если 3 решения то 0 и за ним 0 решения(целочисленных)
+	double* ptr = new double[1] {0};
+	return ptr;//для начала всегда 0
+}
+
+
+
+
+
+
 void Vec2D::update_lenth() { lenth = sqrt(x * x + y * y); }
 
 Vec2D::Vec2D(double x, double y) : x(x), y(y) {
@@ -90,3 +106,4 @@ double Section2D::get_distance_to_point(Vec2D C) {
 	else return lenthBC * sin(beta);
 	return 0;
 }
+
