@@ -4,6 +4,8 @@
 #include <conio.h>
 #include <future>
 
+std::atomic<bool> keyPressed(false);
+
 void InputHandler(std::atomic<char>& userInput)
 {
     char input;
@@ -11,6 +13,7 @@ void InputHandler(std::atomic<char>& userInput)
     {
         input = _getch();
         userInput = input;
+        keyPressed = true;
     }
 }
 
@@ -21,33 +24,47 @@ void Controller::AssertControllOver(PO::MovebleObject* object)
     // Start the input handler in a separate thread
     std::thread inputThread(InputHandler, std::ref(userInput));
 
-    // Initial character position
+    
     while (true) {
-        // Process user input
-        char input = userInput.load();
-        if (input == 'q' || input == 'Q')
+        if (keyPressed.load())
         {
-            break; // Quit the game if 'q' is pressed
+            keyPressed = false;
+            // Process user input
+            char input = userInput.load();
+            if (input == 'q' || input == 'Q')
+            {
+                inputThread.join();
+                break; // Quit the game if 'q' is pressed
+            }
+            if (input == 'w')
+            {
+                object->set_new_speed(PMathO::Vec2D(0., -105.));
+                input = ' ';
+            }
+            else if (input == 's')
+            {
+                object->set_new_speed(PMathO::Vec2D(0., 105.));
+                input = ' ';
+            }
+            else if (input == 'a')
+            {
+                object->set_new_speed(PMathO::Vec2D(-105., 0.));
+                input = ' ';
+            }
+            else if (input == 'd')
+            {
+                object->set_new_speed(PMathO::Vec2D(105., 0.));
+                input = ' ';
+            }
+            else if (input == ' ')
+            {
+                object->set_new_speed(PMathO::Vec2D(0., 0.));
+                input = ' ';
+            }
+            // Sleep to control the frame rate
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
-        if (input == 'w')
-        {
-            object->set_new_speed(PMathO::Vec2D(0., -105.));
-            std::cout << 'W';
-        }
-        else if (input == 's')
-        {
-            object->set_new_speed(PMathO::Vec2D(0., 105.));
-        }
-        else if (input == 'a')
-        {
-            object->set_new_speed(PMathO::Vec2D(-105., 0.));
-        }
-        else if (input == 'd')
-        {
-            object->set_new_speed(PMathO::Vec2D(105., 0.));
-        }
-
-        // Sleep to control the frame rate
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        
     }
+    inputThread.join();
 }
