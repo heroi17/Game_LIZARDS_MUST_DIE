@@ -2,14 +2,16 @@
 
 #include "first_test_PO.h"
 #include "Map.h"
+#include "Controller.h"
 
 void MapFillingText();
 
 int main() {
-    test1();
-    //GameLogic::Map map(5, 5);
-    //map.GetRoom(1, 2)->Show();
+    //test1();
 
+    int width = 5; int height = 5;
+    GameLogic::Map map(width, height);
+    map.GetRoom(1, 1)->Show();
 
     return 0;
 }

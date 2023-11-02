@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Console_Output.cpp" />
     <ClCompile Include="ConsumableItem.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="InformationItem.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="RoomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="Console_Output.h" />
     <ClInclude Include="PhysObj.h" />

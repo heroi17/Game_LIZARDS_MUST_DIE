@@ -90,6 +90,9 @@
     <ClCompile Include="RoomGenerator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -144,6 +147,9 @@
       <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
     </ClInclude>
     <ClInclude Include="RoomGenerator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

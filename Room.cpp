@@ -3,6 +3,7 @@
 #include <vector>
 #include "Console_Output.h"
 #include "first_test_PO.h"
+#include "Controller.h"
 
 using namespace GameLogic;
 
@@ -87,13 +88,15 @@ void GameLogic::Room::Show()
 		_simulationRoom->add_object(new PO::StaticObject(pos, new PColliderO::CricleCollider(rand_between(4, 10.))));
 	}
 
-	_simulationRoom->add_object(new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 1., PMathO::Vec2D(0, 0)));
+	PO::MovebleObject* playerObject = new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 1., PMathO::Vec2D(0, 0));
+	_simulationRoom->add_object(playerObject);
 
 	//start physic engine
 	console_1.StartOutput();
 	_simulationRoom->StartSimulation();
 
-	std::this_thread::sleep_for(std::chrono::minutes(5));
+	Controller controller;
+	controller.AssertControllOver(playerObject);
 
 	_simulationRoom->StopSimulation();
 	console_1.StopOutput();
