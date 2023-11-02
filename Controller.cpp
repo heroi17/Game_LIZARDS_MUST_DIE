@@ -32,6 +32,7 @@ void Controller::AssertControllOver(PO::MovebleObject* object)
         if (input == 'w')
         {
             object->set_new_speed(PMathO::Vec2D(0., -105.));
+            std::cout << 'W';
         }
         else if (input == 's')
         {
