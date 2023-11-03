@@ -6,6 +6,15 @@ Collision::~Collision() {
 	detach();
 }
 
+void Collision::print_me() {
+	Collision* iterator_collision = this;
+	while (iterator_collision->next_collision != 0) {
+		std::cout << "<-(" << iterator_collision->time_when_collision_sec << ")";
+		iterator_collision = iterator_collision->next_collision;
+	}
+	std::cout << std::endl;
+}
+
 void Collision::detach() {
 	//connect (collision before_collision) and (collision next_collision)
 	if (this->next_collision != 0 && this->before_collision != 0) {
@@ -18,11 +27,14 @@ void Collision::detach() {
 	else if (this->next_collision != 0 and this->before_collision == 0) {
 		this->next_collision->before_collision = 0;
 	}
+	this->next_collision = 0;
+	this->before_collision = 0;
 }
 
 Collision::Collision(double time_when_collision, PO::Object* ptr_obj_1, PO::Object* ptr_obj_2): time_when_collision_sec(time_when_collision), ptr_obj_1(ptr_obj_1), ptr_obj_2(ptr_obj_2){
 
 }
+
 
 bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2) {
 	
@@ -132,6 +144,7 @@ bool Collision::is_coverages_will_overloop(double aftertime, PO::Object* obj1, P
 	return false;
 }
 
+
 double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 
 
@@ -156,7 +169,7 @@ double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 		start_time = time2;
 	}
 	if (is_coverages_will_overloop(start_time, obj1, obj2)) {
-		return -1.0;//здесь более серьезный подсчет
+		return start_time;//здесь более серьезный подсчет
 	}
 	return -1.0;
 	//we are find time where we should calculate collision if find collision is less then start_time => return -1.0
@@ -179,13 +192,25 @@ double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 
 
 void Collision::insert_collision(Collision* insert_collision) {//here i insert collisiom *insert_collision in *this
+	//this->print_me();
 	Collision* iterator_collision = this;//                                                          \V/ simbol <= mabe should be just <
-	while ((iterator_collision->next_collision != 0) && (iterator_collision->time_when_collision_sec <= insert_collision->time_when_collision_sec))//find position for our collision
-		iterator_collision = iterator_collision->next_collision;
-	insert_collision->before_collision = iterator_collision->before_collision;//here i just insert in linked_lst -- collision new item
-	insert_collision->before_collision->next_collision = insert_collision;
-	insert_collision->next_collision = iterator_collision;
-	iterator_collision->before_collision = insert_collision;
+	int tt = 0;
+	while ((iterator_collision->next_collision != 0) and (iterator_collision->next_collision->time_when_collision_sec <= insert_collision->time_when_collision_sec))//find position for our collision
+	{
+		iterator_collision = iterator_collision->next_collision; tt++;
+	}
+
+	if (iterator_collision->next_collision == 0) {
+		insert_collision->before_collision = iterator_collision;//here i just insert in linked_lst -- collision new item
+		iterator_collision->next_collision = insert_collision;
+		insert_collision->next_collision = 0;
+	}
+	else {
+		insert_collision->before_collision = iterator_collision;
+		insert_collision->next_collision = iterator_collision->next_collision;
+		iterator_collision->next_collision = insert_collision;
+		insert_collision->next_collision->before_collision = insert_collision;
+	}
 }
 
 
@@ -207,6 +232,7 @@ simulation_room::~simulation_room() {
 	StopSimulation();
 }
 
+
 void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is time when we want to see phisic simulation: if time_now = 1000, and temre_to = 1500 then we shold update all for 500ms
 	/*here we are update collision
 	update position
@@ -220,8 +246,8 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 		obj1->my_next_collision_pointer = 0;
 		obj2->my_next_collision_pointer = 0;
 
-		obj1->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//here we move obj1 to time when collision
-		obj2->update_mechanics_parameters(collision_header.next_collision->time_when_collision_sec);//and obj2 moveing too
+		obj1->update_mechanics_parameters(working_collision->time_when_collision_sec);//here we move obj1 to time when collision
+		obj2->update_mechanics_parameters(working_collision->time_when_collision_sec);//and obj2 moveing too
 
 		solve_collision_between(obj1, obj2); // solve collision using two object: obj_1, obj_2
 		update_future_collision_for(obj1);                  //here we should update future collision for this object and solve problem with this chenges
@@ -243,7 +269,7 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 void simulation_room::add_object(PO::Object* new_object) {
 	new_object->set_last_update_time_sec((double)clock() / 1000.);
 	objects.push_back(new_object); //add object
-	//update_future_collision_for(new_object); //find collision if it'll be
+	update_future_collision_for(new_object); //find collision if it'll be
 }
 
 void simulation_room::set_time_all_object(double new_time_sec) {
@@ -303,6 +329,7 @@ void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object*
 	*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
 }
 
+
 void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 
 	//here we start find nearest collision for updater_obj
@@ -311,23 +338,23 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 
 	double time_nearest_collision;
 	if (updater_obj->my_next_collision_pointer == 0) {
-		time_nearest_collision = 1.0E300;//if our obj havent collision
+		time_nearest_collision = 1.0E100;//if our obj havent collision
 	}
 	else {
 		
 		time_nearest_collision = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->time_when_collision_sec; // if our object have future collision
 	}
-
 	//теперь ищем обьекты которые колизируют раньше чем коллизия нашего обьекта если она есть
 	for (auto& element : objects) {
 		
 		if (element == updater_obj) continue;//if we meet updater_obj then skip
 		double time_when_element_collid_updater_obj = collision_header.get_time_collision(updater_obj, element);
 		 // here i must realisate pointer from obj to his future collision
-		if (0. < time_when_element_collid_updater_obj && time_when_element_collid_updater_obj < time_nearest_collision) {//firstly time_when_element_collid should be not (-1.0 <=> will no collision)
+		if ((0. < time_when_element_collid_updater_obj) and (time_when_element_collid_updater_obj < time_nearest_collision)) {//firstly time_when_element_collid should be not (-1.0 <=> will no collision)
 			Collision* collision_of_this_object = static_cast<Collision*>(element->my_next_collision_pointer);
-			if (collision_of_this_object == 0 || collision_of_this_object->time_when_collision_sec > time_when_element_collid_updater_obj) {
+			if (collision_of_this_object == 0 or collision_of_this_object->time_when_collision_sec > time_when_element_collid_updater_obj) {
 				find_collider = element;
+				
 				time_nearest_collision = time_when_element_collid_updater_obj;
 			}
 		}
@@ -337,7 +364,8 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 	//если find_collider!=0 то у нас все пучком и мы должны создать коллизию и починить все остальное
 	if (find_collider != 0) {//if will_no_collision
 		//if we find collision_obj
-		
+
+
 		Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
 		PO::Object* second_broken_collision_1=0;
 		PO::Object* second_broken_collision_2=0;
@@ -367,6 +395,7 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 		updater_obj->my_next_collision_pointer = new_collision;
 		find_collider->my_next_collision_pointer = new_collision;
 		collision_header.insert_collision(new_collision);
+		
 
 		if (second_broken_collision_1!=0) { //если существует обьект со сломанной колизией то мы его обновляем
 			update_future_collision_for(second_broken_collision_1);

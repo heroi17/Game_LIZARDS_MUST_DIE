@@ -59,7 +59,8 @@ double const Object::get_last_update_time_sec() const {
 
 double Object::get_how_time_to_stop() {
 	double friction_acceleration = get_acceleration().get_lenth();
-	if (friction_acceleration == 0) return -1.0;
+	if (friction_acceleration == 0 && speed.get_lenth() != 0) return 1.E100;
+	if (friction_acceleration == 0) return 0;
 	return speed.get_lenth() / friction_acceleration;
 }
 
@@ -97,7 +98,7 @@ void MovebleObject::update_mechanics_parameters(double to_time_sec){
 	PMathO::Vec2D friction_acceleration = get_acceleration();
 	double how_time_to_stop = get_how_time_to_stop();
 	position = get_position_at_time(to_time_sec);
-	if (how_time_to_stop != -1.0) {
+	if (how_time_to_stop != 1.E100) {
 		if (how_time_to_stop > delta_time) speed += friction_acceleration * delta_time;
 		else speed *= 0;
 	}
