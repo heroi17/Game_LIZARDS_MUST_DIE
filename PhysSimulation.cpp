@@ -1,6 +1,6 @@
 #include "PhysSimulation.h"
 using namespace PSimulation;
-
+Collision* hhds = 0;
 //collision class realisation
 Collision::~Collision() {
 	detach();
@@ -169,7 +169,7 @@ double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 		start_time = time2;
 	}
 	if (is_coverages_will_overloop(start_time, obj1, obj2)) {
-		return start_time;//здесь более серьезный подсчет
+		return clock() / 1000. + 2.;//здесь более серьезный подсчет
 	}
 	return -1.0;
 	//we are find time where we should calculate collision if find collision is less then start_time => return -1.0
@@ -194,6 +194,7 @@ double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 void Collision::insert_collision(Collision* insert_collision) {//here i insert collisiom *insert_collision in *this
 	//this->print_me();
 	Collision* iterator_collision = this;//                                                          \V/ simbol <= mabe should be just <
+	hhds += 0;
 	int tt = 0;
 	while ((iterator_collision->next_collision != 0) and (iterator_collision->next_collision->time_when_collision_sec <= insert_collision->time_when_collision_sec))//find position for our collision
 	{
@@ -211,6 +212,7 @@ void Collision::insert_collision(Collision* insert_collision) {//here i insert c
 		iterator_collision->next_collision = insert_collision;
 		insert_collision->next_collision->before_collision = insert_collision;
 	}
+	hhds = insert_collision;
 }
 
 
@@ -248,11 +250,11 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 
 		obj1->update_mechanics_parameters(working_collision->time_when_collision_sec);//here we move obj1 to time when collision
 		obj2->update_mechanics_parameters(working_collision->time_when_collision_sec);//and obj2 moveing too
+		delete working_collision;//delete this collision because we already worked with it and it is in past now
 
 		solve_collision_between(obj1, obj2); // solve collision using two object: obj_1, obj_2
 		update_future_collision_for(obj1);                  //here we should update future collision for this object and solve problem with this chenges
 		update_future_collision_for(obj2);					//								     and for this object too
-		delete working_collision;//delete this collision because we already worked with it and it is in past now
 
 
 	//after working with kollision of all our objects we mowe all our object to correct finish time
@@ -377,7 +379,7 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 			else {
 				second_broken_collision_1 = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1;
 			}
-			delete find_collider->my_next_collision_pointer;
+			delete static_cast<Collision*>(find_collider->my_next_collision_pointer);
 			second_broken_collision_1->my_next_collision_pointer = 0;
 
 		}

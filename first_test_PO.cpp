@@ -14,8 +14,8 @@ int test1() {
 
     //initialisation
     int update_rate = 20;
-    int moveble_obj = 250;
-    int static_obj = 100;
+    int moveble_obj = 150;
+    int static_obj = 50;
     PSimulation::simulation_room room1(update_rate);
     Console_Output console_1(&room1, update_rate);
 
@@ -39,21 +39,21 @@ int test1() {
     //start physic engine
     console_1.StartOutput();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    PO::Object * obg = new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 0.5, PMathO::Vec2D(0, 0));
-    room1.add_object(obg);
+    //PO::Object * obg = new PO::MovebleObject(PMathO::Vec2D(console_1.temp.right / 2, console_1.temp.bottom / 2), new PColliderO::RectangleCollider(25., 25.), 1., 0.5, PMathO::Vec2D(0, 0));
+    //room1.add_object(obg);
     room1.StartSimulation();
     //Controller controller;
     //controller.AssertControllOver(static_cast<PO::MovebleObject*>(obg));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    obg->set_new_speed(PMathO::Vec2D(105., 105.));
+    //obg->set_new_speed(PMathO::Vec2D(105., 105.));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    obg->set_new_speed(PMathO::Vec2D(-105., 105.));
+    //obg->set_new_speed(PMathO::Vec2D(-105., 105.));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    obg->set_new_speed(PMathO::Vec2D(-105., -105.));
+    //obg->set_new_speed(PMathO::Vec2D(-105., -105.));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    obg->set_new_speed(PMathO::Vec2D(10., -10.));
+    //obg->set_new_speed(PMathO::Vec2D(10., -10.));
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    obg->set_new_position(PMathO::Vec2D(125., 125.));
+    //obg->set_new_position(PMathO::Vec2D(125., 125.));
     std::this_thread::sleep_for(std::chrono::milliseconds(100000));
     room1.StopSimulation();
     console_1.StopOutput();
