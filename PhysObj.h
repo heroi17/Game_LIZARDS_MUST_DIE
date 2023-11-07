@@ -20,6 +20,7 @@ namespace PO {
 		PMathO::Vec2D speed = PMathO::Vec2D(0, 0);
 		double last_update_time_sec = 0;
 	public:
+		/// <summary> pointer on (struct Collision from PhysSimulation.h) </summary>
 		void* my_next_collision_pointer = 0;
 		Object(PMathO::Vec2D position, PColliderO::Collider* mesh);
 		PMathO::Vec2D* get_ptr_speed();

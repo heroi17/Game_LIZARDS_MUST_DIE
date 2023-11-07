@@ -10,16 +10,8 @@ double PMathO::croot(double x) {
 
 
 
-/// <summary>
-/// Solves a polynomial of the 3rd degree.
-/// Put solves in double massive, ptr[0] = how many valid solutions. ptr[1-3] - solves.
-/// </summary>
-/// <param name="ptr">: pointer on solution lst.</param>
-/// <param name="A">: The coefficient at the 3rd degree.</param>
-/// <param name="B">: The coefficient at the 2rd degree.</param>
-/// <param name="C">: The coefficient at the 1rd degree.</param>
-/// <param name="D">: The free coefficient.</param>
-/// <returns>Void.</returns>
+
+
 void PMathO::solve3(double* ptr, double A, double B, double C, double D){
 	if (A == 0) {
 		return solve2(ptr, B, C, D);

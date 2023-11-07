@@ -15,7 +15,16 @@ namespace PSimulation {
 		PO::Object* ptr_obj_1=0;
 		PO::Object* ptr_obj_2=0;
 		double time_when_collision_sec;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="time_when_collision_sec"> - A parameter that tells us when a collision will occur.</param>
+		/// <param name="ptr_obj_1"> - A pointer to the first object involved in the collision.</param>
+		/// <param name="ptr_obj_2"> - On the second.</param>
 		Collision(double time_when_collision_sec =-1.0, PO::Object* ptr_obj_1=0, PO::Object* ptr_obj_2=0);
+		/// <summary>
+		/// function call detach and after that free memory
+		/// </summary>
 		~Collision();
 		/// <summary>
 		/// check future collision of two objects
@@ -30,17 +39,22 @@ namespace PSimulation {
 		/// <param name="insert_collision"> - object that we should to insert in this</param>
 		void insert_collision(Collision* insert_collision);
 		/// <summary>
-		/// the function detaches an element from the linked list sequence
+		/// 1) The function detaches an element from the doubly linked list sequence.
+		/// 2) Connects the previous and next element of a doubly linked list.
+		/// 3) set obj1 and obj2->my_next_collision_pointer = 0;.
 		/// </summary>
 		void detach();
 		/// <summary>
-		/// checks whether the circles described around the object intersect
+		/// the function returns whether the circles described around the object will intersect taking into account their current physical parameters.
 		/// </summary>
 		/// <param name="aftertime"> the time after which it should be checked </param>
 		/// <param name="obj1"> pointer to object 1 to check </param>
 		/// <param name="obj2"> pointer to object 2 to check </param>
 		/// <returns> true if coverages will intersect, else: false</returns>
 		bool is_coverages_will_overloop(double aftertime, PO::Object* obj1, PO::Object* obj2);
+		/// <summary>
+		/// outputs(using std::cout) the this element and all subsequent elements to the console.
+		/// </summary>
 		void print_me();
 	};
 
@@ -73,6 +87,13 @@ namespace PSimulation {
 		void StopSimulation();
 		//debug functions
 		void output_debug_information(double time_to_msec);
+		/// <summary>
+		/// This function is called when we want to solve the collision of two objects and give them new parameters.
+		/// Call this func when objects close to each other.
+		/// Function can change only speed of objets, can destroy object or call func if collision.
+		/// </summary>
+		/// <param name="ptr_obj_1"> - The first object involved in the collision.</param>
+		/// <param name="ptr_obj_2"> - The second object involved in the collision.</param>
 		void solve_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2);
 	};
 }

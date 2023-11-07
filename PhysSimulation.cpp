@@ -235,10 +235,7 @@ simulation_room::~simulation_room() {
 }
 
 
-void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is time when we want to see phisic simulation: if time_now = 1000, and temre_to = 1500 then we shold update all for 500ms
-	/*here we are update collision
-	update position
-	update speed(because friction and another things)*/
+void simulation_room::UpdateOneTic(double time_to_msec) {
 	double time_to_sec = time_to_msec / 1000.;
 	while (collision_header.next_collision != 0 && collision_header.next_collision->time_when_collision_sec < time_to_sec) {//get first future collision in collision timeline
 		Collision* working_collision = collision_header.next_collision; //our working collision for one iteration of loop
@@ -252,9 +249,9 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 		obj2->update_mechanics_parameters(working_collision->time_when_collision_sec);//and obj2 moveing too
 		delete working_collision;//delete this collision because we already worked with it and it is in past now
 
-		solve_collision_between(obj1, obj2); // solve collision using two object: obj_1, obj_2
-		update_future_collision_for(obj1);                  //here we should update future collision for this object and solve problem with this chenges
-		update_future_collision_for(obj2);					//								     and for this object too
+		solve_collision_between(obj1, obj2);									  // solve collision using two object: obj_1, obj_2
+		update_future_collision_for(obj1);										  //here we should update future collision for this object and solve problem with this chenges
+		update_future_collision_for(obj2);									      //								     and for this object too
 
 
 	//after working with kollision of all our objects we mowe all our object to correct finish time
@@ -262,10 +259,6 @@ void simulation_room::UpdateOneTic(double time_to_msec) { // time_to_msec - is t
 	for (auto& element : objects) {
 		element->update_mechanics_parameters(time_to_sec);
 	}
-
-
-	//system("cls");
-	//output_debug_information(time_to_sec);
 }
 
 void simulation_room::add_object(PO::Object* new_object) {
@@ -294,8 +287,8 @@ void simulation_room::simulationCicle() {
 	int ms_time_to_wait;
 	clock_t start, end;
 	double next = clock() + PeriodForTicInMSec;
-	while (simulation_is_working) {//добавить ласт апдейт чтобы мы всегда обновл€ли идеально ровно!!! не + что-то там изза работы некоторых функций
-		start = clock();//get time start 1 update
+	while (simulation_is_working) {
+		start = clock();
 		UpdateOneTic(next);//give that time to update we want
 		end = clock();
 		time_of_work = end - start;
@@ -322,10 +315,6 @@ void simulation_room::StopSimulation() {
 }
 
 void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2) {
-	//here we change speed in time when collision
-	//you should use this function when the objects are next to each other
-	//mabe we should reaalyse this method using collider, therefor get position of collision and get parallel line of point collision
-
 	//this is just for test!!!!!!!!!
 	*(ptr_obj_1->get_ptr_speed()) *= -1.;//just chanje vector of speed
 	*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
@@ -335,18 +324,18 @@ void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object*
 void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 
 	//here we start find nearest collision for updater_obj
-	PO::Object* find_collider = 0; // ferstly there no objects
+	PO::Object* find_collider = 0; // firstly we are not find collision
 
 
 	double time_nearest_collision;
 	if (updater_obj->my_next_collision_pointer == 0) {
-		time_nearest_collision = 1.0E100;//if our obj havent collision
+		time_nearest_collision = 1.0E100;//if our obj havn't collision
 	}
 	else {
 		
 		time_nearest_collision = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->time_when_collision_sec; // if our object have future collision
 	}
-	//теперь ищем обьекты которые колизируют раньше чем коллизи€ нашего обьекта если она есть
+	//find obj that we will collide
 	for (auto& element : objects) {
 		
 		if (element == updater_obj) continue;//if we meet updater_obj then skip
@@ -362,16 +351,14 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 		}
 	}
 
-	//если find_collider=0 то нету коллизий дл€ обьекта и все окей
-	//если find_collider!=0 то у нас все пучком и мы должны создать коллизию и починить все остальное
-	if (find_collider != 0) {//if will_no_collision
-		//if we find collision_obj
-
+	//If find_collider=0 then we are not find new collision.
+	//If find_collider!=0 then we should to incsert new collision and fix another collision.
+	if (find_collider != 0) {
 
 		Collision* new_collision = new Collision(time_nearest_collision, updater_obj, find_collider);
 		PO::Object* second_broken_collision_1=0;
 		PO::Object* second_broken_collision_2=0;
-
+		
 		if (find_collider->my_next_collision_pointer != 0) {
 			if (find_collider == static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1) {
 				second_broken_collision_1 = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_2;
@@ -379,7 +366,7 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 			else {
 				second_broken_collision_1 = static_cast<Collision*>(find_collider->my_next_collision_pointer)->ptr_obj_1;
 			}
-			delete static_cast<Collision*>(find_collider->my_next_collision_pointer);
+			delete static_cast<Collision*>(find_collider->my_next_collision_pointer);//collision will not heppened becouse we find collision which is earlier in time
 			second_broken_collision_1->my_next_collision_pointer = 0;
 
 		}
@@ -390,7 +377,7 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 			else {
 				second_broken_collision_2 = static_cast<Collision*>(updater_obj->my_next_collision_pointer)->ptr_obj_1;
 			}
-			delete static_cast<Collision*>(updater_obj->my_next_collision_pointer);//коллизи€ не состо€итс€ и мы ее удол€ем
+			delete static_cast<Collision*>(updater_obj->my_next_collision_pointer);//collision will not heppened becouse we find collision which is earlier in time
 			second_broken_collision_2->my_next_collision_pointer = 0;
 		}
 
@@ -399,14 +386,12 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 		collision_header.insert_collision(new_collision);
 		
 
-		if (second_broken_collision_1!=0) { //если существует обьект со сломанной колизией то мы его обновл€ем
+		if (second_broken_collision_1!=0) { //fix object from collision that we delete
 			update_future_collision_for(second_broken_collision_1);
 			}
 
-		if (second_broken_collision_2!=0) { //если существует обьект со сломанной колизией то мы его обновл€ем
+		if (second_broken_collision_2!=0) { //fix object from collision that we delete
 			update_future_collision_for(second_broken_collision_2);
 		}
 	}
 }
-
-//solwe this
