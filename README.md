@@ -10,7 +10,7 @@ The objective of the game is to navigate through a dungeon filled with lizards, 
 
 - Permadeath: Once the player's character dies, the game ends, and a new dungeon is generated for the next playthrough.
 - Enemies and combat: Encounter dangerous foes throughout the dungeon and engage in tactical combat.
-- Loot: Discover and collect powerful item to enhance your character's abilities.
+- Loot: Discover and collect powerful items to enhance your character's abilities.
 
 ## Installation
 
