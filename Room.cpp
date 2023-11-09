@@ -95,12 +95,13 @@ void GameLogic::Room::Show()
 	console_1.StartOutput();
 	_simulationRoom->StartSimulation();
 
+	// Asserting control on main character
 	Controller controller;
 	controller.AssertControllOver(playerObject);
+
 
 	_simulationRoom->StopSimulation();
 	console_1.StopOutput();
 
 	_simulationRoom->~simulation_room();
-	std::cout << "finish of work " << std::endl;
 }
