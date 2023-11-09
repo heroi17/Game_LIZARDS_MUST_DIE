@@ -54,6 +54,6 @@ This game is licensed under the MIT License. Feel free to modify, distribute, an
 
 ## Contact
 
-If you have any questions, suggestions, or feedback, please feel free to contact us 
-Dmitry: st119023@student.spbu.ru
+If you have any questions, suggestions, or feedback, please feel free to contact us\
+Dmitry: st119023@student.spbu.ru\
 Mikhail: st119020@student.spbu.ru
