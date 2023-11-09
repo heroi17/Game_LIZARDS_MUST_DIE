@@ -1,6 +1,6 @@
 # LIZARDS MUST DIE
 
-This is a rogue-like game developed as a part of my programming course assignment. The game aims to provide an exciting and challenging gameplay experience inspired by classic rogue-like games like The Binging of Isaac.
+This is a rogue-like game developed as a part of our programming course assignment. The game aims to provide an exciting and challenging gameplay experience inspired by classic rogue-like games like The Binging of Isaac.
 
 ## Overview
 
