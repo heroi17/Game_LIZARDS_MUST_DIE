@@ -14,21 +14,32 @@ The objective of the game is to navigate through a dungeon filled with lizards, 
 
 ## Installation
 
-1. Clone this repository to your local machine.
+To install and run this project on your machine, please follow the steps below:
+
+### Step 1: Clone the Repository
 ```
 git clone https://github.com/heroi17/Game_LIZARDS_MUST_DIE
 ```
-3. Install a C++ compiler (e.g., GCC).
-4. Navigate to the project directory.
-5. Build the game using the provided Makefile.
+
+### Step 2: Build the Project
+
+1. Install a C++ compiler (e.g., GCC, Clang) if you don't have one already.
+2. Navigate to the project directory.
+3. Compile the source code using the appropriate command for your compiler.
+
+Example using GCC:
 ```
-make
-```
-6. Run the game executable generated.
-```
-./game
+g++ -o output/main src/*.cpp
 ```
 
+### Step 3: Run the Project
+
+Execute the compiled binary file to run the project.
+
+Example:
+```
+./output/main
+```
 ## Controls
 
 - WASD keys: Move character up, down, left, or right.
