@@ -9,26 +9,29 @@ ConsumableItem::ConsumableItem(std::string name, std::string discription, Consum
 	_type = type;
 }
 
-void ConsumableItem::ApplyEffect(Entity& entity)
+void ConsumableItem::ApplyEffect(Entity* entity)
 {
 	switch (_type)
 	{
 		case HealingItem_100:
 		{
 			// health is up to full
-			entity.SetHealth(entity.GetMaxHealth());
+			entity->SetHealth(entity->GetMaxHealth());
+			break;
 		}
 
 		case HealingItem_50:
 		{
 			// Health is up to 50% of it's maximum or set to MaxHealth if raise is higher than MaxHealth
-			entity.SetHealth((entity.GetHealth() + entity.GetMaxHealth() * 0.5 > entity.GetMaxHealth()) ? entity.GetMaxHealth() : entity.GetHealth() + entity.GetMaxHealth() * 0.5);
+			entity->SetHealth((entity->GetHealth() + entity->GetMaxHealth() * 0.5 > entity->GetMaxHealth()) ? entity->GetMaxHealth() : entity->GetHealth() + entity->GetMaxHealth() * 0.5);
+			break;
 		}
 
 		case HealingItem_30:
 		{
 			// Health is up to 30% of it's maximum or set to MaxHealth if raise is higher than MaxHealth
-			entity.SetHealth((entity.GetHealth() + entity.GetMaxHealth() * 0.3 > entity.GetMaxHealth()) ? entity.GetMaxHealth() : entity.GetHealth() + entity.GetMaxHealth() * 0.3);
+			entity->SetHealth((entity->GetHealth() + entity->GetMaxHealth() * 0.3 > entity->GetMaxHealth()) ? entity->GetMaxHealth() : entity->GetHealth() + entity->GetMaxHealth() * 0.3);
+			break;
 		}
 	}
 }

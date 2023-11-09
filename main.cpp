@@ -3,20 +3,22 @@
 #include "first_test_PO.h"
 #include "Map.h"
 #include "Controller.h"
+#include "PowerupItem.h"
+#include "InformationItem.h"
+#include "ConsumableItem.h"
 
-void MapFillingText();
+void MapFillingTest();
+void ItemEffectTest();
 
 int main() {
-    test1();
+    //test1();
 
-    //int width = 5; int height = 5;
-    //GameLogic::Map map(width, height);
-    //map.GetRoom(1, 1)->Show();
+    ItemEffectTest();
 
     return 0;
 }
 
-void MapFillingText()
+void MapFillingTest()
 {
     int width = 5; int height = 5;
     GameLogic::Map map(width, height);
@@ -37,3 +39,23 @@ void MapFillingText()
     }
 }
 
+void ItemEffectTest()
+{
+    GameLogic::Player* player = new GameLogic::Player();
+    GameLogic::Item* DgmUp = new GameLogic::PowerupItem("DMG Up", "Damage is increesed", GameLogic::PowerupItemType::DamageBoost);
+    GameLogic::Item* MaxHealthUP = new GameLogic::PowerupItem("HP up", "HP is increesed", GameLogic::PowerupItemType::MaxHealthBoost);
+    GameLogic::Item* HealthUp = new GameLogic::ConsumableItem("Healed by 50 %", "you've been healed by 50 %", GameLogic::ConsumableItemType::HealingItem_50);
+
+    player->SetHealth(player->GetHealth() / 3);
+
+    std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
+    
+    DgmUp->ApplyEffect(player);
+    std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
+
+    MaxHealthUP->ApplyEffect(player);
+    std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
+
+    HealthUp->ApplyEffect(player);
+    std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
+}
