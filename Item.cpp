@@ -12,7 +12,7 @@ std::string GameLogic::Item::GetDiscription()
 	return _discription;
 }
 
-void Item::ApplyEffect(Entity& entity)
+void GameLogic::Item::ApplyEffect(Entity* entity)
 {
-	// None
 }
+

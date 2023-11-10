@@ -13,7 +13,7 @@ namespace GameLogic
 		std::string GetName();
 		std::string GetDiscription();
 
-		virtual void ApplyEffect(Entity& entity);
+		virtual void ApplyEffect(Entity* entity);
 	protected:
 		std::string _name;
 		std::string _discription;

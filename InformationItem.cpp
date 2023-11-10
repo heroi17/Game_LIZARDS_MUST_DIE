@@ -11,7 +11,7 @@ InformationItem::InformationItem(std::string name, std::string discription, Info
 	_type = type;
 }
 
-void InformationItem::ApplyEffect(Entity& entity) 
+void InformationItem::ApplyEffect(Entity* entity) 
 {
 	switch (_type)
 	{

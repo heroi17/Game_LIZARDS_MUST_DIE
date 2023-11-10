@@ -16,7 +16,7 @@ namespace GameLogic
 	{
 	public:
 		InformationItem(std::string name, std::string discription, InformationItemType type, Map* map);
-		void ApplyEffect(Entity& entity) override;
+		void ApplyEffect(Entity* entity) override;
 
 	private:
 		InformationItemType _type;
