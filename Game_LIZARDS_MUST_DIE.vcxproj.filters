@@ -93,6 +93,9 @@
     <ClCompile Include="Controller.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="PolynomSolve.cpp">
+      <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PolynomSolve.h">
+      <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

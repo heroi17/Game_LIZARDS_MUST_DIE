@@ -1,24 +1,9 @@
 #pragma once
 #ifndef PhysMathObj
 #define PhysMathObj
-
+#include "PolynomSolve.h"
 namespace PMathO {
-	const double PI = 3.1415926535897932384626433832795028841971;
-	/// <summary>
-	/// Solves a polynomial of the 3rd degree.
-	/// Put solves in double massive, ptr[0] = how many valid solutions. ptr[1-3] - solves.
-	/// Ptr syze=4.
-	/// </summary>
-	/// <param name="ptr">: pointer on solution lst.</param>
-	/// <param name="A">: The coefficient at the 3rd degree.</param>
-	/// <param name="B">: The coefficient at the 2rd degree.</param>
-	/// <param name="C">: The coefficient at the 1rd degree.</param>
-	/// <param name="D">: The free coefficient.</param>
-	/// <returns>Void.</returns>
-	void solve3(double * ptr, double A, double B, double C, double D);
-	void solve2(double * ptr, double A, double B, double C);
-	void solve1(double* ptr, double A, double B);
-	double croot(double x);
+	using namespace PS;
 	struct Vec2D {
 	private:
 		double x;

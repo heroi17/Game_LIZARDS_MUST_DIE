@@ -146,11 +146,13 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="first_test_PO.cpp" />
     <ClCompile Include="RoomGenerator.cpp" />
+    <ClCompile Include="PolynomSolve.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
     <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="Console_Output.h" />
+    <ClInclude Include="PolynomSolve.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysColliderObj.h" />
     <ClInclude Include="PhysMathObj.h" />
