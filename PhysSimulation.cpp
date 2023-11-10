@@ -169,7 +169,38 @@ double Collision::get_time_collision(PO::Object* obj1, PO::Object* obj2) {
 		start_time = time2;
 	}
 	if (is_coverages_will_overloop(start_time, obj1, obj2)) {
-		return clock() / 1000. + 2.;//здесь более серьезный подсчет
+		//using solwe_polynom fing intersection
+		PMathO::Vec2D d_pos = obj1->get_position_at_time(start_time) - obj2->get_position_at_time(start_time);
+		PMathO::Vec2D d_speed = obj1->get_speed() - obj2->get_speed();
+		PMathO::Vec2D d_acceleration = obj1->get_acceleration() - obj2->get_acceleration();
+		double x = d_pos.get_x();
+		double y = d_pos.get_y();
+		double Vx = d_speed.get_x();
+		double Vy = d_speed.get_y();
+		double Ax = d_acceleration.get_x();
+		double Ay = d_acceleration.get_y();
+		//we should find t from 
+		// rad1+rad2 = ((d_x_pos + t*d_x_speed + t*t*d_x_acceleration/2)^2 + (d_y_pos + t*d_y_speed + t*t*d_y_acceleration/2)^2)^0.5
+		// 
+		//or other wariant:
+		//solwe this:
+		// 0 = t^4(Ax * Ax/4 + Ay * Ay / 4) + t^3(Ax*vx + Ay*vy) + t^2(y * Ay + vy*vy + x*Ax + x*Ax) + t(2yVy + 2 xVx) + x*x + y*y - (rad1+rad2)^2
+		int stepen = 4;
+		double* polynom_solweing = new double[(stepen + 1) * (stepen + 1)];
+		polynom_solweing[stepen + 0] = Ax * Ax / 4 + Ay * Ay / 4;
+		polynom_solweing[stepen + 1] = Vy * Ay + Ax * Vx;
+		polynom_solweing[stepen + 2] = Vx * Vx + Ax * x + Vy * Vy + Ay * y;
+		polynom_solweing[stepen + 3] = 2 * x * Vx + 2 * y * Vy;
+		polynom_solweing[stepen + 4] = x * x + y * y - (rad1 + rad2) * (rad1 + rad2);
+		int how_answer = PMathO::solvepolynom(polynom_solweing, polynom_solweing + stepen, stepen);
+		for (int i = 0; i < how_answer; i++) {
+			if (polynom_solweing[i] > 0) {
+				double answer = polynom_solweing[i] + start_time;
+				delete[] polynom_solweing;
+				return answer;
+			}
+		}
+		delete[] polynom_solweing;
 	}
 	return -1.0;
 	//we are find time where we should calculate collision if find collision is less then start_time => return -1.0
