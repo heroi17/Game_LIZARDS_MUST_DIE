@@ -1,5 +1,5 @@
 #include "InformationItem.h"
-
+#include <iostream>
 
 using namespace GameLogic;
 
@@ -17,7 +17,8 @@ void InformationItem::ApplyEffect(Entity* entity)
 	{
 		case LeaderLocation:
 		{
-			_map->GetLeaderLocation();
+			std::cout << "Leadder is located in the (" << _map->GetLeaderLocation().first << ',' << _map->GetLeaderLocation().second << ") room" << std::endl;;
+			break;
 		}
 	}
 }

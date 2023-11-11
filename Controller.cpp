@@ -25,33 +25,29 @@ void Controller::AssertControllOver(PO::MovebleObject* object)
     std::thread inputThread(InputHandler, std::ref(userInput));
 
     
-    while (true) {
+    while (userInput.load() != 'q' || userInput.load() != 'Q') {
         if (keyPressed.load())
         {
             keyPressed = false;
             // Process user input
             char input = userInput.load();
-            if (input == 'q' || input == 'Q')
-            {
-                inputThread.join();
-                break; // Quit the game if 'q' is pressed
-            }
-            if (input == 'w')
+
+            if (input == 'w' || input == 'W')
             {
                 object->set_new_speed(PMathO::Vec2D(0., -105.));
                 input = ' ';
             }
-            else if (input == 's')
+            else if (input == 's' || input == 'S')
             {
                 object->set_new_speed(PMathO::Vec2D(0., 105.));
                 input = ' ';
             }
-            else if (input == 'a')
+            else if (input == 'a' || input == 'A')
             {
                 object->set_new_speed(PMathO::Vec2D(-105., 0.));
                 input = ' ';
             }
-            else if (input == 'd')
+            else if (input == 'd' || input == 'D')
             {
                 object->set_new_speed(PMathO::Vec2D(105., 0.));
                 input = ' ';
@@ -62,7 +58,7 @@ void Controller::AssertControllOver(PO::MovebleObject* object)
                 input = ' ';
             }
             // Sleep to control the frame rate
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
         
     }

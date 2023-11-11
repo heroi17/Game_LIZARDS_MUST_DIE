@@ -42,11 +42,14 @@ void MapFillingTest()
 void ItemEffectTest()
 {
     GameLogic::Player* player = new GameLogic::Player();
+    GameLogic::Map map(5, 5);
+
     GameLogic::Item* DgmUp = new GameLogic::PowerupItem("DMG Up", "Damage is increesed", GameLogic::PowerupItemType::DamageBoost);
     GameLogic::Item* MaxHealthUP = new GameLogic::PowerupItem("HP up", "HP is increesed", GameLogic::PowerupItemType::MaxHealthBoost);
     GameLogic::Item* HealthUp = new GameLogic::ConsumableItem("Healed by 50 %", "you've been healed by 50 %", GameLogic::ConsumableItemType::HealingItem_50);
+    GameLogic::Item* Information = new GameLogic::InformationItem("Leader Location", "You know where leader is located", GameLogic::InformationItemType::LeaderLocation, &map);
 
-    player->SetHealth(player->GetHealth() / 3);
+    player->SetHealth(player->GetHealth() / 3); // Damaging player to see if healing is working right
 
     std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
     
@@ -58,4 +61,7 @@ void ItemEffectTest()
 
     HealthUp->ApplyEffect(player);
     std::cout << "Max health: " << player->GetMaxHealth() << "\nHealth: " << player->GetHealth() << "\nDamage :" << player->GetDamage() << '\n' << std::endl;
+
+    Information->ApplyEffect(player);
+
 }
