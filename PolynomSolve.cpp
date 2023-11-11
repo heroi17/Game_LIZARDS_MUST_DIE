@@ -206,7 +206,7 @@ void PS::solve3(double* ptr, double A, double B, double C, double D) {
 
 void PS::solve2(double* ptr, double A, double B, double C) {
 	if (A == 0) {
-		solve1(ptr, A, C);
+		solve1(ptr, B, C);
 		return void();
 	}
 	double Dis = B * B - 4. * A * C;

@@ -5,4 +5,5 @@
 #include "Console_Output.h"
 int test1();
 int test2();
+int test3();
 double rand_between(double start, double end);

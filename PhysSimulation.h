@@ -66,6 +66,7 @@ namespace PSimulation {
 		int TicPerSecond = 20;
 		double resource = 0.;
 		double PeriodForTicInMSec = 1000. / TicPerSecond;
+		double game_time_sec = 0;
 	public:
 		std::vector<PO::Object*> objects;
 		simulation_room(int NewTicPerSecond=20);

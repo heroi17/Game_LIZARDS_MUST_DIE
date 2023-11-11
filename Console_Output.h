@@ -25,7 +25,6 @@ public:
 	PSimulation::simulation_room *room_output;
 	Console_Output(PSimulation::simulation_room* start_room_output, int NewTicPerSecond = 20);
 	~Console_Output();
-	void OutputOnScreen();
 	void OutputOneTic();
 	void OutputCicle();
 	void StartOutput();
