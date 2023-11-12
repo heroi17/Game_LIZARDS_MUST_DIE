@@ -11,7 +11,7 @@ void MapFillingTest();
 void ItemEffectTest();
 
 int main() {
-    test1();
+    test3();
 
     //ItemEffectTest();
 

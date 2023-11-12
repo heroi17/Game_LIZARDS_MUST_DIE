@@ -69,6 +69,10 @@ Vec2D Vec2D::operator*=(const Vec2D& other) {
 	return *this;
 }
 
+Vec2D Vec2D::operator*(const Vec2D& other) const{
+	return Vec2D(this->x * other.x, this->y * other.y);
+}
+
 void Section2D::position_update() { lenth = sqrt(x_lenth * x_lenth + y_lenth * y_lenth); }
 
 Section2D::Section2D(Vec2D A, Vec2D B) : A(A), B(B) {

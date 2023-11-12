@@ -25,6 +25,7 @@ namespace PMathO {
 		Vec2D operator+=(const Vec2D& other);
 		Vec2D operator-=(const Vec2D& other);
 		Vec2D operator*=(const Vec2D& other);
+		Vec2D operator*(const Vec2D& other) const;
 
 	};
 	struct Section2D {

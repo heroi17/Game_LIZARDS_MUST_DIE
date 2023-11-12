@@ -436,8 +436,111 @@ void simulation_room::StopSimulation() {
 
 void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2) {
 	//this is just for test!!!!!!!!!
-	*(ptr_obj_1->get_ptr_speed()) *= -1.;//just chanje vector of speed
-	*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
+	//first of all 
+
+	//if both objects are moveble
+	if (ptr_obj_1->get_type() == 2 and ptr_obj_2->get_type() == 2) {
+
+		//first and second collider are cricles and both of them are moveble
+		if (ptr_obj_1->get_collider()->get_type() == 2 and ptr_obj_2->get_collider()->get_type() == 2) {
+			/////////////////////////////////////////////////////////////////
+			// (Y)         _A_  
+			//  A         / | \
+			//  |         \_|_/           A
+			//  |    ------_|_-----       |-- impulse_line -- line between two centers of object 
+			//  |         / | \           |
+			//  |         \_|_/
+			//  |
+			//  O----------->(X)           
+			// 
+			// X speed of object will saved and y speed will changed. 
+			// 
+			// X - vec perpendicular impuls_line
+			// Y - vec perallel impuls_line
+			// 
+			//
+			PMathO::Vec2D impulse_line = ptr_obj_2->get_position() - ptr_obj_1->get_position(); // it's tangent scalar
+			if (impulse_line.get_lenth() != 0) {
+				impulse_line = impulse_line / impulse_line.get_lenth();//we are normalyze our vec
+			}
+			PMathO::Vec2D impulse_perp_line(impulse_line.get_y(), -impulse_line.get_x());
+			// speed1_X + speed1_Y = ptr_obj_1->get_speed()
+			// speed2_X + speed2_Y = ptr_obj_2->get_speed()
+			//C(xc, yc) = ((x1 * x2 + y1 * y2) / (x2^2 + y2^2)) * (x2, y2)
+			//C = (A · B) / (||B||^2) * B
+			double mass1 = ptr_obj_1->get_mass();
+			double mass2 = ptr_obj_2->get_mass();
+			PMathO::Vec2D speed1 = ptr_obj_1->get_speed();
+			PMathO::Vec2D speed2 = ptr_obj_2->get_speed();
+			double lenth1_Y = (speed1.get_x() * impulse_line.get_x() + speed1.get_y() * impulse_line.get_y());
+			double lenth2_Y = (speed2.get_x() * impulse_line.get_x() + speed2.get_y() * impulse_line.get_y());
+			PMathO::Vec2D speed1_X = impulse_perp_line * (speed1.get_x() * impulse_perp_line.get_x() + speed1.get_y() * impulse_perp_line.get_y());
+			PMathO::Vec2D speed1_Y = impulse_line * lenth1_Y;
+			PMathO::Vec2D speed2_X = impulse_perp_line * (speed2.get_x() * impulse_perp_line.get_x() + speed2.get_y() * impulse_perp_line.get_y());
+			PMathO::Vec2D speed2_Y = impulse_line * lenth2_Y;
+			double Impuls = 0;
+			if (lenth1_Y > 0) {
+				Impuls += mass1 * speed1_Y.get_lenth();
+			}
+			else {
+				Impuls -= mass1 * speed1_Y.get_lenth();
+			}
+			if (lenth2_Y > 0) {
+				Impuls += mass2 * speed2_Y.get_lenth();
+			}
+			else {
+				Impuls -= mass2 * speed2_Y.get_lenth();
+			}
+			double TwinSumEKin = mass1 * speed1_Y.get_lenth() * speed1_Y.get_lenth() + mass2 * speed2_Y.get_lenth() * speed2_Y.get_lenth();
+			double answer[3];//answer on V1^2(m1m2 + m1m1) -2Pm1V1 + p^2 - Em1=0 for V1
+			PMathO::solve2(answer, mass1 * (mass1 + mass2), -2 * Impuls * mass1, Impuls * Impuls - TwinSumEKin * mass2);
+			double Double_speed1_Y_new = answer[1];
+			double Double_speed2_Y_new = (Impuls - mass1 * Double_speed1_Y_new) / mass2;
+			PMathO::Vec2D speed1_Y_new = impulse_line * Double_speed1_Y_new;
+			PMathO::Vec2D speed2_Y_new = impulse_line * Double_speed2_Y_new;
+
+
+
+
+
+			*(ptr_obj_1->get_ptr_speed()) = speed1_X + speed1_Y_new;
+			*(ptr_obj_2->get_ptr_speed()) = speed2_X + speed2_Y_new;
+		}
+		//if objects are not cricle but moveble
+		else {
+			//impuls and mehanic work should be saved for collision.
+			*(ptr_obj_1->get_ptr_speed()) *= -1.;//just chanje vector of speed
+			*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
+		}
+	}
+	//if one of objects is static(not moveble)
+	else {
+		if (ptr_obj_1->get_collider()->get_type() == 2 and ptr_obj_2->get_collider()->get_type() == 2) {
+			PO::Object* static_obj_ptr = ptr_obj_1;
+			PO::Object* moveble_obj_ptr = ptr_obj_2;
+
+			if (ptr_obj_2->get_type() == 1) {
+				static_obj_ptr = ptr_obj_2;
+				moveble_obj_ptr = ptr_obj_1;
+			}
+
+			PMathO::Vec2D impulse_line = ptr_obj_2->get_position() - ptr_obj_1->get_position(); // it's tangent scalar
+			if (impulse_line.get_lenth() != 0) {
+				impulse_line = impulse_line / impulse_line.get_lenth();//we are normalyze our vec
+			}
+			PMathO::Vec2D impulse_perp_line(impulse_line.get_y(), -impulse_line.get_x());
+			PMathO::Vec2D speed1 = moveble_obj_ptr->get_speed();
+			PMathO::Vec2D speed1_X = impulse_perp_line * (speed1.get_x() * impulse_perp_line.get_x() + speed1.get_y() * impulse_perp_line.get_y());
+			PMathO::Vec2D speed1_Y = impulse_line * (speed1.get_x() * impulse_line.get_x() + speed1.get_y() * impulse_line.get_y());
+			*(ptr_obj_1->get_ptr_speed()) = speed1_X - speed1_Y;
+		}
+		else {
+			//impuls and mehanic work should be saved for collision.
+			*(ptr_obj_1->get_ptr_speed()) *= -1.;//just chanje vector of speed
+			*(ptr_obj_2->get_ptr_speed()) *= -1.;//here we make te same things with the second object
+		}
+
+	}
 }
 
 

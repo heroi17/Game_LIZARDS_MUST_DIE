@@ -25,6 +25,7 @@ namespace PO {
 		Object(PMathO::Vec2D position, PColliderO::Collider* mesh);
 		PMathO::Vec2D* get_ptr_speed();
 		PMathO::Vec2D get_speed() const;
+		double get_mass() const;
 		/// <summary>
 		/// Func calculate frict acceleration and retern it.
 		/// If speed==0 then return 0.

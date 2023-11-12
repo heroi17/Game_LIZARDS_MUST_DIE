@@ -10,6 +10,10 @@ using namespace PO;
 //parent class Object here
 Object::Object(PMathO::Vec2D position, PColliderO::Collider *mesh) : position(position), mesh(mesh) {}
 
+double Object::get_mass() const {
+	return mass;
+}
+
 PMathO::Vec2D* Object::get_ptr_speed() {
 	return &speed;
 }
