@@ -127,24 +127,28 @@ int test3() {
 
 int test5() {
     int update_rate = 20;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     PSimulation::simulation_room room1(update_rate);
     Console_Output console_1(&room1, update_rate);
-    int n = 10;
-    double x = 300;
-    double y = 300;
+    int n = 100;
+    double x = 960;
+    double y = 540;
     double x1 = 100;
     double y1 = 100;
-    double r = sqrt(((x - y) * (x - y)) + ((x1 - y1) * (x1 - y1)));
-    double A = 360 / n;
-    double A0 = atan((x1 - x) / (y1 - y));
-    for (int i = 1; i < n - 1; i++)
+    double r = 500;
+    double A = 6.28 / n;
+    for (int i = 0; i < n; i++)
     {
-        double xx = r * cos(A0 + i * A);
-        double yy = r * sin(A0 + i * A);
-        std::cout << xx << ' ' << yy << std::endl;
-        room1.add_object(new PO::MovebleObject(PMathO::Vec2D(xx, yy), new PColliderO::CricleCollider(10), 1E100, 0., PMathO::Vec2D(0, 0)));
+        double xx = x + r * cos(i * A);
+        double yy = y + r * sin(i * A);
+        room1.add_object(new PO::MovebleObject(PMathO::Vec2D(xx, yy), new PColliderO::CricleCollider(25), 1E100, 0., PMathO::Vec2D(0, 0)));
     }
-    room1.add_object(new PO::MovebleObject(PMathO::Vec2D(400, 100), new PColliderO::CricleCollider(10), 1000., 0., PMathO::Vec2D(-100, 0)));
+    int obj = 100;
+    for (int i = 0; i < obj;  i++) {
+        double rad = rand_between(24, 25);
+        room1.add_object(new PO::MovebleObject(PMathO::Vec2D(x, y), new PColliderO::CricleCollider(rad), rad * rad, 0., PMathO::Vec2D(rand_between(-500, 10), rand_between(-10, 10))));
+
+    }
     console_1.StartOutput();
     room1.StartSimulation();
     std::this_thread::sleep_for(std::chrono::milliseconds(1000000));

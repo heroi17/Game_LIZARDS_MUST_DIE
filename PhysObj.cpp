@@ -26,7 +26,7 @@ PMathO::Vec2D Object::get_acceleration() const{
 	if (speed.get_lenth() == 0) {
 		return speed; // он равен нулю мы и отправляем нулевой вектор ускорения
 	}
-	return speed * (mass * (-9.8) * FrictCoef / speed.get_lenth());
+	return speed * ( (-9.8) * FrictCoef / speed.get_lenth());
 }
 
 const PMathO::Vec2D Object::get_position() const  {
