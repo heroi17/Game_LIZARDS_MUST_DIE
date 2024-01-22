@@ -13,6 +13,11 @@ namespace PColliderO {
 		friend class RectangleCollider;
 	public:
 		Collider();
+		/// <summary>
+		/// 2 is cricle collider
+		/// 1 is rectngle collider
+		/// </summary>
+		/// <returns></returns>
 		const virtual int get_type() const;
 		const double get_coverage_radious() const;
 		const double get_width() const { return width; }

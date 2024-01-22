@@ -25,6 +25,7 @@ Console_Output::Console_Output(PSimulation::simulation_room *start_room_output, 
 }
 
 Console_Output::~Console_Output() {
+	StopOutput();
 	SelectObject(hBufferDC, hOldBrush);
 	SelectObject(hBufferDC, hOldPen);
 	SelectObject(hBufferDC, hBufferBmpOld);

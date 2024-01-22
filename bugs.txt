@@ -1,0 +1,5 @@
+1) in solveing polinoms any bags exist, actually tere are had problem with big numbers where double bigg1 - double bigg1 < double minn1
+just not enof accuracy
+thats why i out if find_answer_betwen in ifs: x_start < 10e7
+
+2) objects sometimes move thrue another objcts maybe problam with solveing polinoms, maye not

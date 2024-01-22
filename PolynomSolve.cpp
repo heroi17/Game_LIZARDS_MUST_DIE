@@ -58,7 +58,7 @@ double PS::get_polynom_answer_at(double x, double* ptr_polynom, int how_stepen) 
 }
 double PS::find_answer_betwen(double x_start, double x_end, double* ptr_polynom, int how_stepen, double epsilon) {
 	double midle;
-	if (get_polynom_answer_at(x_end, ptr_polynom, how_stepen) > 0) {
+	if (get_polynom_answer_at(x_end, ptr_polynom, how_stepen) > 0 and x_start < 10e9) {
 		while (x_end - x_start > epsilon) {
 			midle = (x_end + x_start) / 2;
 			if (get_polynom_answer_at(midle, ptr_polynom, how_stepen) < 0) {
@@ -69,7 +69,7 @@ double PS::find_answer_betwen(double x_start, double x_end, double* ptr_polynom,
 			}
 		} return x_start;
 	}
-	while (x_end - x_start > epsilon) {
+	while (x_end - x_start > epsilon and x_start < 10e9) {
 		midle = (x_end + x_start) / 2;
 		if (get_polynom_answer_at(midle, ptr_polynom, how_stepen) < 0) {
 			x_end = midle;

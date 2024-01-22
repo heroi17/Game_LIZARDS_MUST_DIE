@@ -131,12 +131,14 @@
     <ClCompile Include="ConsumableItem.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="inputEngine.cpp" />
     <ClCompile Include="InformationItem.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="move_test.cpp" />
     <ClCompile Include="PhysObj.cpp" />
     <ClCompile Include="PhysMathObj.cpp" />
     <ClCompile Include="PhysColliderObj.cpp" />
@@ -147,17 +149,23 @@
     <ClCompile Include="first_test_PO.cpp" />
     <ClCompile Include="RoomGenerator.cpp" />
     <ClCompile Include="PolynomSolve.cpp" />
+    <ClCompile Include="test_Game_engine.cpp" />
+    <ClCompile Include="testinput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
     <ClInclude Include="first_test_PO.h" />
     <ClInclude Include="Console_Output.h" />
+    <ClInclude Include="inputEngine.h" />
+    <ClInclude Include="move_test.h" />
     <ClInclude Include="PolynomSolve.h" />
     <ClInclude Include="PhysObj.h" />
     <ClInclude Include="PhysColliderObj.h" />
     <ClInclude Include="PhysMathObj.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="RoomGenerator.h" />
+    <ClInclude Include="test_Game_engine.h" />
+    <ClInclude Include="testinput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h" />
@@ -171,6 +179,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bugs.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

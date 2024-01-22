@@ -42,6 +42,10 @@ namespace PO {
 		void set_new_position(PMathO::Vec2D new_position);
 		bool get_IsCollisionDo() const;
 		const PMathO::Vec2D get_position() const;
+		/// <summary>
+		/// type = 2 is moveble object
+		/// type = 1 is ststic object
+		/// </summary>
 		char get_type() const;
 		double get_how_time_to_stop();
 		PMathO::Vec2D get_position_at_time(double time_sec);

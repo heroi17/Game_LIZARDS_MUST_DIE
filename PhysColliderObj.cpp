@@ -28,7 +28,10 @@ CricleCollider::CricleCollider(double start_radious) : Collider(){
 	radious = start_radious;
 	coverage_radious = start_radious;
 }
-
+/// <summary>
+/// 2 is cricle collider
+/// </summary>
+/// <returns></returns>
 const int CricleCollider::get_type() const {
 	return 2;
 }

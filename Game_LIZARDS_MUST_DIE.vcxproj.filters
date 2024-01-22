@@ -34,36 +34,27 @@
     <Filter Include="Исходные файлы\physics_engine\output_system%28only for test%29">
       <UniqueIdentifier>{61694598-69e4-42f7-a0bc-b34a4878ef92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Game_engine">
+      <UniqueIdentifier>{c08e6bb4-bb47-41fc-a0b0-c351ca7036c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Input_engine">
+      <UniqueIdentifier>{8c5e3f54-52f4-4276-8100-845b036ec7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Input_engine\tests">
+      <UniqueIdentifier>{490d7731-8159-4f6c-b70b-5918c5a15a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game_engine\tests">
+      <UniqueIdentifier>{e7985d3d-e1af-4da8-aa6c-73ac074f93b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\old_game_engine">
+      <UniqueIdentifier>{6ea3fdff-4fe5-4bf5-af9e-cfe0b14c9f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game_engine\move_object">
+      <UniqueIdentifier>{9abf3d0d-1fbf-49ad-a3f5-54ff1ffbf9ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsumableItem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="InformationItem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Lizard.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerupItem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="PhysSimulation.cpp">
@@ -84,52 +75,61 @@
     <ClCompile Include="PhysObj.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomGenerator.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PolynomSolve.cpp">
       <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
     </ClCompile>
+    <ClCompile Include="inputEngine.cpp">
+      <Filter>Исходные файлы\Input_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="testinput.cpp">
+      <Filter>Исходные файлы\Input_engine\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_Game_engine.cpp">
+      <Filter>Исходные файлы\Game_engine\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsumableItem.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="InformationItem.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Lizard.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerupItem.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomGenerator.cpp">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="move_test.cpp">
+      <Filter>Исходные файлы\Game_engine\move_object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsumableItem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="InformationItem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Lizard.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerupItem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>Исходные файлы\physics_engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="PhysSimulation.h">
       <Filter>Исходные файлы\physics_engine\base_structure</Filter>
@@ -149,14 +149,61 @@
     <ClInclude Include="PhysObj.h">
       <Filter>Исходные файлы\physics_engine\base_structure\PO</Filter>
     </ClInclude>
-    <ClInclude Include="RoomGenerator.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="PolynomSolve.h">
       <Filter>Исходные файлы\physics_engine\base_structure\PMathO</Filter>
     </ClInclude>
+    <ClInclude Include="inputEngine.h">
+      <Filter>Исходные файлы\Input_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="testinput.h">
+      <Filter>Исходные файлы\Input_engine\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="test_Game_engine.h">
+      <Filter>Исходные файлы\Game_engine\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsumableItem.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="InformationItem.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Lizard.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerupItem.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomGenerator.h">
+      <Filter>Исходные файлы\old_game_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="move_test.h">
+      <Filter>Исходные файлы\Game_engine\move_object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bugs.txt">
+      <Filter>Исходные файлы\physics_engine</Filter>
+    </Text>
   </ItemGroup>
 </Project>

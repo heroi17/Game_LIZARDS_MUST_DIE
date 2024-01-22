@@ -60,6 +60,7 @@ namespace PSimulation {
 
 	class simulation_room {
 	private:
+
 		Collision collision_header = Collision();
 		std::thread myThread;
 		bool simulation_is_working = false;

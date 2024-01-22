@@ -10,13 +10,13 @@
 
 // bugs
 // 
-// 1) obj sometimes go thru another obj, it's довольно редко
+// 1) obj sometimes go thru another obj, it's whery often,actualy when obj collide in wery litle time with 2 another object
 // 
 // 
 // 2) sometimes moveble obj go thruth static obj
 // 
 // 
-// 
+// 3) maybe bug in func find time_collision becouuse sometimes when obj stoped another obj whit and change her speed
 // 
 // 
 // 

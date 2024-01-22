@@ -353,8 +353,8 @@ simulation_room::~simulation_room() {
 
 void simulation_room::UpdateOneTic(double time_to_msec) {
 	double time_to_sec = time_to_msec / 1000.;
-	
 	while (collision_header.next_collision != 0 && collision_header.next_collision->time_when_collision_sec < time_to_sec) {//get first future collision in collision timeline
+		//collision_header.print_me();
 		
 		//std::cout << time_to_sec << std::endl;
 		//std::cout << collision_header.next_collision->time_when_collision_sec << std::endl;
@@ -423,8 +423,10 @@ void simulation_room::simulationCicle() {
 }
 
 void simulation_room::StartSimulation() {
-	simulation_is_working = true;
-	myThread = std::thread(&simulation_room::simulationCicle, this);
+	if (not simulation_is_working) {
+		simulation_is_working = true;
+		myThread = std::thread(&simulation_room::simulationCicle, this);
+	}
 }
 
 void simulation_room::StopSimulation() {
@@ -437,7 +439,7 @@ void simulation_room::StopSimulation() {
 void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2) {
 	//this is just for test!!!!!!!!!
 	//first of all 
-
+	
 	//if both objects are moveble
 	if (ptr_obj_1->get_type() == 2 and ptr_obj_2->get_type() == 2) {
 
@@ -524,7 +526,7 @@ void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object*
 				moveble_obj_ptr = ptr_obj_1;
 			}
 
-			PMathO::Vec2D impulse_line = ptr_obj_2->get_position() - ptr_obj_1->get_position(); // it's tangent scalar
+			PMathO::Vec2D impulse_line = moveble_obj_ptr->get_position() - static_obj_ptr->get_position(); // it's tangent scalar
 			if (impulse_line.get_lenth() != 0) {
 				impulse_line = impulse_line / impulse_line.get_lenth();//we are normalyze our vec
 			}
@@ -532,7 +534,7 @@ void simulation_room::solve_collision_between(PO::Object* ptr_obj_1, PO::Object*
 			PMathO::Vec2D speed1 = moveble_obj_ptr->get_speed();
 			PMathO::Vec2D speed1_X = impulse_perp_line * (speed1.get_x() * impulse_perp_line.get_x() + speed1.get_y() * impulse_perp_line.get_y());
 			PMathO::Vec2D speed1_Y = impulse_line * (speed1.get_x() * impulse_line.get_x() + speed1.get_y() * impulse_line.get_y());
-			*(ptr_obj_1->get_ptr_speed()) = speed1_X - speed1_Y;
+			*(moveble_obj_ptr->get_ptr_speed()) = speed1_X - speed1_Y;
 		}
 		else {
 			//impuls and mehanic work should be saved for collision.

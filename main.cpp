@@ -1,6 +1,8 @@
 ﻿#include <windows.h>
-
+#include "testinput.h"
 #include "first_test_PO.h"
+#include "test_Game_engine.h"
+
 #include "Map.h"
 #include "Controller.h"
 #include "PowerupItem.h"
@@ -11,12 +13,26 @@ void MapFillingTest();
 void ItemEffectTest();
 
 int main() {
-    test5();
-
+    test1GE();
+    //int k = testinput();
     //ItemEffectTest();
-
+    //MapFillingTest();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void MapFillingTest()
 {

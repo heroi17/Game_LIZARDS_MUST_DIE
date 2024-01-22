@@ -7,7 +7,7 @@ double rand_between(double start = -1., double end = 1.) {
     std::uniform_real_distribution<double> dis(start, end);
     return dis(gen);
 }
-int test1() {
+int test1PE() {
     //i'am just testing physic core
     //exemple of work phisic engine
 
@@ -68,7 +68,7 @@ int test1() {
     return 0;
 }
 
-int test2() {
+int test2PE() {
     PSimulation::simulation_room room1;
     room1.StartSimulation();
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
@@ -80,7 +80,7 @@ int test2() {
     std::cout << "finish of work " << std::endl;
     return 0;
 }
-int test4() {
+int test4PE() {
     double dx = 180;
     double dvx = 100;
     double x = -180;
@@ -101,8 +101,8 @@ int test4() {
     return 0;
 }
 
-int test3() {
-    int update_rate = 20;
+int test3PE() {
+    int update_rate = 60;
     PSimulation::simulation_room room1(update_rate);
     Console_Output console_1(&room1, update_rate);
 
@@ -125,7 +125,7 @@ int test3() {
     return 0;
 }
 
-int test5() {
+int test5PE() {
     int update_rate = 20;
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     PSimulation::simulation_room room1(update_rate);
@@ -145,7 +145,7 @@ int test5() {
     }
     int obj = 100;
     for (int i = 0; i < obj;  i++) {
-        double rad = rand_between(24, 25);
+        double rad = rand_between(4, 5);
         room1.add_object(new PO::MovebleObject(PMathO::Vec2D(x, y), new PColliderO::CricleCollider(rad), rad * rad, 0., PMathO::Vec2D(rand_between(-500, 10), rand_between(-10, 10))));
 
     }
