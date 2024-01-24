@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "PhysObj.h"
+#include "PhysSimulation.h"
 using namespace PO;
 
 
@@ -32,7 +33,9 @@ PMathO::Vec2D Object::get_acceleration() const{
 const PMathO::Vec2D Object::get_position() const  {
 	return this->position;
 }
-
+void Object::set_current_speed(PMathO::Vec2D new_speed) {
+	this->speed = new_speed;
+}
 void Object::update_mechanics_parameters(double to_time_sec) {}
 
 void Object::set_last_update_time_sec(double new_time_sec) {}
@@ -115,7 +118,51 @@ void MovebleObject::set_last_update_time_sec(double new_time_sec) {//do not use 
 
 
 void MovebleObject::set_new_speed(PMathO::Vec2D new_speed) {
-	this->speed = new_speed;// it's actually should update collision when phisic_simulating wait next loop
+
+	if (my_room and static_cast<PSimulation::simulation_room*>(my_room)->is_working()) {
+		// проблема в том что данные в этиой ссылке хчхыхыхх ссылаютс€ на обьекты this и new_speed которые определены конкретно в этой функции, но блииин 
+		//оказываетс€ что он просто ссылаетс€ на это в момент когда функци€ закончила работу и это просто трешь
+		//€ это пон€л потому что при вызове этой функции несколько раз с разными пармаетрами и потом выполн€€ вторую функцию все очень сильно мен€етс€. 
+		//зато € пон€л что [] это не дл€ хранени€ данных, а просто спецификатор который показывает к чему мы даем доступ нашей л€мбда функции
+		//смешно даже
+		// можно быть ебланом и сделать очередь из пар функций и вектора и просто юзать, но это пизлец конечно не круто если честно, много ограничений делает
+		//хот€ весь мой код - это одно большое ограничение моего развити€))
+		//€ удивлен что вижуал студио мне не сказала об этом ведь это очень не безопасно само по себе, видеть что происходит при вызове этой функции извне за счет ссылки
+		//но возможно так и должно все работать
+		// еще один тупой вариант развити€ событий - это создать св€зный список и хранить в нем вектор или еще что 
+		this->UpdateData.new_speed = new_speed;
+
+		std::function<void(void*)> function = [](void* ptr)
+			{
+				Object* This = static_cast<Object*>(ptr);
+				PMathO::Vec2D new_speed = This->UpdateData.new_speed;
+				This->set_current_speed(new_speed);
+				if (This->my_next_collision_pointer) {
+					PSimulation::Collision* working_collision = static_cast<PSimulation::Collision*>(This->my_next_collision_pointer);
+					working_collision->detach();//we are detach collision from collision linkd lst
+					PO::Object* obj1 = working_collision->ptr_obj_1;
+					PO::Object* obj2 = working_collision->ptr_obj_2;
+					obj1->my_next_collision_pointer = 0;
+					obj2->my_next_collision_pointer = 0;
+
+					delete working_collision;
+					static_cast<PSimulation::simulation_room*>(This->my_room)->update_future_collision_for(obj1);									  //here we should update future collision for this object and solve problem with this chenges
+					static_cast<PSimulation::simulation_room*>(This->my_room)->update_future_collision_for(obj2);
+				}
+				else {
+					static_cast<PSimulation::simulation_room*>(This->my_room)->update_future_collision_for(This);
+				}
+			};
+
+
+		std::pair<std::function<void(void*)>, void*> operation(function, this);
+
+		static_cast<PSimulation::simulation_room*>(my_room)->add_operation_in_queue(operation);
+	}
+	else {
+		this->speed = new_speed;// it's actually should update collision when phisic_simulating wait next loop
+	}
+	
 };
 
 //StaticObject here

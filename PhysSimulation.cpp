@@ -358,7 +358,7 @@ void simulation_room::UpdateOneTic(double time_to_msec) {
 		
 		//std::cout << time_to_sec << std::endl;
 		//std::cout << collision_header.next_collision->time_when_collision_sec << std::endl;
-		
+		//solve broken collision
 		Collision* working_collision = collision_header.next_collision; //our working collision for one iteration of loop
 		working_collision->detach();//we are detach collision from collision linkd lst
 		PO::Object* obj1 = working_collision->ptr_obj_1;
@@ -378,10 +378,12 @@ void simulation_room::UpdateOneTic(double time_to_msec) {
 	for (auto& element : objects) {
 		element->update_mechanics_parameters(time_to_sec);
 	}
+	solve_functionQueue();
 }
 
 void simulation_room::add_object(PO::Object* new_object) {
 	new_object->set_last_update_time_sec(game_time_sec);
+	new_object->my_room = this;
 	objects.push_back(new_object); //add object
 	update_future_collision_for(new_object); //find collision if it'll be
 }
@@ -432,6 +434,7 @@ void simulation_room::StartSimulation() {
 void simulation_room::StopSimulation() {
 	if (simulation_is_working) {
 		simulation_is_working = false;
+		solve_functionQueue();
 		myThread.join();
 	}
 }
@@ -619,4 +622,19 @@ void simulation_room::update_future_collision_for(PO::Object* updater_obj){
 			update_future_collision_for(second_broken_collision_2);
 		}
 	}
+}
+
+void simulation_room::solve_functionQueue() {
+	std::pair<std::function<void(void*)>, void*> operation;
+	for (int i = 0; i < operationQueue.size(); i++) {
+		operation = operationQueue.front();
+		operationQueue.pop();
+		//genious of thought
+		//don't hit me please for this code
+		(operation.first)(operation.second);
+	}
+}
+
+void simulation_room::add_operation_in_queue(std::pair<std::function<void(void*)>, void*> operation){
+	operationQueue.push(operation);
 }

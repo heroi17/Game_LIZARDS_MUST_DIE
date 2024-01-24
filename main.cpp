@@ -13,7 +13,8 @@ void MapFillingTest();
 void ItemEffectTest();
 
 int main() {
-    test1GE();
+    //test1GE();
+    test5PE();
     //int k = testinput();
     //ItemEffectTest();
     //MapFillingTest();

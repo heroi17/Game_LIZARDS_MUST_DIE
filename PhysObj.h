@@ -3,12 +3,20 @@
 #define PhysObjObj
 #include "PhysMathObj.h"
 #include "PhysColliderObj.h"
+
 namespace PO {
 
+	struct updater_data {
 
+		PMathO::Vec2D new_speed = PMathO::Vec2D();
+
+		updater_data(){}
+	};
 
 	class Object {
 	protected:
+
+		
 		char type = 0; // 1 if static, 2 if moveble;
 		double mass = 1;
 		double FrictCoef = 1;//physic parameter means coefficient of friction(usually betwen two materials, bat here it is frict between MovebleObject and map)
@@ -21,11 +29,14 @@ namespace PO {
 		double last_update_time_sec = 0;
 	public:
 		/// <summary> pointer on (struct Collision from PhysSimulation.h) </summary>
+		updater_data UpdateData = updater_data();
 		void* my_next_collision_pointer = 0;
+		void* my_room = 0;
 		Object(PMathO::Vec2D position, PColliderO::Collider* mesh);
 		PMathO::Vec2D* get_ptr_speed();
 		PMathO::Vec2D get_speed() const;
 		double get_mass() const;
+		void set_current_speed(PMathO::Vec2D new_speed);
 		/// <summary>
 		/// Func calculate frict acceleration and retern it.
 		/// If speed==0 then return 0.

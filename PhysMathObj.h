@@ -12,7 +12,7 @@ namespace PMathO {
 		double lenth;
 		void update_lenth();
 	public:
-		Vec2D(double x, double y);
+		Vec2D(double x=0., double y=0.);
 		double get_x() const;
 		double get_y() const;
 		double get_lenth() const;

@@ -4,6 +4,8 @@
 #include <thread>
 #include <time.h> 
 #include <vector>
+#include <queue>
+#include <functional>
 namespace PSimulation {
 
 
@@ -61,6 +63,8 @@ namespace PSimulation {
 	class simulation_room {
 	private:
 
+		//for update objects while not working solweing collision
+		std::queue<std::pair<std::function<void(void*)>, void*>> operationQueue;
 		Collision collision_header = Collision();
 		std::thread myThread;
 		bool simulation_is_working = false;
@@ -77,6 +81,7 @@ namespace PSimulation {
 		/// </summary>
 		/// <param name="updater_obj"> - the object for which we want to find a collision </param>
 		void update_future_collision_for(PO::Object* updater_obj);
+		bool is_working() const {return simulation_is_working;}
 		void add_object(PO::Object* new_object);
 		/// <summary>
 		/// the function moves objects to the desired time, taking into account collisions
@@ -97,5 +102,7 @@ namespace PSimulation {
 		/// <param name="ptr_obj_1"> - The first object involved in the collision.</param>
 		/// <param name="ptr_obj_2"> - The second object involved in the collision.</param>
 		void solve_collision_between(PO::Object* ptr_obj_1, PO::Object* ptr_obj_2);
+		void add_operation_in_queue(std::pair<std::function<void(void*)>, void*> operation);
+		void solve_functionQueue();
 	};
 }

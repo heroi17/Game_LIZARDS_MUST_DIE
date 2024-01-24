@@ -16,13 +16,13 @@ void mover::stopMove() {
 	}
 }
 void mover::moverloop() {
-	double speed = 100.;
+	double speed = 50.;
 	while (is_vorking) {
 		for (const char el : *vec) {
-			if (el == 'W' or el == 'w') moveble->set_new_speed(PMathO::Vec2D(0., -speed));
-			else if (el == 'a' or el == 'A') moveble->set_new_speed(PMathO::Vec2D(-speed, 0.));
-			else if (el == 's' or el == 'S') moveble->set_new_speed(PMathO::Vec2D(0., speed));
-			else if (el == 'd' or el == 'D') moveble->set_new_speed(PMathO::Vec2D(speed, 0.));
+			if (el == 'W' or el == 'w') moveble->set_new_speed(moveble->get_speed() + PMathO::Vec2D(0., -speed));
+			else if (el == 'a' or el == 'A') moveble->set_new_speed(moveble->get_speed() + PMathO::Vec2D(-speed, 0.));
+			else if (el == 's' or el == 'S') moveble->set_new_speed(moveble->get_speed() + PMathO::Vec2D(0., speed));
+			else if (el == 'd' or el == 'D') moveble->set_new_speed(moveble->get_speed() + PMathO::Vec2D(speed, 0.));
 		}
 		vec->clear();
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));

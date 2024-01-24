@@ -126,10 +126,6 @@ int test3PE() {
 }
 
 int test5PE() {
-    int update_rate = 20;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    PSimulation::simulation_room room1(update_rate);
-    Console_Output console_1(&room1, update_rate);
     int n = 100;
     double x = 960;
     double y = 540;
@@ -137,6 +133,16 @@ int test5PE() {
     double y1 = 100;
     double r = 500;
     double A = 6.28 / n;
+    int update_rate = 60;
+    std::vector<char> input_data;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    PSimulation::simulation_room room1(update_rate);
+    Console_Output console_1(&room1, update_rate);
+    inputEngine input_module(&input_data);
+    PO::Object* my_hero = new PO::MovebleObject(PMathO::Vec2D(x, y), new PColliderO::CricleCollider(console_1.temp.right / 50), 150, 5, PMathO::Vec2D(0, 0));
+    mover hero_mover(my_hero, &input_data);
+    room1.add_object(my_hero);
+
     for (int i = 0; i < n; i++)
     {
         double xx = x + r * cos(i * A);
@@ -146,12 +152,18 @@ int test5PE() {
     int obj = 100;
     for (int i = 0; i < obj;  i++) {
         double rad = rand_between(4, 5);
-        room1.add_object(new PO::MovebleObject(PMathO::Vec2D(x, y), new PColliderO::CricleCollider(rad), rad * rad, 0., PMathO::Vec2D(rand_between(-500, 10), rand_between(-10, 10))));
+        room1.add_object(new PO::MovebleObject(PMathO::Vec2D(x, y), new PColliderO::CricleCollider(rad), 0.1, 100., PMathO::Vec2D(rand_between(-25, 25), rand_between(-25, 25))));
 
     }
     console_1.StartOutput();
     room1.StartSimulation();
+    input_module.startEngine();
+    hero_mover.startMove();
+
     std::this_thread::sleep_for(std::chrono::milliseconds(1000000));
+
+    hero_mover.stopMove();
+    input_module.stopEngine();
     room1.StopSimulation();
     console_1.StopOutput();
 
